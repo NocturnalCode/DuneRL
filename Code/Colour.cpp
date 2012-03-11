@@ -50,6 +50,16 @@ inline float Lerp(float start, float end, float amount)
     return start + adjusted;
 }
 
+bool Colour::operator==(const Colour &other)
+{
+    return R==other.R && G==other.G && B==other.B && A == other.A;
+}
+
+bool Colour::operator!=(const Colour &other)
+{
+    return R!=other.R || G!=other.G || B!=other.B || A != other.A;
+}
+
 void Colour::lerp(Colour colour, float amount)
 {
     R = Lerp(R,colour.R,amount);

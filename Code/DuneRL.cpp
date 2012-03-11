@@ -51,7 +51,7 @@ DuneRL::DuneRL()
 	
 	Label *familyLabel = new Label("House Atreides");
 	familyLabel->setFrame(Rect(16,18,100,40));
-	familyLabel->setColour(Colour::blue());
+	familyLabel->setColour(Colour::white());
 	character->add(familyLabel);
 	
     CallBack<Player, std::string> *getHealth = new CallBack<Player, std::string>(player,&Player::hpDescription);
