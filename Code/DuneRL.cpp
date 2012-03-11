@@ -1,13 +1,13 @@
 /*
- *  FantasyRL.cpp
- *  Roguelike
+ *  DuneRL.cpp
+ *  DuneRL
  *
- *  Created by Daniel Brooker on 29/04/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
+ *  Created by Daniel on 12/03/12.
+ *  Copyright 2012 nocturnalcode.com. All rights reserved.
  *
  */
 
-#include "FantasyRL.h"
+#include "DuneRL.h"
 
 #include "Stringer.h"
 #include "LabelValue.h"
@@ -27,9 +27,11 @@
 #include "ExitMenu.h"
 #include "Player.h"
 
-FantasyRL::FantasyRL()
+DuneRL::DuneRL()
 {
 	init_window();
+    window->setTitle("DuneRL 7DRL 2012, Quaffable");
+    
 	init_world();
 	
 	menuWindow = new ExitMenu(Rect(256-24,128,140+32,64+24));
@@ -38,17 +40,17 @@ FantasyRL::FantasyRL()
 	rootWindow->delegate = world;
 	rootWindow->eventDelegate = world;
 	rootWindow->texture = sprite;
-	rootWindow->getCentreLabel()->setString("FantasyRL");
-	rootWindow->getRightLabel()->setString("v0.1");
+	rootWindow->getCentreLabel()->setString("DuneRL");
+	rootWindow->getRightLabel()->setString("v1.0");
 	
 	character = new Window(Rect(16,24,140+32,32+16));
-	character->borderStyle = Border_Single;
-	character->getLeftLabel()->setString("Draconis");
-	character->getLeftLabel()->setColour(Colour::yellow());
+	character->borderStyle = Border_Double;
+	character->getLeftLabel()->setString("Leto Atreides");
+	character->getLeftLabel()->setColour(Colour::white());
 	
-	Label *familyLabel = new Label("Static Label");
+	Label *familyLabel = new Label("House Atreides");
 	familyLabel->setFrame(Rect(16,18,100,40));
-	familyLabel->setColour(Colour(1,1,1));
+	familyLabel->setColour(Colour::blue());
 	character->add(familyLabel);
 	
     CallBack<Player, std::string> *getHealth = new CallBack<Player, std::string>(player,&Player::hpDescription);
@@ -60,17 +62,19 @@ FantasyRL::FantasyRL()
 	rootWindow->add(character);
 }
 
-FantasyRL::~FantasyRL()
+DuneRL::~DuneRL()
 {
+    if(player)
+        delete player;
 }
 
-void FantasyRL::init_world()
+void DuneRL::init_world()
 {
 	int worldSize = 200;
 	
 	rnd =  new Random(42);
 	
-	sprite = new Sprite("FantasyRL.app/Contents/Resources/tileset.png",16);
+	sprite = new Sprite("DuneRL.app/Contents/Resources/tileset.png",16);
     world = new World();
     
     world->setMap(new Map(worldSize));
@@ -89,12 +93,12 @@ void FantasyRL::init_world()
     
     for(int i=0;i<1;i++)
     {
-        Ascii *ascii = new Ascii(LETTER_k+16,Colour(0,1,1),Colour(0,0,0));
+        Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,1,1),Colour(0,0,0));
         Monster *monster = new Monster(ascii);
-        monster->name = stringFormat("Kobold< %d>",i);
-        monster->speed = SpeedNormal;//(Speed)(rand()%SpeedCount);
+        monster->name = stringFormat("Cat< %d>",i);
+        monster->speed = (Speed)(rand()%SpeedCount);
         monster->setMaxHP(rand()%4);
-        monster->behaviour = BehaviourAggressive;//1<<(rand()%BehaviourCount);
+        monster->behaviour = 1<<(rand()%BehaviourCount);
         world->getMap()->addObject(rand()%20,rand()%20,monster);
         world->getMap()->monsters.push_back(monster);
         

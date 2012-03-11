@@ -1,9 +1,9 @@
 /*
  *  Player.cpp
- *  Roguelike
+ *  DuneRL
  *
- *  Created by Daniel on 13/04/10.
- *  Copyright 2010 quantoaduro.com. All rights reserved.
+ *  Created by Daniel on 12/03/12.
+ *  Copyright 2012 nocturnalcode.com. All rights reserved.
  *
  */
 

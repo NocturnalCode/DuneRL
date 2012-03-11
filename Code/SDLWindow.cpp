@@ -27,7 +27,7 @@ SDLWindow::SDLWindow(int width, int height, bool Fullscreen)
 		exit(2);
 	} 
     
-    setTitle("Roguelike Engine v0.1");
+    setTitle("A Quaffable Roguelike");
     return;
 }
 

@@ -1,10 +1,10 @@
 
-#include "FantasyRL.h"
+#include "DuneRL.h"
 #include <cstdlib>
 
 int main(int argc, char *argv[])
 {
-    FantasyRL *rogue = new FantasyRL();
+    DuneRL *rogue = new DuneRL();
     rogue->poll();
 	delete(rogue);
     return 0;
