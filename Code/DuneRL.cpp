@@ -26,6 +26,7 @@
 #include "Timer.h"
 #include "ExitMenu.h"
 #include "Player.h"
+#include "Arrakis.h"
 
 DuneRL::DuneRL()
 {
@@ -77,33 +78,17 @@ void DuneRL::init_world()
 	sprite = new Sprite("DuneRL.app/Contents/Resources/tileset.png",16);
     world = new World();
     
-    world->setMap(new Map(worldSize));
+    Map *map = new Arrakis(worldSize);
+    map->generate();
+    world->setMap(map);
 	
 	player = new Player();
     
     world->getMap()->addObject(12,12,player);
 	world->getMap()->setPlayer(player);
     world->getMap()->monsters.push_back(player);
-    
-    world->getMap()->createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	world->getMap()->createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	world->getMap()->createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	world->getMap()->createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-    
-    
-    for(int i=0;i<1;i++)
-    {
-        Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,1,1),Colour(0,0,0));
-        Monster *monster = new Monster(ascii);
-        monster->name = stringFormat("Cat< %d>",i);
-        monster->speed = (Speed)(rand()%SpeedCount);
-        monster->setMaxHP(rand()%4);
-        monster->behaviour = 1<<(rand()%BehaviourCount);
-        world->getMap()->addObject(rand()%20,rand()%20,monster);
-        world->getMap()->monsters.push_back(monster);
-        
-        LOG("Spawned %s %dhp %s %s",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
-    }
+
+
     
     player->calculateSight();
 }

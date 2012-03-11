@@ -25,7 +25,7 @@ class Monster;
 
 class Map
 {
-private:
+protected:
     
     float *tex,*col,*bgCol;
     Tile **tiles;
@@ -43,8 +43,8 @@ public:
     
     Map(unsigned size);
     ~Map();
-    void generate();
-    void createRoom(Rect rect,Ascii floor);
+    virtual void generate();
+    virtual void createRoom(Rect rect,Ascii floor);
     
     void update(Speed turnSpeed);
     void updateAscii();

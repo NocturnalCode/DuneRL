@@ -55,13 +55,13 @@ class Roguelike
     
         std::map<int,std::string> logs;
         
-        Random *rnd;
-
     public:
         Roguelike();
 		~Roguelike();
         int     poll();
         SDLWindow* getWindow(); 
+    
+        Random *rnd;
 		
         void log(std::string format, ...);
         static Roguelike *shared;
@@ -70,5 +70,6 @@ class Roguelike
 };
 
 #define LOG Roguelike::shared->log
+#define RNG Roguelike::shared->rnd
 
 #endif /* ROGUELIKE_H_INC */

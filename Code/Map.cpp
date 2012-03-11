@@ -31,7 +31,7 @@ Map::Map(unsigned Size)
 	}
     
     visibleRect = Rect(0-40+1,0-20+1,80,40);
-	generate();
+	//generate();
 }
 
 Map::~Map()

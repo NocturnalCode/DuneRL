@@ -21,7 +21,8 @@ class DuneRL : public Roguelike
 	public:
 		DuneRL();
 		~DuneRL();
-		virtual void init_world();
+    
+        virtual void init_world();
 };
 
 #endif /* DUNERL_H_INC */

@@ -88,6 +88,7 @@
 		65C5B707150B1E0E00BC6DB6 /* Point.h in Headers */ = {isa = PBXBuildFile; fileRef = 65C5B706150B1E0E00BC6DB6 /* Point.h */; };
 		65C5B709150B1E1C00BC6DB6 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65C5B708150B1E1C00BC6DB6 /* Point.cpp */; };
 		65EB40A8139C41AD00AD8FE0 /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EB40A7139C41AD00AD8FE0 /* Damage.h */; };
+		65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -212,6 +213,8 @@
 		65C5B706150B1E0E00BC6DB6 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 		65C5B708150B1E1C00BC6DB6 /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
 		65EB40A7139C41AD00AD8FE0 /* Damage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Damage.h; sourceTree = "<group>"; };
+		65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arrakis.cpp; sourceTree = "<group>"; };
+		65FF808B150D4CE900D2DA76 /* Arrakis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arrakis.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* DuneRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuneRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -453,6 +456,8 @@
 			children = (
 				650F3ECB13822AB20080CA59 /* Player.h */,
 				650F3ECA13822AB20080CA59 /* Player.cpp */,
+				65FF808B150D4CE900D2DA76 /* Arrakis.h */,
+				65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */,
 				653238E8136AABEC0067C56A /* DuneRL.h */,
 				653238E9136AABEC0067C56A /* DuneRL.cpp */,
 				65323915136AC9E60067C56A /* main.cpp */,
@@ -686,6 +691,7 @@
 				653238EA136AABEC0067C56A /* DuneRL.cpp in Sources */,
 				65323917136AC9E60067C56A /* main.cpp in Sources */,
 				650F3ECC13822AB20080CA59 /* Player.cpp in Sources */,
+				65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
