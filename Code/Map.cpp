@@ -163,8 +163,50 @@ void Map::createRoom(Rect rect,Ascii floor)
 	printf("Creating room: %d %d %d %d\n",rect.X,rect.Y,rect.Width,rect.Height);
 }
 
-void Map::addObject(int x, int y,Object *object)
+void Map::addObject(int i, int j,Object *object)
 {
+    int x = (i);// < 0 ? size+i : (i)%size;
+	int y = (j);// < 0 ? size+j : (j)%size;
+    
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y-1;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
 	tiles[ARRAY2D(x,y,size)]->addObject(object);
 }
 
@@ -200,7 +242,7 @@ void Map::moveObject(Object *object, int i, int j)
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y-1;
             }
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
         }
@@ -257,11 +299,11 @@ bool Map::adjustPlayer(int i, int j)
                 //y = p.Y - j;
                 flipped = !flipped;
             }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            y = y < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y-1;
                 
             }
 //            if (mapFlippednessChanged) {
@@ -347,7 +389,7 @@ bool Map::checkMove(Object *object, int i, int j)
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y-1;
             }
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
         }
@@ -397,7 +439,7 @@ bool Map::checkCombat(Monster *monster, int i, int j)
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y-1;
             }
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
         }
@@ -462,7 +504,7 @@ bool Map::checkAction(Object *object, int i, int j)
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y-1;
             }
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
         }
@@ -693,11 +735,17 @@ void Map::display()
 		{
             //printf("x=%d y=%d\n",i,j);
             int argY = mapFlipped?rect.Height-y-1:y;
+            
 			int texI = ARRAY2D(x,argY,rect.Width)*8;
 			int colI = ARRAY2D(x,argY,rect.Width)*16;
-            
+        
             int dx = (i);// < 0 ? size+i : (i)%size;
+            
+            
             int dy =(j);// < 0 ? size+j : (j)%size;
+            if (mapFlipped && rect.Height%2 == 0) {
+                dy -= 1;
+            }
             
             switch (maptype) {
                 case MapTypeNoTile:
@@ -725,7 +773,7 @@ void Map::display()
                     if (flipped) {
                         //then move x and y is upsidedownface
                         dx -= size/2;
-                        dy = size - dy;
+                        dy = size - dy-1;
                     }
                     dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
                 }

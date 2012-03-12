@@ -39,7 +39,12 @@ void Arrakis::generate()
 			ascii.push_back(0);
 			
 			Colour foreground(0.1f,(float)((int)(i*h)%4)*0.2,0.f);
-			Colour background(Colour::yellow());
+            Colour background(Colour::yellow());
+            if (i<2 || j<2 || j>size-3 || i>size-3) {
+                background = Colour::blue();
+            }
+            
+			
 			
 			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
 			
