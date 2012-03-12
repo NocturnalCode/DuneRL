@@ -21,7 +21,9 @@ void Arrakis::generate()
 	int i,j;
 	
     //-- Generate the desert heightmap
-	Perlin heights(size, 3,1.0);
+    int octaves = 6;
+    double persistence = 1;
+	Perlin heights(size, octaves,persistence);
 	
     //-- Generate polar ice in south pole, lower 5%
 	
@@ -32,14 +34,34 @@ void Arrakis::generate()
     {
 		for(i=0;i< size;i++) 
         {
-			double h = heights.at(i,j) + 1;
+			double h = heights.at(i,j);
+            //printf("perlinValue: %f\n", h);
+            if (h<0) {
+                h = -h;
+            }
+            h = h / ((double)octaves * persistence);
+//            if (h>6) {
+//                h = 1;
+//            }
+            
+            
+            
 			std::vector<int> ascii;
 			ascii.push_back(COMMA);
 			ascii.push_back(QUOTE_SINGLE);
 			ascii.push_back(0);
 			
-			Colour foreground(0.1f,(float)((int)(i*h)%4)*0.2,0.f);
-			Colour background(Colour::yellow());
+            
+            
+            //h*
+            
+			Colour foreground(1.0f,1.0f-(h*0.8f),0.0f);
+            Colour background(1.0f,1.0f-h,0.0f);
+            if ((i<2 || j<2 || j>size-3 || i>size-3)&&DEV) {
+                background = Colour::blue();
+            }
+            
+			
 			
 			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
 			

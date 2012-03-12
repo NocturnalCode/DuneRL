@@ -183,7 +183,7 @@ WorldCoord Lightmap::local2world(LocalCoord l)
             if (flipped) {
                 //then move x and y is upsidedownface
                 x -= size/2;
-                y = size - y;
+                y = size - y - 1;
             }
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
         }
