@@ -48,127 +48,157 @@ LocalCoord Lightmap::world2local(WorldCoord w)
     
     //bear in mind that the world is wrapping, the only valid answers are correct ones
     //we need to find the closest coordinate to the local space... because the world can wrap, this isn't so straightforward.
-    //we'll judge distance the manhattan way
-//    int locals[3][3] = {{1,1,1},
-//                        {1,1,1},
-//                        {1,1,1}};
-//    
-//    if (me.X - w.X < 0) {
-//        //Then we wipe out the right side
-//        for (int i = 0; i < 3; i++) {
-//            locals[2][i] = 0;
-//        }
-//    }
-//    else {
-//        for (int i = 0; i < 3; i++) {
-//            locals[0][i] = 0;
-//        }
-//    }
-//    
-//    if (me.Y - w.Y < 0) {
-//        //Then we wipe out the bottom side
-//        for (int i = 0; i < 3; i++) {
-//            locals[i][2] = 0;
-//        }
-//    }
-//    else {
-//        for (int i = 0; i < 3; i++) {
-//            locals[i][0] = 0;
-//        }
-//    }
-//    
-//    
-//    if (abs(me.X - w.X) > abs(abs(me.X - map->size) - w.X)) {
-//        //w.X = w.X - map->size;
-//        for (int i = 0; i < 3; i++) {
-//            locals[1][i] = 0;
-//        }
-//    }
-//    else {
-//        for (int i = 0; i < 3; i++) {
-//            locals[0][i] = 0;
-//            locals[2][i] = 0;
-//        }
-//    }
-//    
-//    if (abs(me.Y - w.Y) > abs(abs(me.Y - map->size) - w.Y)) {
-//        //w.Y = w.Y - map->size;
-//        for (int i = 0; i < 3; i++) {
-//            locals[i][1] = 0;
-//        }
-//    }
-//    else {
-//        for (int i = 0; i < 3; i++) {
-//            locals[i][0] = 0;
-//            locals[i][2] = 0;
-//        }
-//    }
-//    
-//    for (int i=0; i<3; i++) {
-//        for (int j=0; j<3; j++) {
-//            if (locals[i][j] == 1) {
-//                i = i-1;
-//                j = j-1;
-//                w.X += i*map->size;
-//                w.Y += j*map->size;
-//                
-//                LocalCoord local(w.X-me.X+radius,w.Y-me.Y+radius);
-//                return local;
-//            }
-//        }
-//    }
     
     //At this point only one value in the grid remains... This means we can use it to determine closest point
-    int bestDist = ((me.X - w.X)*(me.X - w.X) + (me.Y - w.Y)*(me.Y - w.Y));
-    WorldCoord bestPos = w;
-    for (int i = 0; i<3; i++) {
-        int testWX = w.X;
-        if (i == 0) {
-            testWX -= map->size;
-        }
-        else if (i == 2) {
-            testWX += map->size;
-        }
-        for (int j=0; j<3; j++) {
-            int testWY = w.Y;
-            if (j==0) {
-                testWY -= map->size;
+    switch (map->maptype) {
+        case MapTypeFullTile:
+        {
+            int bestDist = ((me.X - w.X)*(me.X - w.X) + (me.Y - w.Y)*(me.Y - w.Y));
+            WorldCoord bestPos = w;
+            for (int i = 0; i<3; i++) {
+                int testWX = w.X;
+                if (i == 0) {
+                    testWX -= map->size;
+                }
+                else if (i == 2) {
+                    testWX += map->size;
+                }
+                for (int j=0; j<3; j++) {
+                    int testWY = w.Y;
+                    if (j==0) {
+                        testWY -= map->size;
+                    }
+                    else if (j==2) {
+                        testWY += map->size;
+                    }
+                    int value = ((me.X - testWX)*(me.X - testWX) + (me.Y - testWY)*(me.Y - testWY));
+                    if (value < bestDist) {
+                        bestPos.X = testWX;
+                        bestPos.Y = testWY;
+                        bestDist = value;
+                    }
+                }
             }
-            else if (j==2) {
-                testWY += map->size;
-            }
-//            else if (i==1){
-//                continue;
-//            }
-            int value = ((me.X - testWX)*(me.X - testWX) + (me.Y - testWY)*(me.Y - testWY));
-            if (value < bestDist) {
-                bestPos.X = testWX;
-                bestPos.Y = testWY;
-                bestDist = value;
-            }
+            LocalCoord local(bestPos.X-me.X+radius,bestPos.Y-me.Y+radius);
+            return local;
         }
+            break;
+        case MapTypeWorldTile:
+        {
+            int bestDist = ((me.X - w.X)*(me.X - w.X) + (me.Y - w.Y)*(me.Y - w.Y));
+            WorldCoord bestPos = w;
+            //complex case but with only 6 tests to complete
+            for (int i = 0; i < 2; i++) {
+                
+                for (int j = 0; j < 3; j++) {
+                    int testWY = w.Y;
+                    int testWX = w.X;
+                    
+                    //ok, but sometimes the map is flipped so we must figure this out
+                    if (j==0) {
+                        if (i == 0) {
+                            testWX -= (map->size)/2;
+                        }
+                        else if (i == 1) {
+                            testWX += (map->size)/2;
+                        }
+                        
+                        
+                        testWY = -testWY;//map->size;
+                    }
+                    else if (j==1)
+                    {
+                        if (i == 0) {
+                            testWX -= map->size;
+                        }
+                        else if (i == 1) {
+                            testWX += map->size;
+                        }
+                    }
+                    else if (j==2) {
+                        if (i == 0) {
+                            testWX -= (map->size)/2;
+                        }
+                        else if (i == 1) {
+                            testWX += (map->size)/2;
+                        }
+                        testWY = -testWY +(2*map->size);
+                    }
+                    int value = ((me.X - testWX)*(me.X - testWX) + (me.Y - testWY)*(me.Y - testWY));
+                    if (value < bestDist) {
+                        bestPos.X = testWX;
+                        bestPos.Y = testWY;
+                        bestDist = value;
+                    }
+                }
+            }
+            
+            LocalCoord local(bestPos.X-me.X+radius,bestPos.Y-me.Y+radius);
+            return local;
+        }
+            break;
+        case MapTypeNoTile:
+        default:
+        {
+            LocalCoord local(w.X-me.X+radius,w.Y-me.Y+radius);
+            return local;
+        }
+            break;
     }
     
-//    if ((me.X - w.X) < abs(abs(me.X - w.X) + map->size)) {
-//        w.X = w.X + map->size;
-//    }
-//    if ((me.Y - w.Y) < abs(abs(me.Y - w.Y) + map->size)) {
-//        w.Y = w.Y + map->size;
-//    }
-    
-    
-	LocalCoord local(bestPos.X-me.X+radius,bestPos.Y-me.Y+radius);
-	return local;
+    LocalCoord local(0,0);
+    return local;
 }
 
 WorldCoord Lightmap::local2world(LocalCoord l)
 {
 	WorldCoord me = position;
     
-    unsigned width = map->size;
-    int x = (me.X+l.X-radius) % width;
-    int y = (me.Y+l.Y-radius) % width;
-    
+    unsigned size = map->size;
+    int x = (me.X+l.X-radius);
+    int y = (me.Y+l.Y-radius);
+    switch (map->maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+            {
+                x=0;
+                y=0;
+            }
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            x=0;
+            y=0;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
 	WorldCoord world(x,y);
 	return world;
 }
@@ -222,8 +252,11 @@ void Lightmap::calculate()
 	for(int oct = 0; oct < 8; oct++)
 		cast_light(1, 1.0, 0.0, mult[0][oct], mult[1][oct], mult[2][oct], mult[3][oct], 0);
 	
-	WorldCoord pos = position;
-	setVisible(world2local(pos));
+	//WorldCoord pos = position;
+    LocalCoord local;
+    local.X = radius;
+    local.Y = radius;
+	setVisible(local);
 	
     //printLightMap();
 }
@@ -261,10 +294,12 @@ void Lightmap::cast_light(int row, float start,float end,int xx,int xy,int yx,in
 {
 
     //printf("beginning at depth: %d", id);
-	WorldCoord posWorld = position;
-    LocalCoord pos = world2local(posWorld);
-	int cx =pos.X, cy= pos.Y;
+	//WorldCoord posWorld = position;
+    //LocalCoord pos = world2local(posWorld);
+	//int cx =pos.X, cy= pos.Y;
 
+    int cx = radius;
+    int cy = radius;
 	if(start < end)
 		return;
 	int radius_squared = radius*radius;
