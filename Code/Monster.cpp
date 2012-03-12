@@ -422,13 +422,22 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     blood->name = stringFormat("%s's blood",this->name.c_str());
     blood->description = "the blood of a "+this->name;
     blood->setLiquid(true);
-    map->addObject(splat.X, splat.Y, blood);
     
-    Ascii *topAscii = map->getTile(splat)->getTopAscii(true);
-    topAscii->Foreground.lerp(bloodColour,0.2);
-    
-    Ascii *terrainAscii = map->getTile(splat)->getTerainAscii(true);
-    terrainAscii->Background.lerp(bloodColour,0.2);
+    Tile *tile = map->getTile(splat);
+    if(tile)
+    {
+        tile->addObject(blood);
+        tile->sort();
+        Ascii *topAscii = tile->getTopAscii(true);
+        topAscii->Foreground.lerp(bloodColour,0.2);
+        
+        Ascii *terrainAscii = map->getTile(splat)->getTerainAscii(true);
+        terrainAscii->Background.lerp(bloodColour,0.2);
+    }
+    else
+    {
+        delete blood;
+    }
 }
 
 void Monster::dumpInventory()

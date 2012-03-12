@@ -44,6 +44,7 @@ public:
 
     Object *getTopObject();
 
+    void sort();
     std::string description();
 };
 

@@ -63,6 +63,23 @@ void Tile::removeObject(Object *object)
 	_flags.transparent = transparent ? YES : NO ;
 }
 
+bool compare(Object *first, Object *second)
+{
+    Monster *m1 = dynamic_cast<Monster *>(first);
+    Monster *m2 = dynamic_cast<Monster *>(first);
+    
+    if(m1 != NULL && m2 == NULL)
+        return false;
+    else if(m2 != NULL && m1 == NULL)
+        return true;
+    else return false;
+}
+
+void Tile::sort()
+{
+    objects->sort(compare);
+}
+
 Ascii *Tile::getTerainAscii(bool visible)
 {
     Ascii *terrain = NULL;

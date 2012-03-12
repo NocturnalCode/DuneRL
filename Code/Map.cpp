@@ -165,7 +165,49 @@ void Map::createRoom(Rect rect,Ascii floor)
 
 Tile *Map::getTile(WorldCoord point)
 {
-    return tiles[ARRAY2D(point.X,point.Y,size)];
+    int x = (point.X);// < 0 ? size+i : (i)%size;
+	int y = (point.Y);// < 0 ? size+j : (j)%size;
+    
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return NULL;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y-1;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return NULL;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
+	return tiles[ARRAY2D(x,y,size)];
 }
 
 void Map::addObject(int i, int j,Object *object)
