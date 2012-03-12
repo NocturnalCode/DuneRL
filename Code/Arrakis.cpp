@@ -79,6 +79,7 @@ void Arrakis::generate()
 			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
 			
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
+            tiles[ARRAY2D(i,j,size)]->height = h;
 			o->setPassable(true);
             o->setTerrain(true);
             o->description = "the hot sand";

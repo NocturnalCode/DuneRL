@@ -205,6 +205,13 @@ WorldCoord Lightmap::local2world(LocalCoord l)
 
 bool Lightmap::isBlocked(WorldCoord co)
 {
+    
+    Tile* tile = map->getTile(co);
+    Tile* tilePosition = map->getTile(position);
+    
+    if (tilePosition->height < (tile->height-0.15)) {
+        return true;
+    }
 	return ! map->getTransparent(co.X,co.Y);
 }
 
@@ -302,7 +309,10 @@ void Lightmap::cast_light(int row, float start,float end,int xx,int xy,int yx,in
     int cy = radius;
 	if(start < end)
 		return;
-	int radius_squared = radius*radius;
+    
+    //Tile *tile = map->getTile(position);
+    int radValue = radius;//*(tile->height)*3;
+	int radius_squared = radValue*radValue;
 	
     float new_start=1.0f;
 	for(int j=row; j <= radius; j++)

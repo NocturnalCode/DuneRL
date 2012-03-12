@@ -187,6 +187,14 @@ double PerlinNoise(double x, double y, double z,int octaves, double persistance)
 	return total;
 }
 
+inline double abs(double arg)
+{
+    if (arg < 0) {
+        return -arg;
+    }
+    return arg;
+}
+
 double Perlin::interpolatedAt(int size, unsigned i, unsigned j)
 {
     //i and j are in size coordinate space land
@@ -206,10 +214,10 @@ double Perlin::interpolatedAt(int size, unsigned i, unsigned j)
 //        j_Y = 0;
 //    }
     
-    double v1 = SmoothNoise(i_X, j_Y);
-	double v2 = SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y);
-	double v3 = SmoothNoise(i_X, j_Y + 1);
-	double v4 = SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y + 1);
+    double v1 = (SmoothNoise(i_X, j_Y));
+	double v2 = (SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y));
+	double v3 = (SmoothNoise(i_X, j_Y + 1));
+	double v4 = (SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y + 1));
     
     double i1 = CosineInterpolate(v1, v2, X);
 	double i2 = CosineInterpolate(v3, v4, X);
