@@ -66,7 +66,7 @@ void Arrakis::generate()
     //-- Generate World Mobs
     for(int i=0;i<1;i++)
     {
-        Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,1,1),Colour(0,0,0,0));
+        Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,0,1),Colour(0,0,0,0));
         Monster *monster = new Monster(ascii);
         monster->name = stringFormat("dune cat< %d>",i);
         monster->speed = (Speed)(rand()%SpeedCount);

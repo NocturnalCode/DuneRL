@@ -20,7 +20,9 @@ Map::Map(unsigned Size)
 	tex = NULL;
 	col = NULL;
 	tiles = (Tile**)malloc( sizeof(Tile*) *size*size );
-	
+	maptype = MapTypeWorldTile;
+    mapFlipped = false;
+    mapFlippednessChanged = false;
 	for(int i=0;i< size;i++)
 	{
 		for(int j=0;j<size;j++)
@@ -173,10 +175,46 @@ void Map::removeObject(Object *object)
 
 void Map::moveObject(Object *object, int i, int j)
 {
-    //Point p = object->getPosition();
-    int x = (i) < 0 ? size+i : (i)%size;
-	int y = (j) < 0 ? size+j : (j)%size;
-    
+    int x = i;//(i) < 0 ? size+i : (i)%size;
+	int y = j;//(j) < 0 ? size+j : (j)%size;
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return;
+            break;
+    }    
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
 	object->removeFromTile();
 //	if(i >= size) 
 //		i = size - i;
@@ -189,8 +227,60 @@ void Map::moveObject(Object *object, int i, int j)
 bool Map::adjustPlayer(int i, int j)
 {
 	Point p = player->getParent()->Position;
-	int x = ((p.X+i) < 0 ? size+(p.X+i) : (p.X+i)%size);
-	int y = ((p.Y+j) < 0 ? size+(p.Y+j) : (p.Y+j)%size);
+	int x = p.X + i;//((p.X+i) < 0 ? size+(p.X+i) : (p.X+i)%size);
+    
+
+	int y = mapFlipped ? p.Y - j : p.Y + j;//((p.Y+j) < 0 ? size+(p.Y+j) : (p.Y+j)%size);
+    if (y < 0 || y >= size) {
+        mapFlipped = !mapFlipped;
+    }
+//    else {
+//        mapFlippednessChanged = false;
+//    }
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return false;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                //y = p.Y - j;
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+                
+            }
+//            if (mapFlippednessChanged) {
+//                mapFlipped = flipped;
+//            }
+            
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return false;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
 	if(checkMove(player,x,y))
 	{
 		moveObject(player,x,y);
@@ -230,8 +320,48 @@ void World::setParent(Display* parent)
 
 bool Map::checkMove(Object *object, int i, int j)
 {
-    int x = (i) < 0 ? size+i : (i)%size;
-	int y = (j) < 0 ? size+j : (j)%size;
+    int x = (i);// < 0 ? size+i : (i)%size;
+	int y = (j);// < 0 ? size+j : (j)%size;
+    
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return false;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return false;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
 	//printf("Move %d\n",TILE(i,j)._flags.passable);
     Tile *tile = tiles[ARRAY2D(x,y,size)];
     bool passable = tile->_flags.passable==YES;
@@ -241,8 +371,41 @@ bool Map::checkMove(Object *object, int i, int j)
 
 bool Map::checkCombat(Monster *monster, int i, int j)
 {
-    int x = (i) < 0 ? size+i : (i)%size;
-	int y = (j) < 0 ? size+j : (j)%size;
+    int x = (i);// < 0 ? size+i : (i)%size;
+	int y = (j);// < 0 ? size+j : (j)%size;
+    
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return false;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return false;
+            break;
+    } 
     
     Tile *tile = tiles[ARRAY2D(x,y,size)];
     bool passable = tile->_flags.passable==YES;
@@ -273,9 +436,47 @@ bool Map::checkCombat(Monster *monster, int i, int j)
 
 bool Map::checkAction(Object *object, int i, int j)
 {
-    int x = (i) < 0 ? size+i : (i)%size;
-	int y = (j) < 0 ? size+j : (j)%size;
+    int x = (i);// < 0 ? size+i : (i)%size;
+	int y = (j);// < 0 ? size+j : (j)%size;
     
+    switch (maptype) {
+        case MapTypeNoTile:
+            if(x<0 || y<0 || x>=size || y>=size)
+                return false;
+            break;
+        case MapTypeFullTile:
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            //x = (i) < 0 ? size+i : (i)%size;
+            //y = (j) < 0 ? size+j : (j)%size;
+            break;
+        case MapTypeWorldTile:
+        {
+            int realm = abs(y/size);
+            bool flipped = realm %2;
+            if (y<0) {
+                //then flip again
+                flipped = !flipped;
+            }
+            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
+            if (flipped) {
+                //then move x and y is upsidedownface
+                x -= size/2;
+                y = size - y;
+            }
+            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
+        }
+            break;
+        default:
+            return false;
+            break;
+    } 
+    if (x==size) {
+        x = 0;
+    }
+    if (y==size) {
+        y = 0;
+    }
     Tile *tile = tiles[ARRAY2D(x,y,size)];
     bool passable = tile->_flags.passable==YES;
     
@@ -491,9 +692,56 @@ void Map::display()
 		for(i=rect.X,x=0;x< rect.Width;i++,x++)
 		{
             //printf("x=%d y=%d\n",i,j);
-			int texI = ARRAY2D(x,y,rect.Width)*8;
-			int colI = ARRAY2D(x,y,rect.Width)*16;
-			int pos = ARRAY2D((i < 0 ? size+i : i%size),(j < 0 ? size+j : j%size),size);
+            int argY = mapFlipped?rect.Height-y-1:y;
+			int texI = ARRAY2D(x,argY,rect.Width)*8;
+			int colI = ARRAY2D(x,argY,rect.Width)*16;
+            
+            int dx = (i);// < 0 ? size+i : (i)%size;
+            int dy =(j);// < 0 ? size+j : (j)%size;
+            
+            switch (maptype) {
+                case MapTypeNoTile:
+                    if(dx<0 || dy<0 || dx>=size || dy>=size)
+                    {
+                        displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
+                        continue;
+                    }
+                    break;
+                case MapTypeFullTile:
+                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
+                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
+                    //x = (i) < 0 ? size+i : (i)%size;
+                    //y = (j) < 0 ? size+j : (j)%size;
+                    break;
+                case MapTypeWorldTile:
+                {
+                    int realm = abs(dy/size);
+                    bool flipped = realm %2;
+                    if (dy<0) {
+                        //then flip again
+                        flipped = !flipped;
+                    }
+                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
+                    if (flipped) {
+                        //then move x and y is upsidedownface
+                        dx -= size/2;
+                        dy = size - dy;
+                    }
+                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
+                }
+                    break;
+                default:
+                    displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
+                    continue;
+                    break;
+            }
+            if (dx==size) {
+                dx = 0;
+            }
+            if (dy==size) {
+                dy = 0;
+            }
+			int pos = ARRAY2D(dx,dy,size);
 			
 			displayTile(&tex[texI],&col[colI],&bgCol[colI],tiles[pos],player);
 		}
@@ -503,14 +751,15 @@ void Map::display()
 
 void Map::displayTile(float *texture, float *colour,float *backgroundColour, Tile *tile, Monster *monster)
 {
-	Point p = tile->Position;
+    
+	Point p = tile != NULL ? tile->Position : Point(0, 0);
 	Ascii *ascii;
 	int row, column;
 	float ratio = 0.0625f;
 	Colour fc,bc;
 	
-	bool visible = monster->canSee(p.X,p.Y);
-	ascii = tile->getTopAscii(visible||DEV);
+	bool visible = monster != NULL ? monster->canSee(p.X,p.Y) : false;
+	ascii = tile != NULL ? tile->getTopAscii(visible||DEV) : NULL;
 	
 	float m = ( visible ? 1 : 0.2 ); 
 	
