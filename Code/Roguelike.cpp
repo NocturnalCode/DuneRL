@@ -197,17 +197,16 @@ int Roguelike::poll()
 
 void Roguelike::showMenu()
 {
-    SDL_EnableKeyRepeat(0, 0);
-	if(!menuWindow->open)
+	if(!menuWindow->isOpen)
 	{
 		rootWindow->add(menuWindow);
-		menuWindow->open = true;
+		menuWindow->open();
 	}
 	else
 	{
-		rootWindow->remove(menuWindow);
-		menuWindow->open = false;
-        SDL_EnableKeyRepeat(25, 50);
+		//rootWindow->remove(menuWindow);
+		menuWindow->close();
+        
 	}
     
 }

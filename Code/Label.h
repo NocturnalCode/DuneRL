@@ -17,6 +17,11 @@
 #include "Colour.h"
 #include "Rect.h"
 
+typedef enum {
+    LabelAlignTop,
+    LabelAlignBottom
+} LabelAlign;
+
 /**
  Wrap debug text in <> brackets
  */
@@ -28,6 +33,8 @@ class Label : public Display
 		Rect frame;
 		Display *parent;
 		bool selected;
+        LabelAlign alignment;
+        bool button;
 	public:
 		Label();
 		Label(std::string text);
@@ -49,6 +56,9 @@ class Label : public Display
 		
 		void setSelected(bool selected);
 		bool getSelected();
+    
+        void setMultiline(bool enable,int left, int right);
+        void setAlignment(LabelAlign align);
 		
 		virtual void display(float *texCoordinates, float *colCoordinates, float *bgColCoordinates);
 //		void displayTile(float *texture, float *colour, float *background ,Ascii ascii);

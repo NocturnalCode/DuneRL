@@ -62,7 +62,7 @@ void World::updateWorld()
     map->update(turnSpeed);
 	
     Monster *player = map->getPlayer();
-    if(player->isAlive())
+    if(player->isAlive() || DEV)
     {
         if(player->speed == turnSpeed)
         {
@@ -100,7 +100,7 @@ bool World::handleEvents(SDL_Event *event)
 	switch (event->type)
 	{
 		case SDL_KEYDOWN:
-            if(!map->getPlayer()->isAlive())
+            if(!map->getPlayer()->isAlive() && !DEV)
                 return false;
             
             if(movementKeys == ArrowKeys)

@@ -15,10 +15,17 @@ Menu::Menu(Rect rect) : Window(rect)
 	selectedIndex = 0;
 }
 
+void Menu::open()
+{
+	isOpen = true;
+    SDL_EnableKeyRepeat(0, 0);
+}
+
 void Menu::close()
 {
-	open = false;
+	isOpen = false;
 	parent->remove(this);
+    SDL_EnableKeyRepeat(25, 50);
 }
 
 void Menu::add(Display *displayable)

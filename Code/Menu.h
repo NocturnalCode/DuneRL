@@ -18,9 +18,14 @@ class Menu : public Window
 	protected:
 		int selectedIndex;
 		Display *selected;
+       
+    
 	public:
 		Menu(Rect rect);
-		bool open;
+	
+        bool isOpen;
+    
+        void open();
 		virtual void close();
 		virtual bool handleEvents(SDL_Event *event);
 		virtual int numberOfItems();

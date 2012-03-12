@@ -91,6 +91,8 @@ DuneRL::DuneRL()
     LabelValue<std::string,DuneRL> *log = new LabelValue<std::string,DuneRL>("",getLog);
 	log->setFrame(Rect(16,450-120,640-16,120));
 	log->setColour(Colour(1,1,1));
+    log->setMultiline(true,2,2);
+    log->setAlignment(LabelAlignBottom);
 	rootWindow->add(log);
 }
 
@@ -134,5 +136,5 @@ void DuneRL::deathMenu()
     SDL_EnableKeyRepeat(0, 0);
     dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
     rootWindow->add(dmenu);
-    dmenu->open = true;
+    dmenu->open();
 }

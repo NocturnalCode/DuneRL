@@ -373,7 +373,7 @@ bool Monster::isAlive()
 
 void Monster::onDeath()
 {
-    LOG("#AA0%s died.",this->name.c_str());
+    LOG("%s died.",this->name.c_str());
     // make corpse
     Object *corpse = new Object(new Ascii(PERCENT,Colour::white(),Colour::clear()));
     corpse->name = stringFormat("%s's corpse",this->name.c_str());

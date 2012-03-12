@@ -14,10 +14,20 @@
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
+    if(RNG->getInt()%2==0)
+    {
+        name = "Fayd Rautha";
+        family = "Harkonnen";
+    }
+    else
+    {
+        name = "Leto Atreides";
+        family = "Atreides";
+    }
+    
 	behaviour = BehaviourNone;
     sight = 40;
-    name = "Leto";
-    family = "Atreides";
+
     maxWater = 20;
     water = maxWater;
     waterTick = 0;
@@ -55,7 +65,7 @@ std::string Player::waterDescription()
 
 std::string Player::underfootDescription()
 {
-    if(isAlive())
+    if(isAlive() || DEV)
         return parent->description();
     return "You are stand amongt the dunes no more.";
 }
@@ -63,7 +73,7 @@ std::string Player::underfootDescription()
 void Player::onDeath()
 {
     if(DEV)
-        LOG("#AA0%s would have died, but is apparently too good for that.",this->name.c_str());
+        LOG("%s would have died, but is apparently too good for that.",this->name.c_str());
     else
     {
         Monster::onDeath();
@@ -80,14 +90,14 @@ void Player::performTurn()
     
     if(waterTick >= rateOfDehydration)
     {
-        LOG("You feel thirster");
+        LOG("You feel thirster.");
         waterTick = 0;
         water--;
     }
     
     if(water < 0 && !spiceCrazed)
     {
-        LOG("Losing health from dehydration");
+        LOG("Losing health from dehydration.");
         adjustHP(-1);
     }
 }
