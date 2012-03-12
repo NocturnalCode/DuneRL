@@ -15,6 +15,7 @@
 World::World()
 {
 	map = NULL;
+    movementKeys = ArrowKeys;
 	
 	turn.count = -1;
     turn.playerCount = 0;
@@ -90,35 +91,58 @@ bool World::handleEvents(SDL_Event *event)
 	switch (event->type)
 	{
 		case SDL_KEYDOWN:
-//			keyDown[event->key.keysym.sym]();
-//			break;
-			switch( event->key.keysym.sym )
-			{
-				case SDLK_w:
-					map->adjustPlayer(0,-1);
-					//	map->visibleRect.Y -= 1;
-					break;
-				case SDLK_a:
-					map->adjustPlayer(-1,0);
-					//	map->visibleRect.X -= 1;
-					break;
-				case SDLK_s:
-					map->adjustPlayer(0,1);
-					//	map->visibleRect.Y += 1;
-					break;
-				case SDLK_d:
-					map->adjustPlayer(1,0);
-					//	map->visibleRect.X += 1;
-					break;
-                case SDLK_f:
-                    // add range overlay, which takes key presses
-                    return false;
-                    break;
-                case SDLK_PERIOD:
-                    break;
-				default:
-					return false;
-			}
+            if(movementKeys == ArrowKeys)
+            {
+                switch( event->key.keysym.sym )
+                {
+                    case SDLK_UP:
+                        map->adjustPlayer(0,-1);
+                        break;
+                    case SDLK_LEFT:
+                        map->adjustPlayer(-1,0);
+                        break;
+                    case SDLK_DOWN:
+                        map->adjustPlayer(0,1);
+                        break;
+                    case SDLK_RIGHT:
+                        map->adjustPlayer(1,0);
+                        break;
+                    case SDLK_f:
+                        // todo: add range overlay, which takes key presses
+                        return false; // return false to require another key event
+                        break;
+                    case SDLK_PERIOD: // skip turn
+                        break;
+                    default:
+                        return false;
+                }
+            }
+            else if(movementKeys == VIKeys)
+            {
+                switch( event->key.keysym.sym )
+                {
+                    case SDLK_k: //up
+                        map->adjustPlayer(0,-1);
+                        break;
+                    case SDLK_h: //left
+                        map->adjustPlayer(-1,0);
+                        break;
+                    case SDLK_j: //down
+                        map->adjustPlayer(0,1);
+                        break;
+                    case SDLK_l: //right
+                        map->adjustPlayer(1,0);
+                        break;
+                    case SDLK_f:
+                        // todo: add range overlay, which takes key presses
+                        return false; // return false to require another key event
+                        break;
+                    case SDLK_PERIOD: // skip turn
+                        break;
+                    default:
+                        return false;
+                }
+            }
 			break;
 		default:
 			return false;

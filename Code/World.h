@@ -25,6 +25,12 @@ class Map;
 #include <list>
 #include <map>
 
+typedef enum {
+    ArrowKeys,
+    VIKeys,
+    KeysCount
+}Keys;
+
 typedef struct {
 	int count;
 	Speed *order;
@@ -38,7 +44,8 @@ class World : public Display
         Display *parent;
         Map		*map;
 		TurnInfo turn;
-
+        Keys movementKeys;
+    
 		void updateWorld();
 
     public:

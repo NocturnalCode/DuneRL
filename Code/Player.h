@@ -20,9 +20,23 @@ typedef struct {
 
 class Player: public Monster
 {
-private:
+protected:
     PlayerFlags _flags;
+    int kills;
+    
+    bool spiceCrazed; // would like to abstract to some generic effect
+    
+    int spice;
+    int water,minWater,maxWater;
+
 public:
+    // UI related fields
+    std::string family;
+    std::string spiceDescription();
+    std::string waterDescription();
+    
+    std::string underfootDescription();
+    
     Player();
 };
 

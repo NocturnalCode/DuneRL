@@ -44,23 +44,52 @@ DuneRL::DuneRL()
 	rootWindow->getCentreLabel()->setString("DuneRL");
 	rootWindow->getRightLabel()->setString("v1.0");
 	
-	character = new Window(Rect(16,24,140+32,32+16));
+	character = new Window(Rect(16,24,140+32,65+12));
 	character->borderStyle = Border_Double;
-	character->getLeftLabel()->setString("Leto Atreides");
+	character->getLeftLabel()->setString(player->name);
 	character->getLeftLabel()->setColour(Colour::white());
 	
-	Label *familyLabel = new Label("House Atreides");
+	Label *familyLabel = new Label(player->family);
 	familyLabel->setFrame(Rect(16,18,100,40));
-	familyLabel->setColour(Colour::blue());
 	character->add(familyLabel);
 	
     CallBack<Player, std::string> *getHealth = new CallBack<Player, std::string>(player,&Player::hpDescription);
     LabelValue<std::string,Player> *health = new LabelValue<std::string,Player>("",getHealth);
-	health->setFrame(Rect(16,18+12,100,40));
+	health->setFrame(Rect(16,27,100,40));
 	health->setColour(Colour(0,1,0));
 	character->add(health);
+    
+    CallBack<Player, std::string> *getWater = new CallBack<Player, std::string>(player,&Player::waterDescription);
+    LabelValue<std::string,Player> *water = new LabelValue<std::string,Player>("",getWater);
+	water->setFrame(Rect(16,36,100,40));
+	water->setColour(Colour::white());
+	character->add(water);
+//    
+    CallBack<Player, std::string> *getSpice = new CallBack<Player, std::string>(player,&Player::spiceDescription);
+    LabelValue<std::string,Player> *spice = new LabelValue<std::string,Player>("",getSpice);
+	spice->setFrame(Rect(16,36+18,100,40));
+	spice->setColour(Colour::white());
+	character->add(spice);
 	
 	rootWindow->add(character);
+    
+    CallBack<Player, std::string> *getUnderfoot = new CallBack<Player, std::string>(player,&Player::underfootDescription);
+    LabelValue<std::string,Player> *underfoot = new LabelValue<std::string,Player>("",getUnderfoot);
+	underfoot->setFrame(Rect(16,462,640-8,40));
+	underfoot->setColour(Colour(1,1,1));
+	rootWindow->add(underfoot);
+    
+//    CallBack<DuneRL, std::string> *getlog1 = new CallBack<DuneRL, std::string>(this,&DuneRL::getLogLine1);
+//    LabelValue<std::string,DuneRL> *log1 = new LabelValue<std::string,DuneRL>("",getlog1);
+//	log1->setFrame(Rect(8,450,640-8,40));
+//	log1->setColour(Colour(1,1,1));
+//	rootWindow->add(log1);
+//    
+//    CallBack<DuneRL, std::string> *getlog2 = new CallBack<DuneRL, std::string>(this,&DuneRL::getLogLine2);
+//    LabelValue<std::string,DuneRL> *log2 = new LabelValue<std::string,DuneRL>("",getlog2);
+//	log2->setFrame(Rect(8,462,640-8,40));
+//	log2->setColour(Colour(1,1,1));
+//	rootWindow->add(log2);
 }
 
 DuneRL::~DuneRL()

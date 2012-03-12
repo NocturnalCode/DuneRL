@@ -20,9 +20,15 @@ void Arrakis::generate()
 {
 	int i,j;
 	
+    //-- Generate the desert heightmap
 	Perlin heights(size, 3,1.0);
 	
-	for(j=0;j<size;j++)
+    //-- Generate polar ice in south pole, lower 5%
+	
+    //-- Generate the rock out croppings in the sothern hemisphere
+    
+    //-- Combine the above terrain maps
+    for(j=0;j<size;j++)
     {
 		for(i=0;i< size;i++) 
         {
@@ -42,25 +48,20 @@ void Arrakis::generate()
 			addObject(i,j,o);
         }
     }
-	
-	/*
-     Generation Stages
-     - - - - - - - - -
-     Rock
-     Ground
-     Plants
-     Cities
-     Items
-     Creeps
-     Treasure
-     - - - - - - - - -
-     */
-	
+    
+    //-- Generate spice map
+    
+	//-- Generate the fortresses in the lower half of world
 	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
 	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
 	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
 	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+    // and fortress mobs
     
+    //-- Generate Camps
+    // and camp mobs
+    
+    //-- Generate World Mobs
     for(int i=0;i<1;i++)
     {
         Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,1,1),Colour(0,0,0));
