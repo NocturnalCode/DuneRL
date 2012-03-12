@@ -21,6 +21,15 @@
 #include "Rect.h"
 #include "World.h"
 
+
+typedef enum {
+	MapTypeNoTile,
+	MapTypeFullTile,
+	MapTypeWorldTile,
+    // Keep SpeedCount at bottom
+    MapTypeCount
+} MapType;
+
 class Monster;
 
 class Map
@@ -33,14 +42,15 @@ protected:
     Monster *player;
     
     void displayTile(float *texture, float *colour,float *backgroundColour, Tile *tile, Monster *monster);
-    
+    bool mapFlippednessChanged;
 public:
     World	*world;
     Monsters monsters;
     Objects	 objects;
     Rect	visibleRect;
     unsigned size;
-    
+    MapType maptype;
+    bool mapFlipped;
     Map(unsigned size);
     ~Map();
     virtual void generate();
