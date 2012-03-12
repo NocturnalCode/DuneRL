@@ -111,6 +111,8 @@ public:
     
     virtual void onDeath();
     virtual void onDamagedBy(Object *attacker,Damage damage);
+    
+    Lightmap* getSightMap();
 //  virtual void onHealedBy(Object *attacker,Damage damage);
 };
 

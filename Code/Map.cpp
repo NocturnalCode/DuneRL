@@ -866,6 +866,10 @@ void Map::displayTile(float *texture, float *colour,float *backgroundColour, Til
 	bool visible = monster != NULL ? monster->canSee(p.X,p.Y) : false;
 	ascii = tile != NULL ? tile->getTopAscii(visible||DEV) : NULL;
 	
+    Lightmap *lm = monster->getSightMap();
+    if(lm)
+        ascii = lm->filter(p, ascii);
+    
 	float m = ( visible ? 1 : 0.2 ); 
 	
 	if(DEV&&!visible)

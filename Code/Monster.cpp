@@ -454,3 +454,8 @@ void Monster::dumpInventory()
         dropInventoryObject((object->second));
     }
 }
+
+Lightmap* Monster::getSightMap()
+{
+    return sightMap;
+}
