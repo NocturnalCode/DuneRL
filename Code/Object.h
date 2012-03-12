@@ -30,8 +30,9 @@ typedef struct
     unsigned holdable:1;
     unsigned wieldable:1;
     unsigned wearable:1;
+    unsigned liquid:1;
     unsigned terrain:1;
-	unsigned _reserved:26;
+	unsigned _reserved:25;
 } ObjectFlags;
 
 class Object {
@@ -73,6 +74,9 @@ public:
     
     void setTerrain(bool terrain);
     bool terrain();
+    
+    void setLiquid(bool liquid);
+    bool liquid();
     
     virtual Damages getMeleeDamages();
     virtual Damages getThrowDamages();

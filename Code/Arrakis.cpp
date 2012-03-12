@@ -46,7 +46,7 @@ void Arrakis::generate()
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
 			o->setPassable(true);
             o->setTerrain(true);
-            o->description = "sand";
+            o->description = "the hot sand";
 			addObject(i,j,o);
         }
     }

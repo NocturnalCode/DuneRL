@@ -111,11 +111,14 @@ std::string Tile::description()
         Monster *monster = dynamic_cast<Monster *>(object);
         if(monster != NULL)
         {
-            desc += (*o)->description + " stand";
+            desc += (*o)->description + " are standing";
         }
         else
         {
-            desc += "on " + (*o)->description;
+            if(object->liquid())
+                desc += "in " + (*o)->description;
+            else
+                desc += "on " + (*o)->description;
             if(object->terrain())
                 break; // don't describe under the terrain
         }

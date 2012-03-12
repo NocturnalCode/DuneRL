@@ -23,6 +23,8 @@ class DuneRL : public Roguelike
 		~DuneRL();
     
         virtual void init_world();
+    
+        std::string getTurnLog();
 };
 
 #endif /* DUNERL_H_INC */

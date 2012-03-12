@@ -19,9 +19,10 @@ Object::Object()
 	_flags.passable = NO;
 	_flags.transparent = NO;
     _flags.terrain = YES;
+    _flags.liquid = NO;
     weight = 0.1;
     range = 1;
-    description = "something";
+    description = "something indescribable";
 }
 
 Object::Object(Ascii *asc) 
@@ -31,10 +32,11 @@ Object::Object(Ascii *asc)
 	_flags.passable = YES;
 	_flags.transparent = YES;
     _flags.terrain = YES;
+    _flags.liquid = NO;
     weight = 0.1;
     range = 1;
     inventory = NULL;
-    description = "something";
+    description = "something indescribable";
 }
 
 Object::Object(AsciiGroup *asc)
@@ -44,10 +46,11 @@ Object::Object(AsciiGroup *asc)
 	_flags.passable = YES;
 	_flags.transparent = YES;
     _flags.terrain = NO;
+    _flags.liquid = NO;
     weight = 0.1;
     range = 1;
     inventory = NULL;
-    description = "something";
+    description = "something indescribable";
 }
 
 Object::~Object()
@@ -126,6 +129,19 @@ void Object::setTerrain(bool terrain)
 bool Object::terrain()
 {
 	return _flags.terrain==YES;
+}
+
+void Object::setLiquid(bool liquid)
+{
+	if(liquid)
+		_flags.liquid = YES;
+	else
+		_flags.liquid = NO;
+}
+
+bool Object::liquid()
+{
+	return _flags.liquid==YES;
 }
 
 Ascii* Object::getAscii()

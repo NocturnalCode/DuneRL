@@ -9,6 +9,8 @@
 
 #include "DuneRL.h"
 
+#include <map>
+
 #include "Stringer.h"
 #include "LabelValue.h"
 #include "Player.h"
@@ -81,17 +83,11 @@ DuneRL::DuneRL()
 	underfoot->setColour(Colour(1,1,1));
 	rootWindow->add(underfoot);
     
-//    CallBack<DuneRL, std::string> *getlog1 = new CallBack<DuneRL, std::string>(this,&DuneRL::getLogLine1);
-//    LabelValue<std::string,DuneRL> *log1 = new LabelValue<std::string,DuneRL>("",getlog1);
-//	log1->setFrame(Rect(8,450,640-8,40));
-//	log1->setColour(Colour(1,1,1));
-//	rootWindow->add(log1);
-//    
-//    CallBack<DuneRL, std::string> *getlog2 = new CallBack<DuneRL, std::string>(this,&DuneRL::getLogLine2);
-//    LabelValue<std::string,DuneRL> *log2 = new LabelValue<std::string,DuneRL>("",getlog2);
-//	log2->setFrame(Rect(8,462,640-8,40));
-//	log2->setColour(Colour(1,1,1));
-//	rootWindow->add(log2);
+    CallBack<DuneRL, std::string> *getlog = new CallBack<DuneRL, std::string>(this,&DuneRL::getTurnLog);
+    LabelValue<std::string,DuneRL> *log = new LabelValue<std::string,DuneRL>("",getlog);
+	log->setFrame(Rect(16,450,640-8,40));
+	log->setColour(Colour(1,1,1));
+	rootWindow->add(log);
 }
 
 DuneRL::~DuneRL()
@@ -120,4 +116,11 @@ void DuneRL::init_world()
     world->getMap()->monsters.push_back(player);
 
     player->calculateSight();
+}
+
+std::string DuneRL::getTurnLog()
+{
+    if(logs.size() <= 0)
+        return "<empty>";
+    return logs[logs.size()-1];
 }
