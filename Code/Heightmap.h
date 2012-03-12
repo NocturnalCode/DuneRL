@@ -32,6 +32,9 @@ class Heightmap
 	Heightmap operator+=( Heightmap &other );
 	Heightmap operator-=( Heightmap &other );
 	Heightmap operator=( Heightmap &other );
+    
+    
+    //void resize(int newSize,smoothing fucntion);
 };
 
 #endif /* HEIGHTMAP_H_INC */
