@@ -65,7 +65,10 @@ void Player::onDeath()
     if(DEV)
         LOG("#AA0%s would have died, but is apparently too good for that.",this->name.c_str());
     else
+    {
         Monster::onDeath();
+        DuneRL::shared->deathMenu();
+    }
 }
 
 // a turn has past
@@ -77,7 +80,7 @@ void Player::performTurn()
     
     if(waterTick >= rateOfDehydration)
     {
-        LOG("Feel thirster");
+        LOG("You feel thirster");
         waterTick = 0;
         water--;
     }

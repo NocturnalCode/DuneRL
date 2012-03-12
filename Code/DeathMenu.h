@@ -9,6 +9,20 @@
 #ifndef DEATHMENU_INCLUDE_H
 #define DEATHMENU_INCLUDE_H
 
+#include "Menu.h"
+#include "LabelValue.h"
+#include <string>
 
+#include "Player.h"
+
+class DeathMenu : public Menu
+{
+    
+public:
+    DeathMenu(Rect rect,Player *player);
+    
+    virtual int numberOfItems();
+    virtual void didSelectItem(int index);
+};
 
 #endif

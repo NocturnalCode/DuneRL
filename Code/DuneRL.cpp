@@ -30,8 +30,12 @@
 #include "Player.h"
 #include "Arrakis.h"
 
+DuneRL *DuneRL::shared = NULL;
+
 DuneRL::DuneRL()
 {
+    shared = this;
+    
 	init_window();
     window->setTitle("DuneRL 7DRL 2012, Quaffable");
     
@@ -123,4 +127,11 @@ std::string DuneRL::getTurnLog()
     if(logs.size() <= 0)
         return "<empty>";
     return logs[logs.size()-1];
+}
+
+void DuneRL::deathMenu()
+{
+    dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
+    rootWindow->add(dmenu);
+    dmenu->open = true;
 }

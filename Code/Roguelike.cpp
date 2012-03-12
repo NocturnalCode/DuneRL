@@ -22,8 +22,8 @@ bool Roguelike::dev = false;
 
 Roguelike::Roguelike()
 {
+    menuWindow = NULL;
     Roguelike::shared = this;
-	return;
 }
 
 Roguelike::~Roguelike()
@@ -197,7 +197,6 @@ int Roguelike::poll()
 
 void Roguelike::showMenu()
 {
-
 	if(!menuWindow->open)
 	{
 		rootWindow->add(menuWindow);

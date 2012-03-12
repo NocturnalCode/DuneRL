@@ -11,20 +11,28 @@
 #define DUNERL_H_INC 
 
 #include "Roguelike.h"
+#include "DeathMenu.h"
 
 class Player;
 
 class DuneRL : public Roguelike
 {
-	protected:
-		Player *player;
-	public:
-		DuneRL();
-		~DuneRL();
+protected:
+    Player *player;
+
+    DeathMenu *dmenu;
     
-        virtual void init_world();
     
-        std::string getTurnLog();
+public:
+    DuneRL();
+    ~DuneRL();
+
+    virtual void init_world();
+
+    std::string getTurnLog();
+    void deathMenu();
+    
+    static DuneRL *shared;
 };
 
 #endif /* DUNERL_H_INC */

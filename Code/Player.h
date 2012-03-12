@@ -25,8 +25,7 @@ protected:
     int kills;
     
     bool spiceCrazed; // would like to abstract to some generic effect
-    
-    int spice;
+
     int water,minWater,maxWater;
     int rateOfDehydration;
     int waterTick;
@@ -35,6 +34,7 @@ protected:
     void onDeath();
 
 public:
+    int spice;
     // UI related fields
     std::string family;
     std::string spiceDescription();
