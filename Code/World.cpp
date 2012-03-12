@@ -61,12 +61,21 @@ void World::updateWorld()
 	
     map->update(turnSpeed);
 	
-	if(map->getPlayer()->speed == turnSpeed)
-	{
-		map->getPlayer()->calculateSight();
-        LOG("<([ - - - - - - Turn End - - - - - - - ])>");
+    Monster *player = map->getPlayer();
+    if(player->isAlive())
+    {
+        if(player->speed == turnSpeed)
+        {
+            player->calculateSight();
+            LOG("<([ - - Turn End - - ])>");
+            return;
+        }
+    }
+    else
+    {
+        LOG("<([ - - - - - - Game End - - - - - - - ])>");
 		return;
-	}
+    }
 	
 	updateWorld();
 }
@@ -91,6 +100,9 @@ bool World::handleEvents(SDL_Event *event)
 	switch (event->type)
 	{
 		case SDL_KEYDOWN:
+            if(!map->getPlayer()->isAlive())
+                return false;
+            
             if(movementKeys == ArrowKeys)
             {
                 switch( event->key.keysym.sym )

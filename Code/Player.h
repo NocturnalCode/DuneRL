@@ -28,6 +28,11 @@ protected:
     
     int spice;
     int water,minWater,maxWater;
+    int rateOfDehydration;
+    int waterTick;
+    
+    void performTurn();
+    void onDeath();
 
 public:
     // UI related fields

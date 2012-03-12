@@ -107,6 +107,8 @@ public:
     
     void attack(Object *target, Object *weapon=NULL); // if weapon is NULL assumes melee
 
+    bool isAlive();
+    
     virtual void onDeath();
     virtual void onDamagedBy(Object *attacker,Damage damage);
 //  virtual void onHealedBy(Object *attacker,Damage damage);

@@ -41,11 +41,12 @@ DuneRL::DuneRL()
 	rootWindow->delegate = world;
 	rootWindow->eventDelegate = world;
 	rootWindow->texture = sprite;
+    rootWindow->borderStyle = Border_Double;
 	rootWindow->getCentreLabel()->setString("DuneRL");
 	rootWindow->getRightLabel()->setString("v1.0");
 	
 	character = new Window(Rect(16,24,140+32,65+12));
-	character->borderStyle = Border_Double;
+	character->borderStyle = Border_Single;
 	character->getLeftLabel()->setString(player->name);
 	character->getLeftLabel()->setColour(Colour::white());
 	

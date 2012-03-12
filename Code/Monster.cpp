@@ -366,6 +366,11 @@ Objects Monster::getWeaponsForMelee()
     return weapons;
 }
 
+bool Monster::isAlive()
+{
+    return hp > 0;
+}
+
 void Monster::onDeath()
 {
     LOG("#AA0%s died.",this->name.c_str());

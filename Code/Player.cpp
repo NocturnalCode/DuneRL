@@ -9,6 +9,7 @@
 
 #include "Player.h"
 #include "Stringer.h"
+#include "DuneRL.h"
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
@@ -18,6 +19,8 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     family = "Atreides";
     maxWater = 10;
     water = maxWater;
+    waterTick = 0;
+    rateOfDehydration = 15;
     spice = 0;
     spiceCrazed = false;
     kills = 0;
@@ -49,5 +52,33 @@ std::string Player::waterDescription()
 
 std::string Player::underfootDescription()
 {
-    return "It is sandy underfoot.";// it's dune it's always sand
+    return "It is sandy underfoot.";// it's dune it's always sandy
+}
+
+void Player::onDeath()
+{
+    if(DEV)
+        LOG("#AA0%s would have died, but is apparently too good for that.",this->name.c_str());
+    else
+        Monster::onDeath();
+}
+
+// a turn has past
+void Player::performTurn()
+{
+    //decrement water;
+    if(!spiceCrazed)
+        waterTick++;
+    
+    if(waterTick >= rateOfDehydration)
+    {
+        waterTick = 0;
+        water--;
+    }
+    
+    if(water < 0 && !spiceCrazed)
+    {
+        LOG("Losing health from dehydration");
+        adjustHP(-1);
+    }
 }
