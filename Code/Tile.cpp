@@ -24,6 +24,7 @@ Tile::Tile(int i, int j)
 	_flags.passable  = YES;
 	_flags.transparent = YES;
 	Position = Point(i,j);
+    height = 0;
 }
 
 Tile::~Tile()

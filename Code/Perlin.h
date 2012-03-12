@@ -12,6 +12,7 @@ class Perlin : public Heightmap
 {
 	public:
 		Perlin(int size, int octaves, double persistance);
+        double interpolatedAt(int size, unsigned i, unsigned j);
 };
 
 #endif /* PERLIN_H_INC */
