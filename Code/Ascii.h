@@ -309,37 +309,37 @@
 
 class Ascii
 {
-    public:
-        SpriteIndex Index;
-        Colour Foreground;
-        Colour Background;
+public:
+    SpriteIndex Index;
+    Colour Foreground;
+    Colour Background;
+    bool backgroundInherits;
+    Ascii();
+    Ascii(SpriteIndex index, float red,float green, float blue);
+    Ascii(SpriteIndex index, Colour fg = Colour::white(),Colour bg = Colour::black());
     
-        Ascii();
-        Ascii(SpriteIndex index, float red,float green, float blue);
-		Ascii(SpriteIndex index, Colour fg = Colour::white(),Colour bg = Colour::black());
-		
-		// copy operator
-		Ascii& operator=(const Ascii& a);
+    // copy operator
+    Ascii& operator=(const Ascii& a);
 };
 
 typedef std::vector<Ascii*> Asciis;
 
 class AsciiGroup {
-	protected:
-		int index;
-		Asciis asciis;
-	public:
-		AsciiGroup();
-		AsciiGroup(Ascii *ascii);
-		AsciiGroup(Asciis asciis);
-		virtual Ascii* currentAscii();
-		virtual void update();
+protected:
+    int index;
+    Asciis asciis;
+public:
+    AsciiGroup();
+    AsciiGroup(Ascii *ascii);
+    AsciiGroup(Asciis asciis);
+    virtual Ascii* currentAscii();
+    virtual void update();
 };
 
 class RandomAscii: public AsciiGroup {
-	public:
-		RandomAscii(Asciis asciis);
-		virtual void update();
+public:
+    RandomAscii(Asciis asciis);
+    virtual void update();
 };
 
 #endif /*ASCII_H_INC */

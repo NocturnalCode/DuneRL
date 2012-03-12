@@ -49,6 +49,9 @@ public:
     static Colour yellow();
     static Colour cyan();
     static Colour magenta();
+    
+    bool operator==(const Colour &other);
+    bool operator!=(const Colour &other);
 };
 
 #endif /* COLOUR_H_INC */

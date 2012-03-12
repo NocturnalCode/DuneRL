@@ -51,6 +51,7 @@ DuneRL::DuneRL()
 	
 	Label *familyLabel = new Label(player->family);
 	familyLabel->setFrame(Rect(16,18,100,40));
+	familyLabel->setColour(Colour::white());
 	character->add(familyLabel);
 	
     CallBack<Player, std::string> *getHealth = new CallBack<Player, std::string>(player,&Player::hpDescription);

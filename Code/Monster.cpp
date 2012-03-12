@@ -370,7 +370,7 @@ void Monster::onDeath()
 {
     LOG("#AA0%s died.",this->name.c_str());
     // make corpse
-    Object *corpse = new Object(new Ascii(PERCENT,Colour::white()));
+    Object *corpse = new Object(new Ascii(PERCENT,Colour::white(),Colour::clear()));
     parent->addObject(corpse);
     
     // make gore

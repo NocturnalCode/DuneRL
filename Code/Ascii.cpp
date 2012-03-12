@@ -12,6 +12,7 @@
 
 Ascii::Ascii()
 {
+    backgroundInherits = false;
     Index = rand()%256;
     Foreground = Colour( (float)(rand()%255)/255.0, (float)(rand()%255)/255.0, (float)(rand()%255)/255.0 );
     Background = Colour( (float)(rand()%255)/255.0, (float)(rand()%255)/255.0, (float)(rand()%255)/255.0 );
@@ -19,16 +20,22 @@ Ascii::Ascii()
 
 Ascii::Ascii(SpriteIndex index, float red,float green, float blue)
 {
+    backgroundInherits = false;
     Index = index;
     Foreground = Colour( red, green, blue);
     Background = Colour::black();
+    
 }
 
 Ascii::Ascii(SpriteIndex index, Colour fg,Colour bg)
 {
+    backgroundInherits = false;
     Index = index;
     Foreground = fg;
     Background = bg;
+    if (bg == Colour::clear()) {
+        backgroundInherits = true;
+    }
 }
 
 Ascii& Ascii::operator=(const Ascii& a) 

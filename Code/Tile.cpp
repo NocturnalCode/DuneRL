@@ -72,6 +72,25 @@ Ascii *Tile::getTopAscii(bool visible)
         {   
             Object *object = objects->back();
 			ascii = object->getAscii();
+            
+            
+            
+            if(ascii->backgroundInherits)
+            {
+                Colour colour;
+                foreachp(Objects,o,objects)
+                {
+                    //we want to find the last object that doesn't have a clear background colour
+                    //this is an over simplification.. Alpha is effectively On or Off, not continuous
+                    
+                    if ((*o)->getAscii()->backgroundInherits != true) {
+                        colour = (*o)->getAscii()->Background;
+                    }
+                }
+                
+                //Ascii *low = objects->front()->getAscii();
+                ascii->Background = colour;//low->Background;
+            }
         }
 		_flags.visited = YES;
 		lastAscii = ascii;
