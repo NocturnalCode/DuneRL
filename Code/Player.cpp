@@ -97,7 +97,10 @@ void Player::performTurn()
     
     if(water < 0 && !spiceCrazed)
     {
-        LOG("Losing health from dehydration.");
-        adjustHP(-1);
+        if(!DEV)
+        {
+            LOG("Losing health from dehydration.");
+            adjustHP(-1);
+        }
     }
 }

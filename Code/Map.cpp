@@ -726,7 +726,14 @@ void Map::update(Speed turnSpeed)
             }
             else 
             {
-                LOG("CONGRATULATIONS YOU DIED");
+                if(!DEV)
+                    LOG("CONGRATULATIONS YOU DIED");
+                else
+                {
+                    if((*m)->speed == turnSpeed)
+                        (*m)->performTurn();
+                }
+                    
             }
         }
 		else if((*m)->speed == turnSpeed)
