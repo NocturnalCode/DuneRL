@@ -21,9 +21,9 @@ Rect::Rect(int x,int y,int width,int height)
 
 Rect randomRectInRect(Rect rect,int min, int max)
 {
-    int width = min+rand()%max;
-    int height = min+rand()%max;
-    int x = rect.X + (rand() % (rect.Width - width));
-    int y = rect.Y + (rand() % (rect.Height - height)); 
+    int width = min+arc4random()%max;
+    int height = min+arc4random()%max;
+    int x = rect.X + (arc4random() % (rect.Width - width));
+    int y = rect.Y + (arc4random() % (rect.Height - height)); 
     return Rect(x,y,width,height);
 }

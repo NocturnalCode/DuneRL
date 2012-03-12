@@ -9,7 +9,7 @@
 #include <iostream>
 
 //#if defined(__APPLE__)
-//    #include "CoreFoundation/CFBundle.h"
+    #include "CoreFoundation/CFBundle.h"
 //#elif defined __linux__
 //    #warning "Untested on Linux"
 //#elif defined _WIN32 || defined _WIN64
@@ -36,9 +36,10 @@ std::string filenameWithFormat(std::string format, ...)
     va_start(args, format);
     vasprintf(&buffer,format.c_str(), args);
     va_end(args);
-    
+//    
     char *name = getenv("EXECUTABLE_NAME"); // this is a bad way to do this, it's OSX specific atm
-    
+//    
+    CFBundleRef bundle = CFBundleGetMainBundle();
     std::string path = stringFormat("%s.app/Contents/Resources/%s",name,buffer);
     
     return path;

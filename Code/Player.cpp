@@ -14,9 +14,9 @@
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
-    if(RNG->getInt()%2==0)
+    if(arc4random()%2==0)
     {
-        name = "Fayd Rautha";
+        name = "Feyd Rautha";
         family = "Harkonnen";
     }
     else
@@ -28,6 +28,7 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
 	behaviour = BehaviourNone;
     sight = 40;
 
+    setMaxHP(10);
     maxWater = 20;
     water = maxWater;
     waterTick = 0;

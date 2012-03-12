@@ -106,7 +106,7 @@ void DuneRL::init_world()
 {
 	int worldSize = 200;
 	
-	rnd =  new Random(42);
+	rnd =  new Random(arc4random());
 	
 	sprite = new Sprite("DuneRL.app/Contents/Resources/tileset.png",16);
     world = new World();

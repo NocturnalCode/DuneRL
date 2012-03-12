@@ -57,7 +57,7 @@ void World::updateWorld()
 	int turnCurrent = turn.count % turn.orderCount;
 	
 	Speed turnSpeed = turn.order[turnCurrent];
-//	printf("Turn %d speed=%s\n",turnCurrent,stringForSpeed(turnSpeed).c_str());
+	printf("Turn %d speed=%s\n",turnCurrent,stringForSpeed(turnSpeed).c_str());
 	
     map->update(turnSpeed);
 	

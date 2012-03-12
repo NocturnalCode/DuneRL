@@ -168,6 +168,8 @@ WorldCoord Monster::towardAttacker(Object *target)
 
 WorldCoord Monster::awayFromAttacker(Object *target)
 {
+    if(target==NULL)
+        return WorldCoord(0,0);
     /// same as above just opposite direction
     
     WorldCoord move;
@@ -326,7 +328,8 @@ bool Monster::canSee(int x, int y)
 
 void Monster::calculateSight()
 {
-	sightMap = new Lightmap(getPosition(),sight,getMap());
+    if(isAlive())
+        sightMap = new Lightmap(getPosition(),sight,getMap());
 }
 
 /// this is kinda ok for NPCs but isn't very good for player characters

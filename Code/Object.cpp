@@ -89,6 +89,8 @@ Point Object::getPosition()
 
 Map *Object::getMap()
 {
+    if(parent == NULL)
+        return NULL;
     return parent->parent;
 }
 

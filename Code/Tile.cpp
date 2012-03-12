@@ -70,10 +70,10 @@ bool compare(Object *first, Object *second)
     Monster *m2 = dynamic_cast<Monster *>(first);
     
     if(m1 != NULL && m2 == NULL)
-        return false;
-    else if(m2 != NULL && m1 == NULL)
         return true;
-    else return false;
+    else if(m2 != NULL && m1 == NULL)
+        return false;
+    else return true;
 }
 
 void Tile::sort()
