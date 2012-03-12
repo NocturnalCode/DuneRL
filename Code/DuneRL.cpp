@@ -87,9 +87,9 @@ DuneRL::DuneRL()
 	underfoot->setColour(Colour(1,1,1));
 	rootWindow->add(underfoot);
     
-    CallBack<DuneRL, std::string> *getlog = new CallBack<DuneRL, std::string>(this,&DuneRL::getTurnLog);
-    LabelValue<std::string,DuneRL> *log = new LabelValue<std::string,DuneRL>("",getlog);
-	log->setFrame(Rect(16,450,640-8,40));
+    CallBack<DuneRL, std::string> *getLog = new CallBack<DuneRL, std::string>(this,&DuneRL::getTurnLog);
+    LabelValue<std::string,DuneRL> *log = new LabelValue<std::string,DuneRL>("",getLog);
+	log->setFrame(Rect(16,450-120,640-16,120));
 	log->setColour(Colour(1,1,1));
 	rootWindow->add(log);
 }
@@ -131,6 +131,7 @@ std::string DuneRL::getTurnLog()
 
 void DuneRL::deathMenu()
 {
+    SDL_EnableKeyRepeat(0, 0);
     dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
     rootWindow->add(dmenu);
     dmenu->open = true;

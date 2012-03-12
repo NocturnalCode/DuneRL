@@ -408,6 +408,27 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
 {
     attackers.push_back(attacker);
     attackers.unique();
+    
+    Point splat = randomMove();
+    
+    Map *map = attacker->getMap();
+    
+    if(!map->checkMove(this, splat.X, splat.Y))
+        splat = attacker->getPosition();
+    
+    Colour bloodColour = Colour::red(); // this->bloodColour(); would be nice
+    
+    Object *blood = new Object(new Ascii(PERCENT,bloodColour,Colour::clear()));
+    blood->name = stringFormat("%s's blood",this->name.c_str());
+    blood->description = "the blood of a "+this->name;
+    blood->setLiquid(true);
+    map->addObject(splat.X, splat.Y, blood);
+    
+    Ascii *topAscii = map->getTile(splat)->getTopAscii(true);
+    topAscii->Foreground.lerp(bloodColour,0.2);
+    
+    Ascii *terrainAscii = map->getTile(splat)->getTerainAscii(true);
+    terrainAscii->Background.lerp(bloodColour,0.2);
 }
 
 void Monster::dumpInventory()

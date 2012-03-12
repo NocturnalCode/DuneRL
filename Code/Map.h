@@ -59,6 +59,8 @@ public:
     void update(Speed turnSpeed);
     void updateAscii();
     
+    Tile *getTile(WorldCoord point);
+    
     bool adjustPlayer(int i, int j);
     
     void setPlayer(Monster *player);

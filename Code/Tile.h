@@ -23,25 +23,28 @@ typedef struct {
 	unsigned _reserved:29;
 } TileFlags;
 
-class Tile {
-	private:
-		Ascii *lastAscii;
-		Objects *objects;
-	public:
-		Map *parent;
-		Point Position;
-		TileFlags _flags;
-		
-		Tile();
-		Tile(int i, int j);
-        ~Tile();
-		Ascii *getTopAscii(bool visible);
-		void addObject(Object *object);
-		void removeObject(Object *object);
+class Tile 
+{
+private:
+    Ascii *lastAscii;
+    Objects *objects;
+public:
+    Map *parent;
+    Point Position;
+    TileFlags _flags;
     
-        Object *getTopObject();
-    
-        std::string description();
+    Tile();
+    Tile(int i, int j);
+    ~Tile();
+    Ascii *getTopAscii(bool visible);
+    Ascii *getTerainAscii(bool visible);
+
+    void addObject(Object *object);
+    void removeObject(Object *object);
+
+    Object *getTopObject();
+
+    std::string description();
 };
 
 #endif /* TILE_H_INC  */

@@ -163,6 +163,11 @@ void Map::createRoom(Rect rect,Ascii floor)
 	printf("Creating room: %d %d %d %d\n",rect.X,rect.Y,rect.Width,rect.Height);
 }
 
+Tile *Map::getTile(WorldCoord point)
+{
+    return tiles[ARRAY2D(point.X,point.Y,size)];
+}
+
 void Map::addObject(int x, int y,Object *object)
 {
 	tiles[ARRAY2D(x,y,size)]->addObject(object);

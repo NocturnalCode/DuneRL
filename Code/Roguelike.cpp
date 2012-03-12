@@ -197,6 +197,7 @@ int Roguelike::poll()
 
 void Roguelike::showMenu()
 {
+    SDL_EnableKeyRepeat(0, 0);
 	if(!menuWindow->open)
 	{
 		rootWindow->add(menuWindow);
@@ -206,7 +207,9 @@ void Roguelike::showMenu()
 	{
 		rootWindow->remove(menuWindow);
 		menuWindow->open = false;
+        SDL_EnableKeyRepeat(25, 50);
 	}
+    
 }
 
 Uint32 Roguelike::Timerdisplay(Uint32 interval, void* param)

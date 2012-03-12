@@ -63,6 +63,19 @@ void Tile::removeObject(Object *object)
 	_flags.transparent = transparent ? YES : NO ;
 }
 
+Ascii *Tile::getTerainAscii(bool visible)
+{
+    Ascii *terrain = NULL;
+    rforeachp(Objects,o,objects)
+    {
+        Object *object = (*o);
+        terrain = object->getAscii();
+        if(object->terrain())
+            break;
+    }
+    return terrain;
+}
+
 Ascii *Tile::getTopAscii(bool visible)
 {
 	Ascii *ascii = NULL;
