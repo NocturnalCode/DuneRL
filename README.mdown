@@ -1,23 +1,48 @@
-# Quaffable
+# DuneRL 2012 7DRL
 
-Quaffable is something-like a roguelike foundation. It's really just my rehashing of a roguelike over several years then I'm making available.
+DuneRL is a fan made game based on Frank Herbert's "Dune".
 
-It has some nice features, but in general it's a bit of a mess. I hope to be improving it shortly.
+DuneRL is a survival "roguelike" with large areas of sand dunes for you to explore.
+You need to find your way back to your base, after being lost in the desert.
+You have a limited supply of water. You can collect and consume spice to help with the dehydration.
+
+DuneRL is built on top of a half working roguelike library (quaffable) that has been developed very slolwy over the last few years.
+This should be the first playable game based on the quaffable library.
 
 The source is licensed under the New BSD License.
 
+## Day 1
+
+Mainly consisted of re configuring the sample project from the Quaffable library.
+
+* Recoloured map to be yellow (eye destroyingly so).
+* Allowed tiles to have actual transparent backgrounds.
+* Added UI labels for family, water, spice, health.
+* Added a basic dehydration model, as you have turns you lose hydration and eventually health.
+* Started to describe the tile you are standing upon.
+* Added UI action log, doesn't work well due to large amounts of debug messages and it's not multi-lined.
+* Fixed issue with Quaffable labels not redrawing correctly.
+* Added new world wrapping option, works like a world map with poles etc.
+* Add UI for on death.
+
 ## Requirements
 
+* c++ compiler
 * SDL
 * SDL_Image
 
 ### MAC OS X
 
-Install SDL and SDL_Image into Frameworks, (I may bundle this as a private framework soon)
+#### Compiling
+Install SDL and SDL_Image into /Library/Frameworks. So far only tested on Mac OS X 10.5+, but it's c++ and SDL so technically could run on other platforms with some minor fixes.
 
-So far only tested on Mac OS X 10.5+, but it's c++ and SDL so technically could run on other platforms with some minor fixes.
+#### Binary
+Will provide OSX binary on completion.
+
+### Windows
+Will try and provide a window executable on completion, if there's time.
 
 ## Screenshots
 
-![Screenshot of Outside](https://github.com/DanBrooker/Quaffable/raw/master/Screenshots/Picture 9.png "Sample")
-![Screenshot of Debug Mode](https://github.com/DanBrooker/Quaffable/raw/master/Screenshots/Picture 10.png "Sample Debug")
+Dune it's basically all sand.
+![Day 1](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day1-Sand.png "Basic Yellow Dunes")

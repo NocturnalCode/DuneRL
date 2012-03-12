@@ -75,7 +75,7 @@ void Arrakis::generate()
         addObject(rand()%20,rand()%20,monster);
         monsters.push_back(monster);
         
-        LOG("Spawned %s %dhp %s %s",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
+        LOG("<Spawned %s %dhp %s %s>",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
     }
     
 	printf("Generated map of size %dx%d\n",size,size);
