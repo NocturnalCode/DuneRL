@@ -119,7 +119,5 @@ void DuneRL::init_world()
 	world->getMap()->setPlayer(player);
     world->getMap()->monsters.push_back(player);
 
-
-    
     player->calculateSight();
 }

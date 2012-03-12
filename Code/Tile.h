@@ -40,6 +40,8 @@ class Tile {
 		void removeObject(Object *object);
     
         Object *getTopObject();
+    
+        std::string description();
 };
 
 #endif /* TILE_H_INC  */

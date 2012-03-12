@@ -18,8 +18,10 @@ Object::Object()
 	asciis = new AsciiGroup(new Ascii());
 	_flags.passable = NO;
 	_flags.transparent = NO;
+    _flags.terrain = YES;
     weight = 0.1;
     range = 1;
+    description = "something";
 }
 
 Object::Object(Ascii *asc) 
@@ -28,20 +30,24 @@ Object::Object(Ascii *asc)
 	asciis = new AsciiGroup(asc);
 	_flags.passable = YES;
 	_flags.transparent = YES;
+    _flags.terrain = YES;
     weight = 0.1;
     range = 1;
     inventory = NULL;
+    description = "something";
 }
 
 Object::Object(AsciiGroup *asc)
 {
 	parent = NULL;
-	asciis = asc;   //its assumed that we become the owners of asc
+	asciis = asc; 
 	_flags.passable = YES;
 	_flags.transparent = YES;
+    _flags.terrain = NO;
     weight = 0.1;
     range = 1;
     inventory = NULL;
+    description = "something";
 }
 
 Object::~Object()
@@ -107,6 +113,19 @@ void Object::setTransparent(bool transparent)
 bool Object::transparent()
 {
 	return _flags.transparent==YES;
+}
+
+void Object::setTerrain(bool terrain)
+{
+	if(terrain)
+		_flags.terrain = YES;
+	else
+		_flags.terrain = NO;
+}
+
+bool Object::terrain()
+{
+	return _flags.terrain==YES;
 }
 
 Ascii* Object::getAscii()

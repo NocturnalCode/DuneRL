@@ -72,9 +72,7 @@ Ascii *Tile::getTopAscii(bool visible)
         {   
             Object *object = objects->back();
 			ascii = object->getAscii();
-            
-            
-            
+
             if(ascii->backgroundInherits)
             {
                 Colour colour;
@@ -101,6 +99,32 @@ Ascii *Tile::getTopAscii(bool visible)
 	}
 	
 	return ascii;
+}
+
+std::string Tile::description()
+{
+    int i=0;
+    std::string desc = "";
+    rforeachp(Objects,o,objects)
+    {
+        Object *object = (*o);
+        Monster *monster = dynamic_cast<Monster *>(object);
+        if(monster != NULL)
+        {
+            desc += (*o)->description + " stand";
+        }
+        else
+        {
+            desc += "on " + (*o)->description;
+            if(object->terrain())
+                break; // don't describe under the terrain
+        }
+        
+        i++;
+        if(i!=objects->size())
+            desc += " ";
+    }
+    return desc;
 }
 
 Object *Tile::getTopObject()

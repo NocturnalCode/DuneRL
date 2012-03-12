@@ -30,7 +30,8 @@ typedef struct
     unsigned holdable:1;
     unsigned wieldable:1;
     unsigned wearable:1;
-	unsigned _reserved:27;
+    unsigned terrain:1;
+	unsigned _reserved:26;
 } ObjectFlags;
 
 class Object {
@@ -40,8 +41,7 @@ protected:
 public:
     Tile *parent;
     std::string name;
-    std::string shortDescription;
-    std::string longDescription;
+    std::string description;
     float weight;
     int range;
     
@@ -70,6 +70,9 @@ public:
     
     void setTransparent(bool transparent);
     bool transparent();
+    
+    void setTerrain(bool terrain);
+    bool terrain();
     
     virtual Damages getMeleeDamages();
     virtual Damages getThrowDamages();

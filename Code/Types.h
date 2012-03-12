@@ -68,6 +68,8 @@ private:
 #define ARRAY2D(i_i,j_j,w_w) (i_i+(w_w*j_j))
 #define foreach(type,counter,collection) for(type::iterator counter = collection.begin(); counter != collection.end(); counter++)
 #define foreachp(type,counter,collection) for(type::iterator counter = collection->begin(); counter != collection->end(); counter++)
+#define rforeach(type,counter,collection) for(type::reverse_iterator counter = collection.rbegin(); counter != collection.rend(); counter++)
+#define rforeachp(type,counter,collection) for(type::reverse_iterator counter = collection->rbegin(); counter != collection->rend(); counter++)
 #define DEV (Roguelike::dev)
 
 #define HAS_MASK(var,mask) (mask == (var & mask))

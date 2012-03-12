@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Stringer.h"
 #include "DuneRL.h"
+#include "Tile.h"
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
@@ -17,19 +18,21 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     sight = 40;
     name = "Leto";
     family = "Atreides";
-    maxWater = 10;
+    maxWater = 20;
     water = maxWater;
     waterTick = 0;
     rateOfDehydration = 15;
     spice = 0;
     spiceCrazed = false;
     kills = 0;
+    description = "You";
 }
 
 std::string Player::spiceDescription()
 {
     return stringFormat("%d Spice",spice);
 }
+
 std::string Player::waterDescription()
 {
     std::string description;
@@ -52,7 +55,8 @@ std::string Player::waterDescription()
 
 std::string Player::underfootDescription()
 {
-    return "It is sandy underfoot.";// it's dune it's always sandy
+    return parent->description();
+//    return "It is sandy underfoot.";// it's dune it's always sandy
 }
 
 void Player::onDeath()

@@ -45,6 +45,8 @@ void Arrakis::generate()
 			
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
 			o->setPassable(true);
+            o->setTerrain(true);
+            o->description = "sand";
 			addObject(i,j,o);
         }
     }
@@ -66,7 +68,7 @@ void Arrakis::generate()
     {
         Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,1,1),Colour(0,0,0,0));
         Monster *monster = new Monster(ascii);
-        monster->name = stringFormat("Cat< %d>",i);
+        monster->name = stringFormat("dune cat< %d>",i);
         monster->speed = (Speed)(rand()%SpeedCount);
         monster->setMaxHP(rand()%4);
         monster->behaviour = 1<<(rand()%BehaviourCount);
