@@ -55,8 +55,9 @@ std::string Player::waterDescription()
 
 std::string Player::underfootDescription()
 {
-    return parent->description();
-//    return "It is sandy underfoot.";// it's dune it's always sandy
+    if(isAlive())
+        return parent->description();
+    return "You are stand amongt the dunes no more.";
 }
 
 void Player::onDeath()
@@ -76,6 +77,7 @@ void Player::performTurn()
     
     if(waterTick >= rateOfDehydration)
     {
+        LOG("Feel thirster");
         waterTick = 0;
         water--;
     }

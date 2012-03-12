@@ -95,6 +95,53 @@ void Window::setup()
 	setupVertexCoordinates();
 }
 
+void Window::reset()
+{
+    unsigned tileW = (4*scale);
+	unsigned tileH = (6*scale);
+    //	printf("Scale %d\n",scale);
+	unsigned width = rect.Width, height = rect.Height;
+	unsigned nWide = width/tileW;
+	unsigned nHigh = height/tileH;
+    
+    for(int j=0; j < nHigh; j++)
+	{
+		for(int i=0; i < nWide; i++)
+		{
+			// verts
+			int k =  ARRAY2D(i,j,nWide)*12;
+			vertexCoordinates[k+0] = i*tileW;			vertexCoordinates[k+1] = j*tileH;			vertexCoordinates[k+2] = 0;
+			vertexCoordinates[k+3] = tileW+(i*tileW);	vertexCoordinates[k+4] = j*tileH;			vertexCoordinates[k+5] = 0;
+			vertexCoordinates[k+6] = tileW+(i*tileW);	vertexCoordinates[k+7] = tileH+(j*tileH);	vertexCoordinates[k+8] = 0;
+			vertexCoordinates[k+9] = i*tileW;			vertexCoordinates[k+10]= tileH+(j*tileH);	vertexCoordinates[k+11] = 0;
+			
+			// texture
+			int l = ARRAY2D(i,j,nWide)*8;
+			
+			int row = (BLOCK+16) / 16;
+			int column = (BLOCK+16) % 16;
+			float ratio = 0.0625f;
+            
+			texCoordinates[l+0] = ratio*			column;		texCoordinates[l+1] = ratio*		row;	
+			texCoordinates[l+2] = ratio+ratio*		column;		texCoordinates[l+3] = ratio*		row;
+			texCoordinates[l+4] = ratio+ratio*		column;		texCoordinates[l+5] = ratio+ratio*	row;
+			texCoordinates[l+6] = ratio*			column;		texCoordinates[l+7] = ratio+ratio*	row;
+            
+			// colour
+			int m = ARRAY2D(i,j,nWide)*16;
+			colCoordinates[m+0] = 0.0f;	colCoordinates[m+1] = 0.0f; colCoordinates[m+2] = 0.0f;  colCoordinates[m+3] = 1.0f;
+			colCoordinates[m+4] = 0.0f;	colCoordinates[m+5] = 0.0f; colCoordinates[m+6] = 0.0f;  colCoordinates[m+7] = 1.0f;
+			colCoordinates[m+8] = 0.0f;	colCoordinates[m+9] = 0.0f; colCoordinates[m+10]= 0.0f;  colCoordinates[m+11] = 1.0f;
+			colCoordinates[m+12] =0.0f;	colCoordinates[m+13] =0.0f; colCoordinates[m+14]= 0.0f;  colCoordinates[m+15] = 1.0f;
+			
+			bgColCoordinates[m+0] = 1.0f;	bgColCoordinates[m+1] = 0.0f; bgColCoordinates[m+2] = 0.0f;  bgColCoordinates[m+3] = 1.0f;
+			bgColCoordinates[m+4] = 1.0f;	bgColCoordinates[m+5] = 0.0f; bgColCoordinates[m+6] = 0.0f;  bgColCoordinates[m+7] = 1.0f;
+			bgColCoordinates[m+8] = 1.0f;	bgColCoordinates[m+9] = 0.0f; bgColCoordinates[m+10]= 0.0f;  bgColCoordinates[m+11] = 1.0f;
+			bgColCoordinates[m+12] =1.0f;	bgColCoordinates[m+13] =0.0f; bgColCoordinates[m+14]= 0.0f;  bgColCoordinates[m+15] = 1.0f;
+		}
+	}
+}
+
 void Window::setupVertexCoordinates()
 {
 	unsigned tileW = (4*scale);
@@ -120,46 +167,12 @@ void Window::setupVertexCoordinates()
 		free(bgColCoordinates);
 	bgColCoordinates =(float*)malloc(sizeof(float) * nWide * nHigh * 16);
 	
-	for(int j=0; j < nHigh; j++)
-	{
-		for(int i=0; i < nWide; i++)
-		{
-			// verts
-			int k =  ARRAY2D(i,j,nWide)*12;
-			vertexCoordinates[k+0] = i*tileW;			vertexCoordinates[k+1] = j*tileH;			vertexCoordinates[k+2] = 0;
-			vertexCoordinates[k+3] = tileW+(i*tileW);	vertexCoordinates[k+4] = j*tileH;			vertexCoordinates[k+5] = 0;
-			vertexCoordinates[k+6] = tileW+(i*tileW);	vertexCoordinates[k+7] = tileH+(j*tileH);	vertexCoordinates[k+8] = 0;
-			vertexCoordinates[k+9] = i*tileW;			vertexCoordinates[k+10]= tileH+(j*tileH);	vertexCoordinates[k+11] = 0;
-			
-			// texture
-			int l = ARRAY2D(i,j,nWide)*8;
-			
-			int row = (BLOCK+16) / 16;
-			int column = (BLOCK+16) % 16;
-			float ratio = 0.0625f;
-
-			texCoordinates[l+0] = ratio*			column;		texCoordinates[l+1] = ratio*		row;	
-			texCoordinates[l+2] = ratio+ratio*		column;		texCoordinates[l+3] = ratio*		row;
-			texCoordinates[l+4] = ratio+ratio*		column;		texCoordinates[l+5] = ratio+ratio*	row;
-			texCoordinates[l+6] = ratio*			column;		texCoordinates[l+7] = ratio+ratio*	row;
-
-			// colour
-			int m = ARRAY2D(i,j,nWide)*16;
-			colCoordinates[m+0] = 0.0f;	colCoordinates[m+1] = 0.0f; colCoordinates[m+2] = 0.0f;  colCoordinates[m+3] = 1.0f;
-			colCoordinates[m+4] = 0.0f;	colCoordinates[m+5] = 0.0f; colCoordinates[m+6] = 0.0f;  colCoordinates[m+7] = 1.0f;
-			colCoordinates[m+8] = 0.0f;	colCoordinates[m+9] = 0.0f; colCoordinates[m+10]= 0.0f;  colCoordinates[m+11] = 1.0f;
-			colCoordinates[m+12] =0.0f;	colCoordinates[m+13] =0.0f; colCoordinates[m+14]= 0.0f;  colCoordinates[m+15] = 1.0f;
-			
-			bgColCoordinates[m+0] = 1.0f;	bgColCoordinates[m+1] = 0.0f; bgColCoordinates[m+2] = 0.0f;  bgColCoordinates[m+3] = 1.0f;
-			bgColCoordinates[m+4] = 1.0f;	bgColCoordinates[m+5] = 0.0f; bgColCoordinates[m+6] = 0.0f;  bgColCoordinates[m+7] = 1.0f;
-			bgColCoordinates[m+8] = 1.0f;	bgColCoordinates[m+9] = 0.0f; bgColCoordinates[m+10]= 0.0f;  bgColCoordinates[m+11] = 1.0f;
-			bgColCoordinates[m+12] =1.0f;	bgColCoordinates[m+13] =0.0f; bgColCoordinates[m+14]= 0.0f;  bgColCoordinates[m+15] = 1.0f;
-		}
-	}
+	reset();
 }
 
 void Window::display()
 {
+    reset();
 	// aquire texture and colour arrays
 	if(texture)
 		texture->bind();

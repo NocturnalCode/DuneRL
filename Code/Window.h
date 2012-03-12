@@ -33,6 +33,8 @@ class Window : public Display
 		float	*colCoordinates;
 		float	*bgColCoordinates;
 		int		vertices;
+    
+        void    reset();
 	
 	protected:
 		Rect	rect;
