@@ -27,6 +27,13 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
     WorldCoord coord;
     coord.X = worldPoint.X - 2;
     coord.Y = worldPoint.Y - 2;
+    
+    for (int i = 0; i<3; i++) {
+        for (int j = 0; j < 3; j++) {
+            
+        }
+    }
+    
     Tile* comparisonTile = map->tileAtPoint(coord);
     if (comparisonTile->height > currentTile->height) {
         //ok, we know we have to darken it, but its not clear by how much
