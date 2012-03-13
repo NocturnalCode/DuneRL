@@ -31,6 +31,8 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Bug Fixes
 * Blood splatter
 * Desert sun shadow
+* Day/Night Cycle
+* Broke the action log
 
 ## Requirements
 
@@ -53,3 +55,7 @@ Will try and provide a window executable on completion, if there's time.
 
 Dune it's basically all sand.
 ![Day 1](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day1-Sand.png "Basic Yellow Dunes")
+
+Pretty dunes, and a night cycle.
+![Day 2](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day2-Better-Dunes.png "Better looking Dunes")
+![Day 2](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day2-Night.png "Dune at night")
