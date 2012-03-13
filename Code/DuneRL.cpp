@@ -96,7 +96,7 @@ DuneRL::~DuneRL()
 
 void DuneRL::init_world()
 {
-	int worldSize = 400;
+	int worldSize = 800;
 	
 	rnd =  new Random(arc4random());
 	

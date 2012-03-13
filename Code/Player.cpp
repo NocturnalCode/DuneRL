@@ -30,10 +30,10 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     }
     
 	behaviour = BehaviourNone;
-    sight = 40;
+    sight = 45;
 
     setMaxHP(10);
-    maxWater = TURNS_IN_A_DAY * 1.5f;
+    maxWater = TURNS_IN_A_DAY * 1.5f/15.0f;
     water = maxWater;
     waterTick = 0;
     rateOfDehydration = TURNS_IN_A_DAY_PART;

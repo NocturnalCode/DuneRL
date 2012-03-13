@@ -10,6 +10,7 @@
 #define POINT_H_INC
 
 #include <list>
+#include <string>
 
 class Rect;
 
@@ -26,6 +27,7 @@ public:
     bool operator!=(Point &other);
     
     float distance(Point b);
+    std::string description();
 };
 
 typedef std::list<Point> Points;

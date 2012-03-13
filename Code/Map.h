@@ -48,7 +48,7 @@ public:
     Monsters monsters;
     Objects	 objects;
     Rect	visibleRect;
-    unsigned size;
+    int size;
     MapType maptype;
     bool mapFlipped;
     Map(unsigned size);
