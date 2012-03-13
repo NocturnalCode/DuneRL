@@ -16,12 +16,17 @@ Arrakis::Arrakis(unsigned size) : Map(size)
     
 }
 
-#define DUNE0 0x403519
-#define DUNE1 0x514422
-#define DUNE2 0x796737
+#define DUNE1 0x917d47
+#define DUNE2 0x9c874d 
 #define DUNE3 0xa28c4e
-#define DUNE4 0xc0a75e
-
+#define DUNE4 0xae9754
+#define DUNE5 0xc5a95f
+#define DUNE6 0xccb161
+#define DUNE7 0xdcbe69
+#define DUNE8 0xe5c56e
+#define DUNEB 0xfeda78
+#define DUNE9 0xefce73
+#define DUNEA 0xfeda79
 
 void Arrakis::generate()
 {
@@ -32,6 +37,18 @@ void Arrakis::generate()
     double persistence = 60;
     int perlinSize = 32;
 	Perlin heights(perlinSize, octaves,persistence);
+    
+    Colour col1(DUNE1);
+    Colour col2(DUNE2);
+    Colour col3(DUNE3);
+    Colour col4(DUNE4);
+    Colour col5(DUNE5);
+    Colour col6(DUNE6);
+    Colour col7(DUNE7);
+    Colour col8(DUNE8);
+    Colour col9(DUNE9);
+    Colour colA(DUNEA);
+    Colour colB(DUNEB);
 	
     //-- Generate polar ice in south pole, lower 5%
 	
@@ -79,10 +96,59 @@ void Arrakis::generate()
 			
             //h*
             
-            printf("perlinValue: %f\n", h);
+           // printf("perlinValue: %f\n", h);
             
-			Colour foreground(1.0f,1.0f-(h*0.8f),0.0f);
-            Colour background(1.0f,1.0f-h,0.0f);
+            // lowest
+            Colour foreground;
+            Colour background;
+            
+            if(h < 0.215) 
+            {
+                background = col1;
+            }
+            else if(h < 0.24) 
+            {
+                background = col2;
+            }
+            else if(h < 0.255)
+            {
+                background = col3;
+            }
+            else if(h < 0.275) 
+            {
+                background = col4;
+            }
+            else if(h < 0.3)
+            {
+                background = col5;
+            }
+            else if(h < 0.35)  
+            {
+                background = col6;
+            }
+            else if(h < 0.4)
+            {
+                background = col7;
+            }
+            else if(h < 0.45) 
+            {
+                background = col8;
+            }
+            else if(h < 0.475)
+            {
+                background = col9;
+            }
+            else if(h < 0.495)
+            {
+                background = colA;
+            }
+            else
+            {
+                background = colB;
+            }
+            
+			foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
+            //Colour background(1.0f,1.0f-h,0.0f);
             
 //            if ((i<2 || j<2 || j>size-3 || i>size-3)&&DEV) {
 //                background = Colour::blue();

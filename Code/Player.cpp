@@ -113,6 +113,6 @@ void Player::calculateSight()
     if(isAlive())
     {
         sightMap = new Lightmap(getPosition(),sight,getMap());
-        sightMap->addFilter(new LightFilterShadow());
+        //sightMap->addFilter(new LightFilterShadow());
     }
 }
