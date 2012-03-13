@@ -40,12 +40,13 @@ public:
     Ascii *getTerainAscii(bool visible);
 
     void addObject(Object *object);
+    void addLiquid(Object *object);
     void removeObject(Object *object);
 
     double height; //normalised height so very safe
     Object *getTopObject();
 
-    void sort();
+    
     std::string description();
 };
 

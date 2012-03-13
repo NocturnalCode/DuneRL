@@ -172,23 +172,31 @@ WorldCoord Monster::awayFromAttacker(Object *target)
         return WorldCoord(0,0);
     /// same as above just opposite direction
     
+    Map *map = target->getMap();
+    
     WorldCoord move;
     WorldCoord p = getPosition();
     WorldCoord t = target->getPosition();
     
-    int xdir = p.X > t.X ? 1 : -1;
-    int ydir = p.Y > t.Y ? 1 : -1;
+    int xdir = p.X > t.X ? 1 : p.X == t.X ? 0 : -1;
+    int ydir = p.Y > t.Y ? 1 : p.Y == t.Y ? 0 : -1;
+    
+    if (abs(p.X - t.X) < abs(p.Y - t.Y)) {
+        xdir = 0;
+    }
     
     // check move in X dir
-    move = WorldCoord(p.X+xdir,p.Y);
-    if(getMap()->checkMove(this, move.X, move.Y))
-    {
-        return move;
+    if (xdir != 0) {
+        move = WorldCoord(p.X+xdir,p.Y);
+        if(map->checkMove(this, move.X, move.Y))
+        {
+            return move;
+        }
     }
     
     // check move in Y dir
     move = WorldCoord(p.X,p.Y+ydir);
-    if(getMap()->checkMove(this, move.X, move.Y))
+    if(map->checkMove(this, move.X, move.Y))
     {
         return move;
     }
@@ -412,16 +420,17 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     attackers.push_back(attacker);
     attackers.unique();
     
-    Point splat = randomMove();
+    Point splat = awayFromAttacker(attacker);
     
     Map *map = attacker->getMap();
     
     if(!map->checkMove(this, splat.X, splat.Y))
-        splat = attacker->getPosition();
+        return;
     
     Colour bloodColour = Colour::red(); // this->bloodColour(); would be nice
     
-    Object *blood = new Object(new Ascii(PERCENT,bloodColour,Colour::clear()));
+    int ascii = arc4random()%2==0?EXCLAMATION:EXCLAMATION_DOUBLE;
+    Object *blood = new Object(new Ascii(ascii,bloodColour,Colour::clear()));
     blood->name = stringFormat("%s's blood",this->name.c_str());
     blood->description = "the blood of a "+this->name;
     blood->setLiquid(true);
@@ -429,13 +438,12 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     Tile *tile = map->getTile(splat);
     if(tile)
     {
-        tile->addObject(blood);
-        tile->sort();
+        tile->addLiquid(blood);
         Ascii *topAscii = tile->getTopAscii(true);
         topAscii->Foreground.lerp(bloodColour,0.2);
         
         Ascii *terrainAscii = map->getTile(splat)->getTerainAscii(true);
-        terrainAscii->Background.lerp(bloodColour,0.2);
+        terrainAscii->Foreground.lerp(bloodColour,0.2);
     }
     else
     {

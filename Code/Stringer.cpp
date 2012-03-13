@@ -39,7 +39,12 @@ std::string filenameWithFormat(std::string format, ...)
 //    
     char *name = getenv("EXECUTABLE_NAME"); // this is a bad way to do this, it's OSX specific atm
 //    
-    CFBundleRef bundle = CFBundleGetMainBundle();
+//    CFBundleRef bundle = CFBundleGetMainBundle();
+//    CFURLRef fileURL = CFBundleCopyResourceURL( bundle,
+//                                         CFSTR(buffer),
+//                                         CFSTR(""),
+//                                         NULL );
+    
     std::string path = stringFormat("%s.app/Contents/Resources/%s",name,buffer);
     
     return path;

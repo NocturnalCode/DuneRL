@@ -11,6 +11,9 @@
 #include "Tile.h"
 #include "Point.h"
 
+#include <list>
+#include <iostream>
+
 Tile::Tile()
 {
 	Tile(-1,-1);
@@ -46,6 +49,30 @@ void Tile::addObject(Object *object)
 		_flags.transparent = NO;
 }
 
+void Tile::addLiquid(Object *object)
+{
+    object->setParent(this);
+//    Objects::reverse_iterator it = objects->rbegin();
+    
+    bool insert = objects->size() > 1;
+    Object *tmp;
+    if(insert)
+    {
+        tmp = objects->back();
+        objects->pop_back();
+    }
+    
+    objects->push_back(object);
+    if(insert)
+        objects->push_back(tmp);
+	
+	if(object->_flags.passable==NO)
+		_flags.passable = NO;
+		
+    if(object->_flags.transparent==NO)
+        _flags.transparent = NO;
+}
+
 void Tile::removeObject(Object *object)
 {
 	object->setParent(NULL);
@@ -74,11 +101,6 @@ bool compare(Object *first, Object *second)
     else if(m2 != NULL && m1 == NULL)
         return false;
     else return true;
-}
-
-void Tile::sort()
-{
-    objects->sort(compare);
 }
 
 Ascii *Tile::getTerainAscii(bool visible)
