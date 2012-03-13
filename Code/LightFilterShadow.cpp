@@ -30,28 +30,29 @@ double weighting(Point direction, int i, int j)
         return 0;
     }
     int hits = 0;
+    int excess = 1;
     if (direction.X + i == 0) {
         hits++;
         if (direction.Y == 0) {
-            hits+=2;
+            hits+=excess;
         }
     }
     if (direction.Y + j == 0) {
         hits++;
         if (direction.X == 0) {
-            hits+=2;
+            hits+=excess;
         }
     }
     if (direction.X - i == 0) {
         hits--;
         if (direction.Y == 0) {
-            hits-=2;
+            hits-=excess;
         }
     }
     if (direction.Y - j == 0) {
         hits--;
         if (direction.X == 0) {
-            hits-=2;
+            hits-=excess;
         }
     }
     
@@ -62,7 +63,7 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
 {
     //we want to change the ascii now...
     
-    Point direction = Point(-1, 0);
+    Point direction = Point(1, 1);
     
     DuneWorld* world = dynamic_cast<DuneWorld*>(map->getMap()->world);
     if (world == NULL) {
@@ -71,28 +72,35 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
     
     switch (world->getTimeOfDay()) {
         case DayNightEvening:
-            
+            direction.X = 1;
+            direction.Y = 0;
+            break;
         case DayNightTiwilight:
+            direction.X = 1;
+            direction.Y = 0;
             break;
         case DayNightMidnight:
             break;
         case DayNightDawn:
+            direction.X = 0;
+            direction.Y = 1;
+            break;
             break;
         case DayNightSunrise:
-            direction.X = 1;
-            direction.Y = -1;
+            direction.X = 0;
+            direction.Y = 1;
             break;
         case DayNightMorning:
             direction.X = 1;
             direction.Y = 1;
             break;
         case DayNightMidday:
-            direction.X = -1;
+            direction.X = 1;
             direction.Y = 1;
             break;
         case DayNightAfternoon:
-            direction.X = -1;
-            direction.Y = -1;
+            direction.X = 1;
+            direction.Y = 1;
             break;
             
         default:
@@ -121,6 +129,7 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
             if (weight < 0) {
                 weight = abs(weight);
                 if (comparisonTile->height > currentTile->height) {
+                    //double val = 1.0/(comparisonTile->height - currentTile->height);
                     for (int z = 0; z<weight; z++) {
                         ascii->Background.darken(darken);
                         ascii->Foreground.darken(darken);
@@ -128,6 +137,7 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
                 }
             }
             else {
+                //double val = 1.0/(comparisonTile->height - currentTile->height);
                 if (comparisonTile->height < currentTile->height) {
                     for (int z = 0; z<weight; z++) {
                         ascii->Background.darken(darken);
@@ -135,7 +145,6 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
                     }
                 }
             }
-            
         }
     }
     return ascii;

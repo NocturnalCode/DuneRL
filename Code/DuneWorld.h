@@ -36,6 +36,7 @@ protected:
     
 public:
     DayNight getTimeOfDay();
+    double getDayPartProgress();
     DuneWorld();
 };
 
