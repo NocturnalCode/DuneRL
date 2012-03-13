@@ -30,7 +30,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Improved desert noise, tiling
 * Bug Fixes
 * Blood splatter
-
+* Desert sun shadow
 
 ## Requirements
 

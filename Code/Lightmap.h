@@ -12,7 +12,8 @@
 
 class Map;
 class Ascii;
-
+class LightFilter;
+class Tile;
 #include "Point.h"
 #include "Types.h"
 
@@ -35,12 +36,18 @@ protected:
     virtual void calculate();
     void cast_light(int row, float start,float end,int xx,int xy,int yx,int yy,int id);	
     void printLightMap();
+    std::list<LightFilter*> lightFilters;
+    
 public:
     Lightmap();
     Lightmap(Point position,int radius,Map *map);
-    
+    ~Lightmap();
     virtual bool isLit(WorldCoord world);
     virtual Ascii *filter(WorldCoord world,Ascii *ascii);
+    
+    void addFilter(LightFilter* filter);
+    void removeFilter(LightFilter* filter);
+    Tile* tileAtPoint(WorldCoord point);
 };
 
 #endif /* LIGHTMAP_H_INC */

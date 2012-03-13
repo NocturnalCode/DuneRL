@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Point.h"
 #include <math.h>
+#include "LightFilter.h"
 
 Lightmap::Lightmap()
 {
@@ -26,6 +27,18 @@ Lightmap::Lightmap(Point p,int r,Map *map)
 	calculate();
 }
 
+Lightmap::~Lightmap()
+{
+    foreach(std::list<LightFilter*>, filter, lightFilters) //We assume that when a filter is added to the map that the map owns the filter
+    {
+        delete *filter;
+    }
+    lightFilters.clear();
+    
+    if(boolMap!=NULL)
+		free(boolMap);
+}
+
 bool Lightmap::isLit(WorldCoord world)
 {
 	LocalCoord local = world2local(world);
@@ -39,6 +52,11 @@ bool Lightmap::isLit(WorldCoord world)
 Ascii *Lightmap::filter(WorldCoord world,Ascii *ascii)
 {
     // filter the ascii 
+    foreach(std::list<LightFilter*>, filter, lightFilters)
+    {
+        (*filter)->apply(this, world, ascii);
+    }
+    
     return ascii;
 }
 
@@ -394,4 +412,20 @@ void Lightmap::cast_light(int row, float start,float end,int xx,int xy,int yx,in
 			break;
         }
 	}
+}
+
+void Lightmap::addFilter(LightFilter *filter)
+{
+    lightFilters.push_back(filter);
+}
+
+void Lightmap::removeFilter(LightFilter *filter)
+{
+    lightFilters.remove(filter);
+    delete filter;
+}
+
+Tile* Lightmap::tileAtPoint(WorldCoord point)
+{
+    return map->getTile(point);
 }

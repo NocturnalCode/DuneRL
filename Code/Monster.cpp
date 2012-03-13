@@ -337,7 +337,9 @@ bool Monster::canSee(int x, int y)
 void Monster::calculateSight()
 {
     if(isAlive())
+    {
         sightMap = new Lightmap(getPosition(),sight,getMap());
+    }
 }
 
 /// this is kinda ok for NPCs but isn't very good for player characters
