@@ -215,7 +215,7 @@ void Monster::attack(Object *t, Object *weapon)
             Damage damage = (*dmg);
             LOG("Hit %s.< #AA0%d dmg>",target->name.c_str(),damage.damage);
             target->adjustHP(-damage.damage);
-            LOG("<%s.>",target->hpDescription().c_str());
+            printf("<%s.>",target->hpDescription().c_str());
             
             target->onDamagedBy(this, damage);
             this->onDamagedObject(target,damage);
@@ -250,21 +250,21 @@ void Monster::performTurn()
     }
     
     if(!attackers.empty())
-        LOG("<[%s] %d attackers (nearest %s)>",this->name.c_str(),attackers.size(),nearest?nearest->name.c_str():" - ");
+        printf("<[%s] %d attackers (nearest %s)>",this->name.c_str(),attackers.size(),nearest?nearest->name.c_str():" - ");
 
     /// check flee
     if(HAS_MASK(behaviour,BehaviourFlees))
     {
         if(HAS_MASK(behaviour,BehaviourAggressive) && hp > (maxhp*0.2))
         {
-            LOG("<[%s] too aggressive to flee>",this->name.c_str());
+            printf("<[%s] too aggressive to flee>",this->name.c_str());
         }
         else
         {
             if(!attackers.empty())
             {
                 move = awayFromAttacker(nearest);
-                LOG("<[%s] fled>",this->name.c_str());
+                printf("<[%s] fled>",this->name.c_str());
             }
         }
     }
@@ -281,7 +281,7 @@ void Monster::performTurn()
     /// check can attack
     if( nearest && NOT_MASK(behaviour,BehaviourPassive))
     {
-        LOG("<[%s] wants to attack %s >",this->name.c_str(),nearest->name.c_str());
+        printf("<[%s] wants to attack %s >",this->name.c_str(),nearest->name.c_str());
         
         Object *ranged = getWeaponForRanged();
         if((ranged!=NULL) && (ranged->range >= mindist))
@@ -300,18 +300,18 @@ void Monster::performTurn()
     if(nearest && HAS_MASK(behaviour,BehaviourAggressive))
     {
         move = towardAttacker(nearest);
-        LOG("<[%s] Wants to move toward target>",this->name.c_str());
+        printf("<[%s] Wants to move toward target>",this->name.c_str());
     }
     else if(nearest && HAS_MASK(behaviour,BehaviourTimid))
     {
         move = awayFromAttacker(nearest);
-        LOG("<[%s] Wants to move away from target>",this->name.c_str());
+        printf("<[%s] Wants to move away from target>",this->name.c_str());
     }
     
     if(move.zero())
     {
        move = randomMove();
-       LOG("<[%s] Wants to move randomly>",this->name.c_str());
+       printf("<[%s] Wants to move randomly>",this->name.c_str());
     }
     
     if(!move.zero() && map->checkMove(this, move.X, move.Y))

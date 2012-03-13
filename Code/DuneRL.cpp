@@ -86,14 +86,6 @@ DuneRL::DuneRL()
 	underfoot->setFrame(Rect(16,462,640-8,40));
 	underfoot->setColour(Colour(1,1,1));
 	rootWindow->add(underfoot);
-    
-    CallBack<DuneRL, std::string> *getLog = new CallBack<DuneRL, std::string>(this,&DuneRL::getTurnLog);
-    LabelValue<std::string,DuneRL> *log = new LabelValue<std::string,DuneRL>("",getLog);
-	log->setFrame(Rect(16,450-120,640-16,120));
-	log->setColour(Colour(1,1,1));
-    log->setMultiline(true,2,2);
-    log->setAlignment(LabelAlignBottom);
-	rootWindow->add(log);
 }
 
 DuneRL::~DuneRL()
@@ -122,13 +114,6 @@ void DuneRL::init_world()
     world->getMap()->monsters.push_back(player);
 
     player->calculateSight();
-}
-
-std::string DuneRL::getTurnLog()
-{
-    if(logs.size() <= 0)
-        return "<empty>";
-    return logs[logs.size()-1];
 }
 
 void DuneRL::deathMenu()

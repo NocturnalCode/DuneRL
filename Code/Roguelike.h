@@ -53,8 +53,8 @@ class Roguelike
 		int vertices;
 		Image *logo;
     
-        std::map<int,std::string> logs;
-        
+        std::map<int, std::vector<std::string> > logs;
+
     public:
         Roguelike();
 		~Roguelike();

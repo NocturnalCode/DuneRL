@@ -16,6 +16,13 @@ Arrakis::Arrakis(unsigned size) : Map(size)
     
 }
 
+#define DUNE0 0x403519
+#define DUNE1 0x514422
+#define DUNE2 0x796737
+#define DUNE3 0xa28c4e
+#define DUNE4 0xc0a75e
+
+
 void Arrakis::generate()
 {
 	int i,j;
@@ -64,22 +71,20 @@ void Arrakis::generate()
 			ascii.push_back(QUOTE_SINGLE);
 			ascii.push_back(0);
 			
-            
-            
             //h*
             
 			Colour foreground(1.0f,1.0f-(h*0.8f),0.0f);
             Colour background(1.0f,1.0f-h,0.0f);
-            if ((i<2 || j<2 || j>size-3 || i>size-3)&&DEV) {
-                background = Colour::blue();
-            }
             
-			
+//            if ((i<2 || j<2 || j>size-3 || i>size-3)&&DEV) {
+//                background = Colour::blue();
+//            }
 			
 			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
 			
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
             tiles[ARRAY2D(i,j,size)]->height = h;
+            
 			o->setPassable(true);
             o->setTerrain(true);
             o->description = "the hot sand";
@@ -111,7 +116,7 @@ void Arrakis::generate()
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
         
-        LOG("<Spawned %s %dhp %s %s>",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
+        printf("<Spawned %s %dhp %s %s>",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
     }
     
 	printf("Generated map of size %dx%d\n",size,size);

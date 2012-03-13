@@ -90,6 +90,7 @@
 		65EB40A8139C41AD00AD8FE0 /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 65EB40A7139C41AD00AD8FE0 /* Damage.h */; };
 		65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */; };
 		65FF808D150D8D7A00D2DA76 /* DeathMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */; };
+		65FF8092150EDA2B00D2DA76 /* ActionLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF808F150EDA0400D2DA76 /* ActionLog.cpp */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +219,8 @@
 		65FF808B150D4CE900D2DA76 /* Arrakis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arrakis.h; sourceTree = "<group>"; };
 		65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeathMenu.cpp; sourceTree = "<group>"; };
 		65FF808E150D8D9600D2DA76 /* DeathMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeathMenu.h; sourceTree = "<group>"; };
+		65FF808F150EDA0400D2DA76 /* ActionLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionLog.cpp; sourceTree = "<group>"; };
+		65FF8091150EDA1500D2DA76 /* ActionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionLog.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* DuneRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuneRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -342,6 +345,8 @@
 			isa = PBXGroup;
 			children = (
 				48D8AB9E11685EE900865580 /* Basic */,
+				65FF8091150EDA1500D2DA76 /* ActionLog.h */,
+				65FF808F150EDA0400D2DA76 /* ActionLog.cpp */,
 			);
 			name = Widget;
 			sourceTree = "<group>";
@@ -685,6 +690,7 @@
 				65C5B700150B1A3400BC6DB6 /* Stringer.cpp in Sources */,
 				65C5B703150B1B7400BC6DB6 /* Rect.cpp in Sources */,
 				65C5B709150B1E1C00BC6DB6 /* Point.cpp in Sources */,
+				65FF8092150EDA2B00D2DA76 /* ActionLog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 #include "DeathMenu.h"
 
 class Player;
+class ActionLog;
 
 class DuneRL : public Roguelike
 {
@@ -21,7 +22,7 @@ protected:
     Player *player;
 
     DeathMenu *dmenu;
-    
+    ActionLog *actionLog;
     
 public:
     DuneRL();

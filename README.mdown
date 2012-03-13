@@ -6,7 +6,7 @@ DuneRL is a survival "roguelike" with large areas of sand dunes for you to explo
 You need to find your way back to your base, after being lost in the desert.
 You have a limited supply of water. You can collect and consume spice to help with the dehydration.
 
-DuneRL is built on top of a half working roguelike library (quaffable) that has been developed very slolwy over the last few years.
+DuneRL is built on top of a half working roguelike library (quaffable) that has been developed very slowly over the last few years.
 This should be the first playable game based on the quaffable library.
 
 The source is licensed under the New BSD License.
@@ -24,6 +24,13 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Fixed issue with Quaffable labels not redrawing correctly.
 * Added new world wrapping option, works like a world map with poles etc.
 * Add UI for on death.
+
+## Day 2
+
+* Improved desert noise, tiling
+* Bug Fixes
+* Blood splatter
+
 
 ## Requirements
 

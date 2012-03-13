@@ -50,18 +50,9 @@ void Roguelike::log(std::string format, ...)
     int turn = world->getTurn();
     
     printf("[%d]LOG: %s\n",turn,entry.c_str());
-    
-    std::string turnLog = logs[turn];
-    if(turnLog.empty())
-    {
-        logs[turn] = entry;
-//        printf("new log entry\n");
-    }
-    else
-    {
-        logs[turn] = turnLog + std::string("% ") + entry;
-//        printf("adding to log\n");
-    }
+
+    std::vector<std::string> turnLog = logs[turn];
+    turnLog.push_back(entry);
 }
 
 int Roguelike::init_window()
