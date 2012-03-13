@@ -868,7 +868,14 @@ void Map::displayTile(float *texture, float *colour,float *backgroundColour, Til
 	
     Lightmap *lm = monster->getSightMap();
     if(lm)
-        ascii = lm->filter(p, ascii);
+    {
+        if (ascii != NULL) {
+            //const Ascii a = *ascii;
+            ascii = new Ascii(*ascii);
+            ascii = lm->filter(p, ascii);
+        }
+        
+    }
     
 	float m = ( visible ? 1 : 0.2 ); 
 	
@@ -889,6 +896,13 @@ void Map::displayTile(float *texture, float *colour,float *backgroundColour, Til
 		fc = Colour::black();
 		bc = Colour::black();
 	}
+    
+    if (lm) {
+        if (ascii != NULL) {
+            delete ascii;
+        }
+        
+    }
     
 	texture[0] = ratio*			column;		texture[1] = ratio*			row;	
 	texture[2] = ratio+ratio*	column;		texture[3] = ratio*			row;

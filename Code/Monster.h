@@ -100,7 +100,7 @@ public:
     virtual void updateAscii();
     virtual void performTurn();
 
-    void calculateSight();
+    virtual void calculateSight();
     virtual bool canSee(int x, int y);
     
     static void load();

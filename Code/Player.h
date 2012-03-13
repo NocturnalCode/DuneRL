@@ -41,7 +41,7 @@ public:
     std::string waterDescription();
     
     std::string underfootDescription();
-    
+    void calculateSight();
     Player();
 };
 

@@ -11,6 +11,8 @@
 #include "Stringer.h"
 #include "DuneRL.h"
 #include "Tile.h"
+#include "LightFilterDayNightCycle.h"
+#include "LightFilterShadow.h"
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
@@ -103,5 +105,14 @@ void Player::performTurn()
             LOG("Losing health from dehydration.");
             adjustHP(-1);
         }
+    }
+}
+
+void Player::calculateSight()
+{
+    if(isAlive())
+    {
+        sightMap = new Lightmap(getPosition(),sight,getMap());
+        sightMap->addFilter(new LightFilterShadow());
     }
 }
