@@ -8,7 +8,7 @@
 
 #include "ActionLog.h"
 
-ActionLog::ActionLog()
+ActionLog::ActionLog(Rect rect) : Window(rect)
 {
     
 }

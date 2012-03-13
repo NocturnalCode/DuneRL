@@ -47,7 +47,7 @@ void Arrakis::generate()
 //            int jdx = j*perlinSize/size;
             
 			double h = heights.interpolatedAt(size, i, j);
-            printf("perlinValue: %f\n", h);
+            
             //h=h+0.5;
             if (h<0) {
                 h = -h;
@@ -78,6 +78,8 @@ void Arrakis::generate()
 			ascii.push_back(0);
 			
             //h*
+            
+            printf("perlinValue: %f\n", h);
             
 			Colour foreground(1.0f,1.0f-(h*0.8f),0.0f);
             Colour background(1.0f,1.0f-h,0.0f);

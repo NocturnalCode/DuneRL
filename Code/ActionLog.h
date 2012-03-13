@@ -14,7 +14,7 @@
 class ActionLog : public Window
 {
 public:
-    ActionLog();
+    ActionLog(Rect rect);
 };
 
 #endif /* ACTIONLOG_H_INC */
