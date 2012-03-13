@@ -46,7 +46,8 @@ class World : public Display
 		TurnInfo turn;
         Keys movementKeys;
     
-		void updateWorld();
+        void doUpdateWorld();
+		virtual void updateWorld();
 
     public:
         World();

@@ -97,6 +97,7 @@
 		65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */; };
 		65FF808D150D8D7A00D2DA76 /* DeathMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */; };
 		65FF8092150EDA2B00D2DA76 /* ActionLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF808F150EDA0400D2DA76 /* ActionLog.cpp */; };
+		65FF809D150EF4B700D2DA76 /* DuneWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FF809C150EF4B700D2DA76 /* DuneWorld.cpp */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -233,6 +234,8 @@
 		65FF808E150D8D9600D2DA76 /* DeathMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeathMenu.h; sourceTree = "<group>"; };
 		65FF808F150EDA0400D2DA76 /* ActionLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionLog.cpp; sourceTree = "<group>"; };
 		65FF8091150EDA1500D2DA76 /* ActionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionLog.h; sourceTree = "<group>"; };
+		65FF809A150EF4AB00D2DA76 /* DuneWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuneWorld.h; sourceTree = "<group>"; };
+		65FF809C150EF4B700D2DA76 /* DuneWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuneWorld.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* DuneRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuneRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -496,6 +499,8 @@
 				653238E9136AABEC0067C56A /* DuneRL.cpp */,
 				65FF808E150D8D9600D2DA76 /* DeathMenu.h */,
 				65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */,
+				65FF809A150EF4AB00D2DA76 /* DuneWorld.h */,
+				65FF809C150EF4B700D2DA76 /* DuneWorld.cpp */,
 				65323915136AC9E60067C56A /* main.cpp */,
 				653237CD1368B1AE0067C56A /* Resources */,
 			);
@@ -736,6 +741,7 @@
 				650F3ECC13822AB20080CA59 /* Player.cpp in Sources */,
 				65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */,
 				65FF808D150D8D7A00D2DA76 /* DeathMenu.cpp in Sources */,
+				65FF809D150EF4B700D2DA76 /* DuneWorld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

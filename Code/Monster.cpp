@@ -250,7 +250,7 @@ void Monster::performTurn()
     }
     
     if(!attackers.empty())
-        printf("<[%s] %d attackers (nearest %s)>",this->name.c_str(),attackers.size(),nearest?nearest->name.c_str():" - ");
+        printf("<[%s] %lu attackers (nearest %s)>",this->name.c_str(),attackers.size(),nearest?nearest->name.c_str():" - ");
 
     /// check flee
     if(HAS_MASK(behaviour,BehaviourFlees))

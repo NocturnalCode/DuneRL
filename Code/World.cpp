@@ -50,9 +50,9 @@ void World::display(float *texPointer, float *colPointer, float *bgColPointer)
 	map->display();
 }
 
-void World::updateWorld()
+void World::doUpdateWorld()
 {
-	turn.count++;
+    turn.count++;
 	
 	int turnCurrent = turn.count % turn.orderCount;
 	
@@ -77,7 +77,12 @@ void World::updateWorld()
 		return;
     }
 	
-	updateWorld();
+	doUpdateWorld();
+}
+
+void World::updateWorld()
+{
+	doUpdateWorld();
 }
 
 Rect World::getFrame()

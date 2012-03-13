@@ -15,7 +15,7 @@
 #include "LabelValue.h"
 #include "Player.h"
 
-#include "World.h"
+#include "DuneWorld.h"
 #include "Map.h"
 
 #include "SDL/SDL.h"
@@ -101,7 +101,7 @@ void DuneRL::init_world()
 	rnd =  new Random(arc4random());
 	
 	sprite = new Sprite("DuneRL.app/Contents/Resources/tileset.png",16);
-    world = new World();
+    world = new DuneWorld();
     
     Map *map = new Arrakis(worldSize);
     map->generate();

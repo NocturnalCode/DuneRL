@@ -14,6 +14,8 @@
 #include "LightFilterDayNightCycle.h"
 #include "LightFilterShadow.h"
 
+#include "DuneWorld.h"
+
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))
 {
     if(arc4random()%2==0)
@@ -31,10 +33,10 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     sight = 40;
 
     setMaxHP(10);
-    maxWater = 20;
+    maxWater = TURNS_IN_A_DAY * 1.5f;
     water = maxWater;
     waterTick = 0;
-    rateOfDehydration = 15;
+    rateOfDehydration = TURNS_IN_A_DAY_PART;
     spice = 0;
     spiceCrazed = false;
     kills = 0;
