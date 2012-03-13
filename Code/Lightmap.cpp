@@ -439,3 +439,7 @@ Point Lightmap::getPosition()
 {
     return position;
 }
+Map* Lightmap::getMap()
+{
+    return map;
+}

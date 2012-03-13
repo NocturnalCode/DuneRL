@@ -11,10 +11,8 @@
 		4852FBDE0D9F118E00919E63 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4852FBDD0D9F118E00919E63 /* OpenGL.framework */; };
 		6217402A150EC3AB00CEFFB4 /* LightFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62174029150EC3AB00CEFFB4 /* LightFilter.cpp */; };
 		6217402D150EC3BC00CEFFB4 /* LightFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6217402C150EC3BC00CEFFB4 /* LightFilter.h */; };
-		62174030150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6217402F150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp */; };
-		62174032150ED02E00CEFFB4 /* LightFilterDayNightCycle.h in Headers */ = {isa = PBXBuildFile; fileRef = 62174031150ED02E00CEFFB4 /* LightFilterDayNightCycle.h */; };
-		62174034150ED56D00CEFFB4 /* LightFilterShadow.h in Headers */ = {isa = PBXBuildFile; fileRef = 62174033150ED56D00CEFFB4 /* LightFilterShadow.h */; };
-		62174036150ED58500CEFFB4 /* LightFilterShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62174035150ED58500CEFFB4 /* LightFilterShadow.cpp */; };
+		62174044150EFECF00CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6217402F150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp */; };
+		62174045150EFED600CEFFB4 /* LightFilterShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62174035150ED58500CEFFB4 /* LightFilterShadow.cpp */; };
 		650F3ECC13822AB20080CA59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 650F3ECA13822AB20080CA59 /* Player.cpp */; };
 		6514CB2F13DACE8100FF2066 /* Stringer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6514CB2E13DACE8100FF2066 /* Stringer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		653237B413682ACB0067C56A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653237AA13682AA80067C56A /* Cocoa.framework */; };
@@ -396,7 +394,6 @@
 		4866C82611A935770056F70D /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				6217402E150ECFC200CEFFB4 /* Light Filters */,
 				4866C82D11A937A50056F70D /* Lightmap.h */,
 				4866C82E11A937A50056F70D /* Lightmap.cpp */,
 				6217402C150EC3BC00CEFFB4 /* LightFilter.h */,
@@ -491,6 +488,7 @@
 		6532379B136829580067C56A /* Fantasy */ = {
 			isa = PBXGroup;
 			children = (
+				6217402E150ECFC200CEFFB4 /* Light Filters */,
 				650F3ECB13822AB20080CA59 /* Player.h */,
 				650F3ECA13822AB20080CA59 /* Player.cpp */,
 				65FF808B150D4CE900D2DA76 /* Arrakis.h */,
@@ -594,8 +592,6 @@
 				65C5B705150B1B8800BC6DB6 /* Rect.h in Headers */,
 				65C5B707150B1E0E00BC6DB6 /* Point.h in Headers */,
 				6217402D150EC3BC00CEFFB4 /* LightFilter.h in Headers */,
-				62174032150ED02E00CEFFB4 /* LightFilterDayNightCycle.h in Headers */,
-				62174034150ED56D00CEFFB4 /* LightFilterShadow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,8 +722,6 @@
 				65C5B709150B1E1C00BC6DB6 /* Point.cpp in Sources */,
 				65FF8092150EDA2B00D2DA76 /* ActionLog.cpp in Sources */,
 				6217402A150EC3AB00CEFFB4 /* LightFilter.cpp in Sources */,
-				62174030150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */,
-				62174036150ED58500CEFFB4 /* LightFilterShadow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,6 +736,8 @@
 				65FF808A150D4CCC00D2DA76 /* Arrakis.cpp in Sources */,
 				65FF808D150D8D7A00D2DA76 /* DeathMenu.cpp in Sources */,
 				65FF809D150EF4B700D2DA76 /* DuneWorld.cpp in Sources */,
+				62174044150EFECF00CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */,
+				62174045150EFED600CEFFB4 /* LightFilterShadow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

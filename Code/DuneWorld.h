@@ -23,7 +23,7 @@ typedef enum {
     DayNightCount
 } DayNight;
 
-#define TURNS_IN_A_DAY 200
+#define TURNS_IN_A_DAY 400
 #define TURNS_IN_A_DAY_PART TURNS_IN_A_DAY/DayNightCount
 
 class DuneWorld : public World
@@ -35,6 +35,7 @@ protected:
     virtual void updateWorld();
     
 public:
+    DayNight getTimeOfDay();
     DuneWorld();
 };
 

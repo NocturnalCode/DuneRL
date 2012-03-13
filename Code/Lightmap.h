@@ -47,6 +47,7 @@ public:
     virtual Ascii *filter(WorldCoord world,Ascii *ascii);
     int getRadius();
     Point getPosition();
+    Map* getMap();
     void addFilter(LightFilter* filter);
     void removeFilter(LightFilter* filter);
     Tile* tileAtPoint(WorldCoord point);

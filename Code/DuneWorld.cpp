@@ -25,6 +25,8 @@ void DuneWorld::updateWorld()
         dayNight = (DayNight)((dayNight+1)%DayNightCount);
         dayNightTick = 0;
         
+        
+        
         switch (dayNight) {
             case DayNightMorning:
                 LOG("It is now morning");
@@ -43,5 +45,11 @@ void DuneWorld::updateWorld()
         }
     }
     
+    
     //printf("turn %d",getTurn());
+}
+
+DayNight DuneWorld::getTimeOfDay()
+{
+    return dayNight;
 }

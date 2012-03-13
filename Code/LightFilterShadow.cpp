@@ -16,6 +16,8 @@
 #include "Types.h"
 #include "Point.h"
 #include "Tile.h"
+#include "DuneWorld.h"
+#include "Map.h"
 
 inline double abs(double val)
 {
@@ -60,7 +62,43 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
 {
     //we want to change the ascii now...
     
-    Point direction = Point(1, 1);
+    Point direction = Point(-1, 0);
+    
+    DuneWorld* world = dynamic_cast<DuneWorld*>(map->getMap()->world);
+    if (world == NULL) {
+        return ascii;
+    }
+    
+    switch (world->getTimeOfDay()) {
+        case DayNightEvening:
+            
+        case DayNightTiwilight:
+            break;
+        case DayNightMidnight:
+            break;
+        case DayNightDawn:
+            break;
+        case DayNightSunrise:
+            direction.X = 1;
+            direction.Y = -1;
+            break;
+        case DayNightMorning:
+            direction.X = 1;
+            direction.Y = 1;
+            break;
+        case DayNightMidday:
+            direction.X = -1;
+            direction.Y = 1;
+            break;
+        case DayNightAfternoon:
+            direction.X = -1;
+            direction.Y = -1;
+            break;
+            
+        default:
+            return ascii;
+            break;
+    }
     
     Tile* currentTile = map->tileAtPoint(worldPoint);
     WorldCoord coord;
