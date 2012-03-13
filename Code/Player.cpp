@@ -72,7 +72,7 @@ std::string Player::underfootDescription()
 {
     if(isAlive() || DEV)
         return parent->description();
-    return "You are stand amongt the dunes no more.";
+    return "You will stand amongt the dunes no more.";
 }
 
 void Player::onDeath()

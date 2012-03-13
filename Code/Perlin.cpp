@@ -7,12 +7,12 @@
 #include "Heightmap.h"
 #include <math.h>
 
-double LinearInterpolate(double a, double b, double x)
+double Perlin::LinearInterpolate(double a, double b, double x)
 {
 	return  a*(1-x) + b*x;
 }
 
-double CosineInterpolate(double a, double b, double x)
+double Perlin::CosineInterpolate(double a, double b, double x)
 {
 	double ft = x * (double)M_PI;
 	double f = (1 - (double)cos(ft)) * 0.5f;
@@ -20,36 +20,36 @@ double CosineInterpolate(double a, double b, double x)
 	return a * (1 - f) + b * f;
 }
 
-double Noise(int x)
+double Perlin::Noise(int x)
 {
 	x = (x << 13) ^ x;
 	return (double)(1.0 - ((x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
 }
 
-double Noise(int x, int y)
+double Perlin::Noise(int x, int y)
 {
-	int n = x + y * 57;
+	int n = x + y * seed;
 	n = (n<<13) ^ n;
 	return (double)(1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);    
 }
 
-double Noise(int x, int y, int z)
+double Perlin::Noise(int x, int y, int z)
 {
 
-	int L = (x + y * 57);
-	int M = (y + z * 57);
-	unsigned N = (unsigned)(L + M * 57);
+	int L = (x + y * seed);
+	int M = (y + z * seed);
+	unsigned N = (unsigned)(L + M * seed);
 	N = (N << 13) ^ N;
 	double d = (double)((N * (N * N * 15731 + 789221) + 1376312589) & 0x7fffffff);
 	return (1.0f - (double)(d / 1073741824.0));
 }
 
-double SmoothNoise(int x)
+double Perlin::SmoothNoise(int x)
 {
 	return (Noise(x) / 2.0f) + (Noise(x - 1) / 4.0f) + (Noise(x + 1) / 4.0f);
 }
 
-double SmoothNoise(int x, int y)
+double Perlin::SmoothNoise(int x, int y)
 {
 	double corners = (Noise(x - 1, y - 1) + Noise(x + 1, y - 1) + Noise(x - 1, y + 1) + Noise(x + 1, y + 1)) / 16.0f;
 	double sides = (Noise(x - 1, y) + Noise(x + 1, y) + Noise(x, y - 1) + Noise(x, y + 1)) / 8.0f;
@@ -57,7 +57,7 @@ double SmoothNoise(int x, int y)
 	return (corners + sides + center);
 }
 
-double SmoothNoise(int x, int y, int z)
+double Perlin::SmoothNoise(int x, int y, int z)
 {
 	double corners, sides, center;
 	double averageZM1, averageZ, averageZP1;
@@ -83,7 +83,7 @@ double SmoothNoise(int x, int y, int z)
 	return ((averageZM1 / 4.0f) + (averageZ / 2.0f) + (averageZP1 / 4.0f));
 }
 
-double InterpolateNoise(double x)
+double Perlin::InterpolateNoise(double x)
 {
 
 	int X = (int)x;
@@ -95,7 +95,7 @@ double InterpolateNoise(double x)
 	return CosineInterpolate(v1, v2, fractional);
 }
 
-double InterpolateNoise(double x, double y)
+double Perlin::InterpolateNoise(double x, double y)
 {
 	int X = (int)x;
 	double fractionalX = x - X;
@@ -114,7 +114,7 @@ double InterpolateNoise(double x, double y)
 	return CosineInterpolate(i1, i2, fractionalY);
 }
 
-double InterpolateNoise(double x, double y, double z)
+double Perlin::InterpolateNoise(double x, double y, double z)
 {
 	int integerX = (int)x;
 	double fracX = x - (double)integerX;
@@ -145,7 +145,7 @@ double InterpolateNoise(double x, double y, double z)
 	return CosineInterpolate(i5, i6, fracZ);
 }
 
-double PerlinNoise(double x,int octaves, double persistance)
+double Perlin::PerlinNoise(double x,int octaves, double persistance)
 {
 	double total = 0;
 
@@ -159,7 +159,7 @@ double PerlinNoise(double x,int octaves, double persistance)
 	return total;
 }
 
-double PerlinNoise(double x, double y,int octaves, double persistance)
+double Perlin::PerlinNoise(double x, double y,int octaves, double persistance)
 {
 	double total = 0;
 
@@ -173,7 +173,7 @@ double PerlinNoise(double x, double y,int octaves, double persistance)
 	return total;
 }
 
-double PerlinNoise(double x, double y, double z,int octaves, double persistance)
+double Perlin::PerlinNoise(double x, double y, double z,int octaves, double persistance)
 {
 	double total = 0;
 
@@ -187,7 +187,7 @@ double PerlinNoise(double x, double y, double z,int octaves, double persistance)
 	return total;
 }
 
-inline double abs(double arg)
+inline double Perlin::abs(double arg)
 {
     if (arg < 0) {
         return -arg;
@@ -234,6 +234,7 @@ double Perlin::interpolatedAt(int size, unsigned i, unsigned j)
 /// <returns></returns>
 Perlin::Perlin(int size, int octaves, double persistence) : Heightmap(size)
 {
+    seed = arc4random();
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			put(i, j,PerlinNoise(i,j,octaves, persistence));
