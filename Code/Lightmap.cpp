@@ -429,3 +429,13 @@ Tile* Lightmap::tileAtPoint(WorldCoord point)
 {
     return map->getTile(point);
 }
+
+int Lightmap::getRadius()
+{
+    return radius;
+}
+
+Point Lightmap::getPosition()
+{
+    return position;
+}

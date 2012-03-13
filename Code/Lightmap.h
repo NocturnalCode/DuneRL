@@ -26,7 +26,7 @@ protected:
     int* boolMap;
     Map *map;
     
-    LocalCoord world2local(WorldCoord w);
+    
     WorldCoord local2world(LocalCoord l);
     bool isBlocked(WorldCoord co);
     bool isVisible(LocalCoord co);
@@ -42,9 +42,11 @@ public:
     Lightmap();
     Lightmap(Point position,int radius,Map *map);
     ~Lightmap();
+    LocalCoord world2local(WorldCoord w);
     virtual bool isLit(WorldCoord world);
     virtual Ascii *filter(WorldCoord world,Ascii *ascii);
-    
+    int getRadius();
+    Point getPosition();
     void addFilter(LightFilter* filter);
     void removeFilter(LightFilter* filter);
     Tile* tileAtPoint(WorldCoord point);
