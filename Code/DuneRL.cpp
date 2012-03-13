@@ -109,7 +109,7 @@ void DuneRL::init_world()
 	
 	player = new Player();
     
-    world->getMap()->addObject(12,12,player);
+    world->getMap()->addObject(100,100,player);
 	world->getMap()->setPlayer(player);
     world->getMap()->monsters.push_back(player);
 
