@@ -24,6 +24,8 @@ public:
     virtual void open();
     virtual void close();
     virtual bool wantsEvents();
+    
+    virtual bool handleEvents(SDL_Event *event);
 };
 
 

@@ -101,7 +101,7 @@ DuneRL::DuneRL()
     start->open();
     
     // inventory
-    inventory =  new Inventory(Rect(600-100-12,0,100,24), player);
+    inventory =  new Inventory(Rect(600-256-24,24,256+24+12,48), player);
 }
 
 DuneRL::~DuneRL()

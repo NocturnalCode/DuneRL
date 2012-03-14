@@ -53,3 +53,16 @@ void StartMenu::didSelectItem(int index)
 			break;
 	}
 }
+
+bool StartMenu::handleEvents(SDL_Event *event)
+{
+	switch (event->type)
+	{
+		case SDL_KEYDOWN: // the any key
+            close();
+            break;
+		default:
+			return false;
+	}
+	return true;
+}

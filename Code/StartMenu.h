@@ -23,6 +23,8 @@ public:
     
     virtual int numberOfItems();
     virtual void didSelectItem(int index);
+    
+    virtual bool handleEvents(SDL_Event *event);
 };
 
 #endif

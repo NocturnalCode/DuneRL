@@ -42,6 +42,12 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Added Start Screen
 * Adding spice objects
 * Inventory pickup
+* Footprints
+
+## Day 3
+
+* Inventory menu
+
 
 ## Requirements
 
