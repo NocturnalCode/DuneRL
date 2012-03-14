@@ -26,13 +26,15 @@ typedef struct
 {
 	unsigned passable:1;
 	unsigned transparent:1;
+    unsigned stackable:1;
     unsigned carryable:1;
     unsigned holdable:1;
     unsigned wieldable:1;
     unsigned wearable:1;
+    unsigned consumable:1;
     unsigned liquid:1;
     unsigned terrain:1;
-	unsigned _reserved:25;
+	unsigned _reserved:23;
 } ObjectFlags;
 
 class Object {
