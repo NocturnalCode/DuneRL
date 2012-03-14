@@ -32,7 +32,15 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Blood splatter
 * Desert sun shadow
 * Day/Night Cycle
-* Broke the action log
+* Broke the UI Action Log
+
+## Day 3
+
+* Added rocky areas
+* Adding spice fields
+* Fixed UI Action Log, still kinda bad
+* Added Start Screen
+* Adding spice objects
 
 ## Requirements
 
