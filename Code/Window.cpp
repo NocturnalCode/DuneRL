@@ -18,6 +18,7 @@ Window::Window(Rect rect)
 	this->rect = rect;
 	borderColour = Colour::white();
 	borderStyle = Border_Single;
+    background = true;
 	this->delegate = NULL;
 	this->texture = NULL;
 	this->setup();
@@ -117,27 +118,30 @@ void Window::reset()
 			
 			// texture
 			int l = ARRAY2D(i,j,nWide)*8;
-			
-			int row = (BLOCK+16) / 16;
-			int column = (BLOCK+16) % 16;
-			float ratio = 0.0625f;
             
-			texCoordinates[l+0] = ratio*			column;		texCoordinates[l+1] = ratio*		row;	
-			texCoordinates[l+2] = ratio+ratio*		column;		texCoordinates[l+3] = ratio*		row;
-			texCoordinates[l+4] = ratio+ratio*		column;		texCoordinates[l+5] = ratio+ratio*	row;
-			texCoordinates[l+6] = ratio*			column;		texCoordinates[l+7] = ratio+ratio*	row;
+            int row = 0;//(BLOCK+16) / 16;
+            int column = 0;//(BLOCK+16) % 16;
+            float ratio = 0.0625f;
             
-			// colour
-			int m = ARRAY2D(i,j,nWide)*16;
-			colCoordinates[m+0] = 0.0f;	colCoordinates[m+1] = 0.0f; colCoordinates[m+2] = 0.0f;  colCoordinates[m+3] = 1.0f;
-			colCoordinates[m+4] = 0.0f;	colCoordinates[m+5] = 0.0f; colCoordinates[m+6] = 0.0f;  colCoordinates[m+7] = 1.0f;
-			colCoordinates[m+8] = 0.0f;	colCoordinates[m+9] = 0.0f; colCoordinates[m+10]= 0.0f;  colCoordinates[m+11] = 1.0f;
-			colCoordinates[m+12] =0.0f;	colCoordinates[m+13] =0.0f; colCoordinates[m+14]= 0.0f;  colCoordinates[m+15] = 1.0f;
-			
-			bgColCoordinates[m+0] = 1.0f;	bgColCoordinates[m+1] = 0.0f; bgColCoordinates[m+2] = 0.0f;  bgColCoordinates[m+3] = 1.0f;
-			bgColCoordinates[m+4] = 1.0f;	bgColCoordinates[m+5] = 0.0f; bgColCoordinates[m+6] = 0.0f;  bgColCoordinates[m+7] = 1.0f;
-			bgColCoordinates[m+8] = 1.0f;	bgColCoordinates[m+9] = 0.0f; bgColCoordinates[m+10]= 0.0f;  bgColCoordinates[m+11] = 1.0f;
-			bgColCoordinates[m+12] =1.0f;	bgColCoordinates[m+13] =0.0f; bgColCoordinates[m+14]= 0.0f;  bgColCoordinates[m+15] = 1.0f;
+            float alpha = background ? 1.0f : 0.0f;
+            
+            texCoordinates[l+0] = ratio*			column;		texCoordinates[l+1] = ratio*		row;	
+            texCoordinates[l+2] = ratio+ratio*		column;		texCoordinates[l+3] = ratio*		row;
+            texCoordinates[l+4] = ratio+ratio*		column;		texCoordinates[l+5] = ratio+ratio*	row;
+            texCoordinates[l+6] = ratio*			column;		texCoordinates[l+7] = ratio+ratio*	row;
+            
+            // colour
+            int m = ARRAY2D(i,j,nWide)*16;
+            colCoordinates[m+0] = 0.0f;	colCoordinates[m+1] = 0.0f; colCoordinates[m+2] = 0.0f;  colCoordinates[m+3] = alpha;
+            colCoordinates[m+4] = 0.0f;	colCoordinates[m+5] = 0.0f; colCoordinates[m+6] = 0.0f;  colCoordinates[m+7] = alpha;
+            colCoordinates[m+8] = 0.0f;	colCoordinates[m+9] = 0.0f; colCoordinates[m+10]= 0.0f;  colCoordinates[m+11] = alpha;
+            colCoordinates[m+12] =0.0f;	colCoordinates[m+13] =0.0f; colCoordinates[m+14]= 0.0f;  colCoordinates[m+15] = alpha;
+            
+            bgColCoordinates[m+0] = 0.0f;	bgColCoordinates[m+1] = 0.0f; bgColCoordinates[m+2] = 0.0f;  bgColCoordinates[m+3] = alpha;
+            bgColCoordinates[m+4] = 0.0f;	bgColCoordinates[m+5] = 0.0f; bgColCoordinates[m+6] = 0.0f;  bgColCoordinates[m+7] = alpha;
+            bgColCoordinates[m+8] = 0.0f;	bgColCoordinates[m+9] = 0.0f; bgColCoordinates[m+10]= 0.0f;  bgColCoordinates[m+11] = alpha;
+            bgColCoordinates[m+12] =0.0f;	bgColCoordinates[m+13] =0.0f; bgColCoordinates[m+14]= 0.0f;  bgColCoordinates[m+15] = alpha;
+ 
 		}
 	}
 }
@@ -193,10 +197,16 @@ void Window::display()
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
+    if(!background)
+    {
+        glAlphaFunc(GL_GREATER, 0.5);
+        glEnable(GL_ALPHA_TEST);
+    }
+    
 	// background
-	glColorPointer(4, GL_FLOAT, 0, bgColCoordinates);
-	glVertexPointer(3, GL_FLOAT, 0, vertexCoordinates);
-	glDrawArrays(GL_QUADS, 0, vertices);
+    glColorPointer(4, GL_FLOAT, 0, bgColCoordinates);
+    glVertexPointer(3, GL_FLOAT, 0, vertexCoordinates);
+    glDrawArrays(GL_QUADS, 0, vertices);
 	
 	// foreground
 	glEnable(GL_TEXTURE_2D);
@@ -345,30 +355,6 @@ void Window::border(float *tex, float *col, float *bgCol)
 	}
 
 }
-
-//void Window::displayTile(float *texture, float *colour, float *background, Ascii ascii)
-//{
-//	int row = ascii.Index / 16;
-//	int column = ascii.Index % 16;
-//	float ratio = 0.0625f;
-//	Colour fc = ascii.Foreground;
-//	Colour bc = ascii.Background;
-//
-//	texture[0] = ratio*			column;		texture[1] = ratio*			row;	
-//	texture[2] = ratio+ratio*	column;		texture[3] = ratio*			row;
-//	texture[4] = ratio+ratio*	column;		texture[5] = ratio+ratio*	row;
-//	texture[6] = ratio*			column;		texture[7] = ratio+ratio*	row;
-//
-//	colour[0] = fc.R;	colour[1] = fc.G; colour[2] = fc.B;  colour[3]  = fc.A;
-//	colour[4] = fc.R;	colour[5] = fc.G; colour[6] = fc.B;  colour[7]  = fc.A;
-//	colour[8] = fc.R;	colour[9] = fc.G; colour[10]= fc.B;  colour[11] = fc.A;
-//	colour[12] =fc.R;	colour[13] =fc.G; colour[14]= fc.B;  colour[15] = fc.A;
-//	
-//	background[0] = bc.R;	background[1] = bc.G; background[2] = bc.B;  background[3]  = bc.A;
-//	background[4] = bc.R;	background[5] = bc.G; background[6] = bc.B;  background[7]  = bc.A;
-//	background[8] = bc.R;	background[9] = bc.G; background[10]= bc.B;  background[11] = bc.A;
-//	background[12] =bc.R;	background[13] =bc.G; background[14]= bc.B;  background[15] = bc.A;
-//}
 
 void Window::setParent(Display* parent)
 {

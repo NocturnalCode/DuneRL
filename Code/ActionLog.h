@@ -10,11 +10,20 @@
 #define ACTIONLOG_H_INC
 
 #include "Window.h"
+#include <vector>
 
 class ActionLog : public Window
 {
+protected:
+    
+    std::vector<int> age;
+    int turn;
+    
+    bool wantsEvents();
 public:
     ActionLog(Rect rect);
+    
+    void display();
 };
 
 #endif /* ACTIONLOG_H_INC */

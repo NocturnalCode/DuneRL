@@ -23,7 +23,8 @@
 #include "SDL_OpenGL.h"
 #include "SDLWindow.h"
 #include "Window.h"
-//#include "World.h"
+#include "ActionLog.h"
+
 #include "Image.h"
 #include "Timer.h"
 #include "ExitMenu.h"
@@ -86,6 +87,11 @@ DuneRL::DuneRL()
 	underfoot->setFrame(Rect(16,462,640-8,40));
 	underfoot->setColour(Colour(1,1,1));
 	rootWindow->add(underfoot);
+    
+    ActionLog *actionLog = new ActionLog(Rect(16,462-60-12,640-32,60));
+    actionLog->borderStyle = Border_None;
+    rootWindow->add(actionLog);
+    
 }
 
 DuneRL::~DuneRL()
