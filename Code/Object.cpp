@@ -16,10 +16,19 @@ Object::Object()
 {
 	parent = NULL;
 	asciis = new AsciiGroup(new Ascii());
-	_flags.passable = NO;
-	_flags.transparent = NO;
-    _flags.terrain = YES;
+
+    _flags.passable = NO;
+    _flags.transparent = NO;
+    _flags.stackable = NO;
+    _flags.carryable = NO;
+    _flags.holdable = NO;
+    _flags.wieldable = NO;
+    _flags.wearable = NO;
+    _flags.consumable = NO;
     _flags.liquid = NO;
+    _flags.terrain = YES;
+    _flags.decays = NO;
+    
     weight = 0.1;
     range = 1;
     description = "something indescribable";
@@ -31,10 +40,19 @@ Object::Object(Ascii *asc)
 {
 	parent = NULL;
 	asciis = new AsciiGroup(asc);
-	_flags.passable = YES;
-	_flags.transparent = YES;
-    _flags.terrain = YES;
+
+    _flags.passable = YES;
+    _flags.transparent = YES;
+    _flags.stackable = NO;
+    _flags.carryable = NO;
+    _flags.holdable = NO;
+    _flags.wieldable = NO;
+    _flags.wearable = NO;
+    _flags.consumable = NO;
     _flags.liquid = NO;
+    _flags.terrain = YES;
+    _flags.decays = NO;
+    
     weight = 0.1;
     range = 1;
     inventory = NULL;
@@ -47,10 +65,20 @@ Object::Object(AsciiGroup *asc)
 {
 	parent = NULL;
 	asciis = asc; 
-	_flags.passable = YES;
-	_flags.transparent = YES;
-    _flags.terrain = NO;
+    
     _flags.liquid = NO;
+    _flags.passable = YES;
+    _flags.transparent = YES;
+    _flags.stackable = NO;
+    _flags.carryable = NO;
+    _flags.holdable = NO;
+    _flags.wieldable = NO;
+    _flags.wearable = NO;
+    _flags.consumable = NO;
+    _flags.liquid = NO;
+    _flags.terrain = NO;
+    _flags.decays = NO;
+    
     weight = 0.1;
     range = 1;
     inventory = NULL;
@@ -73,11 +101,16 @@ Object::~Object()
 void Object::removeFromTile()
 {
     if(parent)
+    {
+        didLeaveTile(parent);
         parent->removeObject(this);
+        
+    }
 }
 
 void Object::setParent(Tile *tile)
 {
+    didEnterTile(tile);
 	parent = tile;
 }
 
@@ -150,6 +183,11 @@ void Object::setLiquid(bool liquid)
 bool Object::liquid()
 {
 	return _flags.liquid==YES;
+}
+
+bool Object::canBeCarried()
+{
+    return (_flags.carryable|_flags.wearable|_flags.holdable|_flags.wieldable)==YES;
 }
 
 Ascii* Object::getAscii()
@@ -236,6 +274,15 @@ void Object::onHealedBy(Object *attacker,Damage damage)
 }
 
 void Object::onDamagedObject(Object *target,Damage damage)
+{
+    
+}
+
+void Object::didEnterTile(Tile *tile)
+{
+    
+}
+void Object::didLeaveTile(Tile *tile)
 {
     
 }

@@ -112,6 +112,9 @@ public:
     virtual void onDeath();
     virtual void onDamagedBy(Object *attacker,Damage damage);
     
+    virtual void didEnterTile(Tile *tile);
+    virtual void didLeaveTile(Tile *tile);
+    
     Lightmap* getSightMap();
 //  virtual void onHealedBy(Object *attacker,Damage damage);
 };

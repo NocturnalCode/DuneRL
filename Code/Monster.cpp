@@ -334,6 +334,38 @@ bool Monster::canSee(int x, int y)
 	return visible;
 }
 
+void Monster::didEnterTile(Tile *tile)
+{
+    if(tile==NULL)
+        return;
+    
+    if(inventory != NULL)
+    {
+        foreachp(Objects, o, tile->getObjects())
+        {
+            Object *object = (*o);
+            if(object->canBeCarried())
+            {
+                addObjectToInventory(object);
+                printf("picked up %s\n",object->name.c_str());
+            }
+        }
+    }
+}
+
+void Monster::didLeaveTile(Tile *tile)
+{
+    if(tile==NULL)
+        return;
+    
+    // maybe drop footprints here
+    Object *footprint = new Object(new Ascii(EXCLAMATION_DOUBLE,Colour::yellow(),Colour::clear()));
+    footprint->name = stringFormat("footprints");
+    footprint->description = "some footprints";
+    footprint->setLiquid(true);
+    parent->addLiquid(footprint);
+}
+
 void Monster::calculateSight()
 {
     if(isAlive())

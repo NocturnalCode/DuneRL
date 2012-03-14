@@ -34,7 +34,8 @@ typedef struct
     unsigned consumable:1;
     unsigned liquid:1;
     unsigned terrain:1;
-	unsigned _reserved:23;
+    unsigned decays:1;
+	unsigned _reserved:22;
 } ObjectFlags;
 
 class Object {
@@ -81,6 +82,8 @@ public:
     void setLiquid(bool liquid);
     bool liquid();
     
+    bool canBeCarried();
+    
     virtual Damages getMeleeDamages();
     virtual Damages getThrowDamages();
     
@@ -94,6 +97,9 @@ public:
     virtual Objects *getInventory();
     virtual void dumpInventory();
     void dropInventoryObject(Object *object);
+    
+    virtual void didEnterTile(Tile *tile);
+    virtual void didLeaveTile(Tile *tile);
     
 };
 

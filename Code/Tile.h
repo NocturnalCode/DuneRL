@@ -46,6 +46,7 @@ public:
     double height; //normalised height so very safe
     Object *getTopObject();
 
+    Objects *getObjects();
     
     std::string description();
 };
