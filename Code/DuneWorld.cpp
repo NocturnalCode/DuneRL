@@ -25,8 +25,6 @@ void DuneWorld::updateWorld()
         dayNight = (DayNight)((dayNight+1)%DayNightCount);
         dayNightTick = 0;
         
-        
-        
         switch (dayNight) {
             case DayNightMorning:
                 LOG("It is now morning");
@@ -57,4 +55,22 @@ DayNight DuneWorld::getTimeOfDay()
 double DuneWorld::getDayPartProgress()
 {
     return (double)dayNightTick/(double)(TURNS_IN_A_DAY_PART);
+}
+
+bool DuneWorld::handleEvents(SDL_Event *event)
+{
+    switch (event->type)
+	{
+		case SDL_KEYDOWN:
+            switch( event->key.keysym.sym )
+            {
+                case SDLK_i:
+                    DuneRL::shared->inventoryMenu();
+                    return true;
+                    break;
+                default:
+                    break;
+            }
+    }
+    return World::handleEvents(event);
 }

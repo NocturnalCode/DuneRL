@@ -49,6 +49,7 @@ public:
     std::string iarticle,darticle;
     float weight;
     int range;
+    int decay;
     
     ObjectFlags _flags;
     

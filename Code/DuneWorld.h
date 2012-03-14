@@ -37,6 +37,9 @@ protected:
 public:
     DayNight getTimeOfDay();
     double getDayPartProgress();
+    
+    bool handleEvents(SDL_Event *event);
+    
     DuneWorld();
 };
 

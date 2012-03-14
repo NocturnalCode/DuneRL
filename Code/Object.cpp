@@ -34,6 +34,7 @@ Object::Object()
     description = "something indescribable";
     iarticle = "a ";
     darticle = "the ";
+    decay = 1;
 }
 
 Object::Object(Ascii *asc) 
@@ -59,6 +60,7 @@ Object::Object(Ascii *asc)
     description = "something indescribable";
     iarticle = "a ";
     darticle = "the ";
+    decay = 1;
 }
 
 Object::Object(AsciiGroup *asc)
@@ -85,6 +87,7 @@ Object::Object(AsciiGroup *asc)
     description = "something indescribable";
     iarticle = "a ";
     darticle = "the ";
+    decay = 1;
 }
 
 Object::~Object()

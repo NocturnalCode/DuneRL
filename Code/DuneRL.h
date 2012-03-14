@@ -12,6 +12,7 @@
 
 #include "Roguelike.h"
 #include "DeathMenu.h"
+#include "Inventory.h"
 
 class Player;
 class ActionLog;
@@ -24,6 +25,8 @@ protected:
     DeathMenu *dmenu;
     ActionLog *actionLog;
     
+    Inventory *inventory;
+    
 public:
     DuneRL();
     ~DuneRL();
@@ -31,6 +34,7 @@ public:
     virtual void init_world();
 
     void deathMenu();
+    void inventoryMenu();
     
     static DuneRL *shared;
 };

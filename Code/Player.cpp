@@ -96,7 +96,7 @@ void Player::performTurn()
     
     if(waterTick >= rateOfDehydration)
     {
-        LOG("You feel thirster.");
+        LOG("You feel thirstier.");
         waterTick = 0;
         water--;
     }

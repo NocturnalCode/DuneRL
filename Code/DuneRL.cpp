@@ -90,16 +90,18 @@ DuneRL::DuneRL()
 	underfoot->setColour(Colour(1,1,1));
 	rootWindow->add(underfoot);
     
-    ActionLog *actionLog = new ActionLog(Rect(16,462-60-12,640-32,60));
+    // action log
+    actionLog = new ActionLog(Rect(16,462-60-12,640-32,60));
     actionLog->borderStyle = Border_None;
     rootWindow->add(actionLog);
     
-    
     // start menu
-    
     StartMenu *start = new StartMenu(Rect((600-492)/2+12,128,492+12,64+48),player);
     rootWindow->add(start);
     start->open();
+    
+    // inventory
+    inventory =  new Inventory(Rect(600-100-12,0,100,24), player);
 }
 
 DuneRL::~DuneRL()
@@ -135,4 +137,17 @@ void DuneRL::deathMenu()
     dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
     rootWindow->add(dmenu);
     dmenu->open();
+}
+
+void DuneRL::inventoryMenu()
+{
+	if(!inventory->isOpen)
+	{
+		rootWindow->add(inventory);
+		inventory->open();
+	}
+	else
+	{
+		inventory->close();
+	}
 }

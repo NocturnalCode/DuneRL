@@ -25,7 +25,7 @@ class Menu : public Window
 	
         bool isOpen;
     
-        void open();
+        virtual void open();
 		virtual void close();
 		virtual bool handleEvents(SDL_Event *event);
 		virtual int numberOfItems();
