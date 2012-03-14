@@ -29,6 +29,8 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
         family = "Atreides";
     }
     
+    darticle = "";
+    iarticle = "";
 	behaviour = BehaviourNone;
     sight = 45;
     setMaxHP(10);

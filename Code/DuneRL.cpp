@@ -31,6 +31,8 @@
 #include "Player.h"
 #include "Arrakis.h"
 
+#include "StartMenu.h"
+
 DuneRL *DuneRL::shared = NULL;
 
 DuneRL::DuneRL()
@@ -92,6 +94,12 @@ DuneRL::DuneRL()
     actionLog->borderStyle = Border_None;
     rootWindow->add(actionLog);
     
+    
+    // start menu
+    
+    StartMenu *start = new StartMenu(Rect((600-492)/2+12,128,492+12,64+48),player);
+    rootWindow->add(start);
+    start->open();
 }
 
 DuneRL::~DuneRL()
@@ -124,7 +132,6 @@ void DuneRL::init_world()
 
 void DuneRL::deathMenu()
 {
-    SDL_EnableKeyRepeat(0, 0);
     dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
     rootWindow->add(dmenu);
     dmenu->open();

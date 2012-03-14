@@ -43,6 +43,7 @@ public:
     Tile *parent;
     std::string name;
     std::string description;
+    std::string iarticle,darticle;
     float weight;
     int range;
     

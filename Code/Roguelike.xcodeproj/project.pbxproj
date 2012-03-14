@@ -75,6 +75,7 @@
 		65323943136AEAF40067C56A /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002F39F909D0881F00EBEB88 /* SDL.framework */; };
 		656EA7A714EDB1E100C76818 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 656EA7A514EDB1E100C76818 /* LICENSE */; };
 		656EA7A814EDB1E100C76818 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 656EA7A614EDB1E100C76818 /* README.mdown */; };
+		6588621515102D9E00DA900E /* StartMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588621415102D9E00DA900E /* StartMenu.cpp */; };
 		6589FAD614F099CB00795BA9 /* mtrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6589FAD314F099CB00795BA9 /* mtrand.cpp */; };
 		6589FAD714F099CB00795BA9 /* mtrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589FAD414F099CB00795BA9 /* mtrand.h */; };
 		6589FAD814F099CB00795BA9 /* mtreadme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6589FAD514F099CB00795BA9 /* mtreadme.txt */; };
@@ -212,6 +213,8 @@
 		65323915136AC9E60067C56A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		656EA7A514EDB1E100C76818 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		656EA7A614EDB1E100C76818 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.mdown; path = ../README.mdown; sourceTree = "<group>"; };
+		6588621415102D9E00DA900E /* StartMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartMenu.cpp; sourceTree = "<group>"; };
+		6588621615102DB100DA900E /* StartMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenu.h; sourceTree = "<group>"; };
 		6589FAD314F099CB00795BA9 /* mtrand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mtrand.cpp; sourceTree = "<group>"; };
 		6589FAD414F099CB00795BA9 /* mtrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtrand.h; sourceTree = "<group>"; };
 		6589FAD514F099CB00795BA9 /* mtreadme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mtreadme.txt; sourceTree = "<group>"; };
@@ -493,12 +496,11 @@
 				650F3ECA13822AB20080CA59 /* Player.cpp */,
 				65FF808B150D4CE900D2DA76 /* Arrakis.h */,
 				65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */,
-				653238E8136AABEC0067C56A /* DuneRL.h */,
-				653238E9136AABEC0067C56A /* DuneRL.cpp */,
-				65FF808E150D8D9600D2DA76 /* DeathMenu.h */,
-				65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */,
 				65FF809A150EF4AB00D2DA76 /* DuneWorld.h */,
 				65FF809C150EF4B700D2DA76 /* DuneWorld.cpp */,
+				653238E8136AABEC0067C56A /* DuneRL.h */,
+				653238E9136AABEC0067C56A /* DuneRL.cpp */,
+				6588621715102E3B00DA900E /* Menus */,
 				65323915136AC9E60067C56A /* main.cpp */,
 				653237CD1368B1AE0067C56A /* Resources */,
 			);
@@ -513,6 +515,17 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		6588621715102E3B00DA900E /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				65FF808E150D8D9600D2DA76 /* DeathMenu.h */,
+				65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */,
+				6588621615102DB100DA900E /* StartMenu.h */,
+				6588621415102D9E00DA900E /* StartMenu.cpp */,
+			);
+			name = Menus;
 			sourceTree = "<group>";
 		};
 		6589FAD214F099A700795BA9 /* Third Party */ = {
@@ -738,6 +751,7 @@
 				65FF809D150EF4B700D2DA76 /* DuneWorld.cpp in Sources */,
 				62174044150EFECF00CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */,
 				62174045150EFED600CEFFB4 /* LightFilterShadow.cpp in Sources */,
+				6588621515102D9E00DA900E /* StartMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
