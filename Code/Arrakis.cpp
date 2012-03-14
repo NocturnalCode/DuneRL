@@ -10,6 +10,7 @@
 #include "Perlin.h"
 #include "Stringer.h"
 #include "DuneRL.h"
+#include "DuneTile.h"
 
 Arrakis::Arrakis(unsigned size) : Map(size)
 {
@@ -35,7 +36,7 @@ void Arrakis::generate()
     //-- Generate the desert heightmap
     int octaves = 1;
     double persistence = 60;
-    int perlinSize = 32;
+    int perlinSize = 128;
 	Perlin heights(perlinSize, octaves,persistence);
     
     Colour col1(DUNE1);
@@ -53,6 +54,24 @@ void Arrakis::generate()
     //-- Generate polar ice in south pole, lower 5%
 	
     //-- Generate the rock out croppings in the sothern hemisphere
+    int octaves2 = 4;
+    double persistence2 = 60;
+    int perlinSize2 = 64;
+	Perlin rock(perlinSize2, octaves2,persistence2);
+    ////We may want to place our rocks first... It seems best to place randomly and just grow the rock randomly
+    
+    double minRock = 0.3;
+    double maxRock = 0.5;
+    
+    int octaves3 = 4;
+    double persistence3 = 60;
+    int perlinSize3 = 64;
+	Perlin spice(perlinSize3, octaves3,persistence3);
+    ////We may want to place our rocks first... It seems best to place randomly and just grow the rock randomly
+    
+    double minSpice = 0.3;
+    double maxSpice = 0.5;
+    
     
     //-- Combine the above terrain maps
     for(j=0;j<size;j++)
@@ -62,6 +81,11 @@ void Arrakis::generate()
             
 //            int idx = i*perlinSize/size;
 //            int jdx = j*perlinSize/size;
+            
+            //y = j
+            double rockThreshold = minRock + (((double)j/(double)size)*(maxRock-minRock));
+            double spiceThreshold = minSpice + ((((double)(size-j-1))/(double)size)*(maxRock-minRock));
+            
             
 			double h = heights.interpolatedAt(size, i, j);
             
@@ -74,6 +98,9 @@ void Arrakis::generate()
             if (h<0) {
                 h = 0;
             }
+            
+            
+            
 //            h = h / ((double)octaves * persistence);
 //            if (h>6) {
 //                h = 1;
@@ -154,10 +181,38 @@ void Arrakis::generate()
 //                background = Colour::blue();
 //            }
 			
-			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
+            Object *o = NULL; 
+            double r = rock.interpolatedAt(size, i, j);
+            if (r>rockThreshold) {
+                //Rock the place
+                tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeRock,false);
+                background = Colour(1.0f,0.1f,0.0f);
+                o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
+                tiles[ARRAY2D(i,j,size)]->height = h+r;
+            }
+            else {
+                
+                double s = spice.interpolatedAt(size, i, j);
+                if (s>spiceThreshold) {
+                    tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,true);
+                    foreground = Colour::red();
+                    o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
+                }
+                else {
+                    tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,false);
+                    o = new Object(new Ascii(0,foreground,background));
+                }
+                
+                tiles[ARRAY2D(i,j,size)]->height = h;
+            }
+            
 			
+			
+            
+            
+			tiles[ARRAY2D(i,j,size)]->parent = this;
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
-            tiles[ARRAY2D(i,j,size)]->height = h;
+            
             
 			o->setPassable(true);
             o->setTerrain(true);

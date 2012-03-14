@@ -40,7 +40,6 @@ protected:
     Tile **tiles;
     
     Monster *player;
-    
     void displayTile(float *texture, float *colour,float *backgroundColour, Tile *tile, Monster *monster);
     bool mapFlippednessChanged;
 public:

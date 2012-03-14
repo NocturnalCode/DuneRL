@@ -19,19 +19,11 @@ Map::Map(unsigned Size)
 	size = Size;
 	tex = NULL;
 	col = NULL;
-	tiles = (Tile**)malloc( sizeof(Tile*) *size*size );
+	tiles = (Tile**)calloc(size*size,sizeof(Tile*));
 	maptype = MapTypeWorldTile;
     mapFlipped = false;
     mapFlippednessChanged = false;
-	for(int i=0;i< size;i++)
-	{
-		for(int j=0;j<size;j++)
-		{
-			tiles[ARRAY2D(i,j,size)] = new Tile(i,j);
-			tiles[ARRAY2D(i,j,size)]->parent = this;
-		}
-	}
-    
+
     visibleRect = Rect(0-40+1,0-20+1,80,40);
 	//generate();
 }
@@ -60,6 +52,8 @@ void Map::generate()
     {
 		for(i=0;i< size;i++) 
         {
+            tiles[ARRAY2D(i,j,size)] = new Tile(i,j);
+			tiles[ARRAY2D(i,j,size)]->parent = this;
 			double h = heights.at(i,j) + 1;
 			std::vector<int> ascii;
 			ascii.push_back(COMMA);

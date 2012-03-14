@@ -214,10 +214,22 @@ double Perlin::interpolatedAt(int size, unsigned i, unsigned j)
 //        j_Y = 0;
 //    }
     
-    double v1 = (SmoothNoise(i_X, j_Y));
-	double v2 = (SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y));
-	double v3 = (SmoothNoise(i_X, j_Y + 1));
-	double v4 = (SmoothNoise(i_X + 1 == Size? 0: i_X+1, j_Y + 1));
+    int j_Y_wrapped = j_Y+1;
+    if (j_Y_wrapped == Size) {
+        j_Y_wrapped = 0;
+    }
+    int i_X_wrapped = i_X+1;
+    if (i_X_wrapped == Size) {
+        i_X_wrapped = 0;
+    }
+    
+    
+    
+    double v1 = j_Y == 0 ? 0:(SmoothNoise(i_X, j_Y));
+	double v2 = j_Y == 0 ? 0:(SmoothNoise(i_X_wrapped, j_Y));
+    
+	double v3 = j_Y_wrapped == 0 ? 0 : (SmoothNoise(i_X, j_Y+1));
+	double v4 = j_Y_wrapped == 0 ? 0 : (SmoothNoise(i_X_wrapped, j_Y+1));
     
     double i1 = CosineInterpolate(v1, v2, X);
 	double i2 = CosineInterpolate(v3, v4, X);
