@@ -386,16 +386,14 @@ bool Monster::isAlive()
 
 void Monster::onDeath()
 {
-    LOG("%s died.",this->name.c_str());
+    LOG("%s%s died.",this->darticle.c_str(), this->name.c_str());
     // make corpse
     Object *corpse = new Object(new Ascii(PERCENT,Colour::white(),Colour::clear()));
     corpse->name = stringFormat("%s's corpse",this->name.c_str());
-    corpse->description = "the corpse of a "+this->name;
+    corpse->description = this->darticle  + "corpse of " + this->iarticle + this->name;
     parent->addObject(corpse);
     
-    // make gore
-    // blood
-    // body parts
+    // gore, body parts
     
     dumpInventory();
     // remove self
@@ -434,7 +432,7 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     int ascii = arc4random()%2==0?EXCLAMATION:EXCLAMATION_DOUBLE;
     Object *blood = new Object(new Ascii(ascii,bloodColour,Colour::clear()));
     blood->name = stringFormat("%s's blood",this->name.c_str());
-    blood->description = "the blood of a "+this->name;
+    blood->description = this->darticle + "the blood of " + this->iarticle + this->name;
     blood->setLiquid(true);
     
     Tile *tile = map->getTile(splat);

@@ -14,6 +14,10 @@ DeathMenu::DeathMenu(Rect rect,Player *player) : Menu(rect)
 	borderStyle = Border_Double;
 	getCentreLabel()->setString("Dead");
 	getCentreLabel()->setColour(Colour::red());
+    
+    Label *exitLabel = new Label("Exit");
+	exitLabel->setFrame(Rect(16,18+36,100,40));
+	add(exitLabel);
 	
 	Label *optionsLabel = new Label("You have died!");
 	optionsLabel->setFrame(Rect(16,18+12,100,40));
@@ -27,27 +31,25 @@ DeathMenu::DeathMenu(Rect rect,Player *player) : Menu(rect)
 	spiceLabel->setFrame(Rect(16,18+24,100,40));
 	add(spiceLabel);
 	
-	Label *exitLabel = new Label("Exit");
-	exitLabel->setFrame(Rect(16,18+36,100,40));
-	add(exitLabel);
+
 }
 
 int DeathMenu::numberOfItems()
 {
-	return 3;
+	return 1;
 }
 
 void DeathMenu::didSelectItem(int index)
 {
 	switch(index)
 	{
+//		case 0:
+//			//close();
+//			break;
+//		case 1:
+//			// nothing
+//			break;
 		case 0:
-			//close();
-			break;
-		case 1:
-			// nothing
-			break;
-		case 2:
 			SDL_Quit();
 			exit(0);
 			break;

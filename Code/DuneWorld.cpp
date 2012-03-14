@@ -38,7 +38,7 @@ void DuneWorld::updateWorld()
                 LOG("It is getting darker");
                 break;
             case DayNightMidnight:
-                LOG("It is new very dark");
+                LOG("It is now very dark");
                 break;
             default:
                 break;

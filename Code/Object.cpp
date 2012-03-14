@@ -23,6 +23,8 @@ Object::Object()
     weight = 0.1;
     range = 1;
     description = "something indescribable";
+    iarticle = "a ";
+    darticle = "the ";
 }
 
 Object::Object(Ascii *asc) 
@@ -37,6 +39,8 @@ Object::Object(Ascii *asc)
     range = 1;
     inventory = NULL;
     description = "something indescribable";
+    iarticle = "a ";
+    darticle = "the ";
 }
 
 Object::Object(AsciiGroup *asc)
@@ -51,6 +55,8 @@ Object::Object(AsciiGroup *asc)
     range = 1;
     inventory = NULL;
     description = "something indescribable";
+    iarticle = "a ";
+    darticle = "the ";
 }
 
 Object::~Object()

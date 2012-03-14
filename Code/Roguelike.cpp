@@ -40,6 +40,11 @@ SDLWindow* Roguelike::getWindow()
     return window;
 }
 
+int Roguelike::getCurrentTurn()
+{
+    return world->getTurn();
+}
+
 void Roguelike::log(std::string format, ...)
 {
     char *buffer;
@@ -53,8 +58,11 @@ void Roguelike::log(std::string format, ...)
     
     printf("[%d]LOG: %s\n",turn,entry.c_str());
 
-    std::vector<std::string> turnLog = logs[turn];
-    turnLog.push_back(entry);
+   // std::vector<std::string> turnLog = logs[turn];
+    
+    logs.push_back(std::pair<int, std::string>(turn,entry));
+    
+   // turnLog.push_back(entry);
 }
 
 int Roguelike::init_window()

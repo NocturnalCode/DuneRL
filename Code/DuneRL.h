@@ -30,7 +30,6 @@ public:
 
     virtual void init_world();
 
-    std::string getTurnLog();
     void deathMenu();
     
     static DuneRL *shared;

@@ -19,9 +19,10 @@
 #include "Image.h"
 #include "Timer.h"
 #include "ExitMenu.h"
+
 #include <string>
 #include <vector>
-#include <map>
+//#include <pair>
 
 #include <iostream>
 #include <fstream>
@@ -53,7 +54,7 @@ class Roguelike
 		int vertices;
 		Image *logo;
     
-        std::map<int, std::vector<std::string> > logs;
+        
 
     public:
         Roguelike();
@@ -67,6 +68,10 @@ class Roguelike
         static Roguelike *shared;
 		static bool	dev; 
 
+        //std::map<int, std::vector<std::string> > logs; // change to vector of pairs
+        std::vector< std::pair<int, std::string> > logs;
+    
+        int getCurrentTurn();
 };
 
 #define LOG Roguelike::shared->log

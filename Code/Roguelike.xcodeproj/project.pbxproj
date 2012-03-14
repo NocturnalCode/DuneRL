@@ -76,6 +76,10 @@
 		65323943136AEAF40067C56A /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002F39F909D0881F00EBEB88 /* SDL.framework */; };
 		656EA7A714EDB1E100C76818 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 656EA7A514EDB1E100C76818 /* LICENSE */; };
 		656EA7A814EDB1E100C76818 /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 656EA7A614EDB1E100C76818 /* README.mdown */; };
+		6588621515102D9E00DA900E /* StartMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588621415102D9E00DA900E /* StartMenu.cpp */; };
+		6588621C151040E000DA900E /* Melee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588621B151040DF00DA900E /* Melee.cpp */; };
+		6588621F151040FB00DA900E /* Ranged.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588621E151040FB00DA900E /* Ranged.cpp */; };
+		658862221510411600DA900E /* Spice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862211510411600DA900E /* Spice.cpp */; };
 		6589FAD614F099CB00795BA9 /* mtrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6589FAD314F099CB00795BA9 /* mtrand.cpp */; };
 		6589FAD714F099CB00795BA9 /* mtrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589FAD414F099CB00795BA9 /* mtrand.h */; };
 		6589FAD814F099CB00795BA9 /* mtreadme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6589FAD514F099CB00795BA9 /* mtreadme.txt */; };
@@ -215,6 +219,14 @@
 		65323915136AC9E60067C56A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		656EA7A514EDB1E100C76818 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		656EA7A614EDB1E100C76818 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.mdown; path = ../README.mdown; sourceTree = "<group>"; };
+		6588621415102D9E00DA900E /* StartMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartMenu.cpp; sourceTree = "<group>"; };
+		6588621615102DB100DA900E /* StartMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartMenu.h; sourceTree = "<group>"; };
+		6588621A151040D000DA900E /* Melee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Melee.h; sourceTree = "<group>"; };
+		6588621B151040DF00DA900E /* Melee.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Melee.cpp; sourceTree = "<group>"; };
+		6588621D151040EF00DA900E /* Ranged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ranged.h; sourceTree = "<group>"; };
+		6588621E151040FB00DA900E /* Ranged.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ranged.cpp; sourceTree = "<group>"; };
+		658862201510410B00DA900E /* Spice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spice.h; sourceTree = "<group>"; };
+		658862211510411600DA900E /* Spice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spice.cpp; sourceTree = "<group>"; };
 		6589FAD314F099CB00795BA9 /* mtrand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mtrand.cpp; sourceTree = "<group>"; };
 		6589FAD414F099CB00795BA9 /* mtrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtrand.h; sourceTree = "<group>"; };
 		6589FAD514F099CB00795BA9 /* mtreadme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mtreadme.txt; sourceTree = "<group>"; };
@@ -317,7 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Quaffable */,
-				6532379B136829580067C56A /* Fantasy */,
+				6532379B136829580067C56A /* DuneRL */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -488,7 +500,7 @@
 			name = "Light Filters";
 			sourceTree = "<group>";
 		};
-		6532379B136829580067C56A /* Fantasy */ = {
+		6532379B136829580067C56A /* DuneRL */ = {
 			isa = PBXGroup;
 			children = (
 				6217402E150ECFC200CEFFB4 /* Light Filters */,
@@ -498,16 +510,16 @@
 				62C196481510217C007CE24C /* DuneTile.cpp */,
 				65FF808B150D4CE900D2DA76 /* Arrakis.h */,
 				65FF8089150D4CCC00D2DA76 /* Arrakis.cpp */,
-				653238E8136AABEC0067C56A /* DuneRL.h */,
-				653238E9136AABEC0067C56A /* DuneRL.cpp */,
-				65FF808E150D8D9600D2DA76 /* DeathMenu.h */,
-				65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */,
 				65FF809A150EF4AB00D2DA76 /* DuneWorld.h */,
 				65FF809C150EF4B700D2DA76 /* DuneWorld.cpp */,
+				653238E8136AABEC0067C56A /* DuneRL.h */,
+				653238E9136AABEC0067C56A /* DuneRL.cpp */,
+				65886218151040B100DA900E /* Items */,
+				6588621715102E3B00DA900E /* Menus */,
 				65323915136AC9E60067C56A /* main.cpp */,
 				653237CD1368B1AE0067C56A /* Resources */,
 			);
-			name = Fantasy;
+			name = DuneRL;
 			sourceTree = "<group>";
 		};
 		653237CD1368B1AE0067C56A /* Resources */ = {
@@ -518,6 +530,38 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		6588621715102E3B00DA900E /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				65FF808E150D8D9600D2DA76 /* DeathMenu.h */,
+				65FF808C150D8D7A00D2DA76 /* DeathMenu.cpp */,
+				6588621615102DB100DA900E /* StartMenu.h */,
+				6588621415102D9E00DA900E /* StartMenu.cpp */,
+			);
+			name = Menus;
+			sourceTree = "<group>";
+		};
+		65886218151040B100DA900E /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				65886219151040B800DA900E /* Weapons */,
+				658862201510410B00DA900E /* Spice.h */,
+				658862211510411600DA900E /* Spice.cpp */,
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
+		65886219151040B800DA900E /* Weapons */ = {
+			isa = PBXGroup;
+			children = (
+				6588621A151040D000DA900E /* Melee.h */,
+				6588621B151040DF00DA900E /* Melee.cpp */,
+				6588621D151040EF00DA900E /* Ranged.h */,
+				6588621E151040FB00DA900E /* Ranged.cpp */,
+			);
+			name = Weapons;
 			sourceTree = "<group>";
 		};
 		6589FAD214F099A700795BA9 /* Third Party */ = {
@@ -744,6 +788,10 @@
 				62174044150EFECF00CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */,
 				62174045150EFED600CEFFB4 /* LightFilterShadow.cpp in Sources */,
 				62C196491510217C007CE24C /* DuneTile.cpp in Sources */,
+				6588621515102D9E00DA900E /* StartMenu.cpp in Sources */,
+				6588621C151040E000DA900E /* Melee.cpp in Sources */,
+				6588621F151040FB00DA900E /* Ranged.cpp in Sources */,
+				658862221510411600DA900E /* Spice.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
