@@ -359,11 +359,11 @@ void Monster::didLeaveTile(Tile *tile)
         return;
     
     // maybe drop footprints here
-    Object *footprint = new Object(new Ascii(EXCLAMATION_DOUBLE,Colour::yellow(),Colour::clear()));
-    footprint->name = stringFormat("footprints");
-    footprint->description = "some footprints";
-    footprint->setLiquid(true);
-    parent->addLiquid(footprint);
+//    Object *footprint = new Object(new Ascii(EXCLAMATION_DOUBLE,Colour::yellow(),Colour::clear()));
+//    footprint->name = stringFormat("footprints");
+//    footprint->description = "some footprints";
+//    footprint->setLiquid(true);
+//    parent->addLiquid(footprint);
 }
 
 void Monster::calculateSight()

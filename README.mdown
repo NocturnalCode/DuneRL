@@ -68,3 +68,6 @@ Dune it's basically all sand.
 Pretty dunes, and a night cycle.
 ![Day 2](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day2-Better-Dunes.png "Better looking Dunes")
 ![Day 2](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day2-Night.png "Dune at night")
+
+A bit of spice in the dunes
+![Day 3](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day3-Spice.png "Spice")
