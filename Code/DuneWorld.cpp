@@ -53,3 +53,8 @@ DayNight DuneWorld::getTimeOfDay()
 {
     return dayNight;
 }
+
+double DuneWorld::getDayPartProgress()
+{
+    return (double)dayNightTick/(double)(TURNS_IN_A_DAY_PART);
+}

@@ -314,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Quaffable */,
-				6532379B136829580067C56A /* Fantasy */,
+				6532379B136829580067C56A /* DuneRL */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -485,7 +485,7 @@
 			name = "Light Filters";
 			sourceTree = "<group>";
 		};
-		6532379B136829580067C56A /* Fantasy */ = {
+		6532379B136829580067C56A /* DuneRL */ = {
 			isa = PBXGroup;
 			children = (
 				6217402E150ECFC200CEFFB4 /* Light Filters */,
@@ -502,7 +502,7 @@
 				65323915136AC9E60067C56A /* main.cpp */,
 				653237CD1368B1AE0067C56A /* Resources */,
 			);
-			name = Fantasy;
+			name = DuneRL;
 			sourceTree = "<group>";
 		};
 		653237CD1368B1AE0067C56A /* Resources */ = {

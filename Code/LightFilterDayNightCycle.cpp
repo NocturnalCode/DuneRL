@@ -26,23 +26,39 @@ Ascii* LightFilterDayNightCycle::apply(Lightmap* map, WorldCoord worldPoint, Asc
     }
     double viewDist = 0.15;
     double desaturationFactor = 0.3;
+    double desaturationLast = 1.0;
+    double viewDistLast = 1.0;
     switch (world->getTimeOfDay()) {
         case DayNightEvening:
             viewDist = 0.25;
+            viewDistLast = 1.0;
             desaturationFactor = 0.5;
+            desaturationLast = 1.0;
+            break;
         case DayNightTiwilight:
             viewDist = 0.20;
+            viewDistLast = 0.25;
             desaturationFactor = 0.4;
+            desaturationLast = 0.5;
             break;
         case DayNightMidnight:
             viewDist = 0.10;
+            viewDistLast = 0.20;
             desaturationFactor = 0.3;
+            desaturationLast = 0.4;
             break;
         case DayNightDawn:
             viewDist = 0.25;
+            viewDistLast = 0.1;
             desaturationFactor = 0.5;
+            desaturationLast = 0.3;
             break;
         case DayNightSunrise:
+            viewDist = 1;
+            viewDistLast = 0.25;
+            desaturationFactor = 1;
+            desaturationLast = 0.5;
+            break;
         case DayNightMorning:
         case DayNightMidday:
         case DayNightAfternoon:
@@ -51,7 +67,9 @@ Ascii* LightFilterDayNightCycle::apply(Lightmap* map, WorldCoord worldPoint, Asc
             return ascii;
             break;
     }
-    
+    double dayPartProgress = world->getDayPartProgress();
+    viewDist = viewDistLast + dayPartProgress*(viewDist-viewDistLast);
+    desaturationFactor = desaturationLast + dayPartProgress*(desaturationFactor-desaturationLast);
     //we want to change the ascii now...
     Colour colour = ascii->Background;
     ascii->Background.destaturate();//(0.5);

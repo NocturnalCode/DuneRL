@@ -11,6 +11,8 @@
 #include "Map.h"
 
 #include <string>
+#include "Point.h"
+#include "Stringer.h"
 
 typedef enum {
 	RoguelikeDisplay=1,
@@ -151,9 +153,10 @@ int Roguelike::poll()
 							{
 								if( update.get_ticks() > 1000 ) 
 								{ 
-									char caption[15];
-									snprintf(caption, 15, "%.2f FPS",floor(frame / ( fps.get_ticks() / 1000.f)));
-									rootWindow->getLeftLabel()->setString(caption);
+									//char caption[15];
+                                    std::string caption = stringFormat("%.2f FPS",floor(frame / ( fps.get_ticks() / 1000.f)));
+									//snprintf(caption, 15, );
+									rootWindow->getLeftLabel()->setString(caption+" "+world->getMap()->getPlayer()->getPosition().description());
 									update.start(); 
 								}
 							}

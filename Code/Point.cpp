@@ -9,6 +9,7 @@
 #include "Point.h"
 #include <cmath>
 #include "Rect.h"
+#include "Stringer.h"
 
 Point::Point() 
 {
@@ -48,4 +49,9 @@ inline Point randomPointInRect(Rect rect)
 inline Point centreOfRect(Rect rect)
 {
     return Point(rect.X+(rect.Width/2),rect.Y+(rect.Height/2));
+}
+
+std::string Point::description()
+{
+    return stringFormat("{%d,%d}",X,Y);
 }
