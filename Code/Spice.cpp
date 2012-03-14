@@ -10,5 +10,8 @@
 
 Spice::Spice()
 {
-    
+    _flags.stackable = YES;
+    _flags.consumable = YES;
+    _flags.carryable = YES;
+    _flags.liquid = YES;
 }
