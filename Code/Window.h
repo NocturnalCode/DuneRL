@@ -51,7 +51,7 @@ protected:
 public:
     Window(Rect rect);
     ~Window();
-    void	display();
+    virtual void display();
     
     virtual void add(Display *displayable);
     virtual void add(Window *window);

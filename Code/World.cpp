@@ -67,13 +67,13 @@ void World::doUpdateWorld()
         if(player->speed == turnSpeed)
         {
             player->calculateSight();
-            LOG("<([ - - Turn End - - ])>");
+            printf("<([ - - Turn End - - ])>\n");
             return;
         }
     }
     else
     {
-        LOG("<([ - - - - - - Game End - - - - - - - ])>");
+        printf("<([ - - - - - - Game End - - - - - - - ])>\n");
 		return;
     }
 	
