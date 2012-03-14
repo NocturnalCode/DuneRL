@@ -505,7 +505,7 @@ bool Map::checkCombat(Monster *monster, int i, int j)
                 Damage damage = (*dmg);
                 LOG("Hit %s.< #AA0%d dmg>",target->name.c_str(),damage.damage);
                 target->adjustHP(-damage.damage);
-                LOG("<%s.>",target->hpDescription().c_str());
+                //LOG("<%s.>",target->hpDescription().c_str());
                 
                 target->onDamagedBy(monster, damage);
                 monster->onDamagedObject(target,damage);

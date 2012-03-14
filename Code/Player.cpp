@@ -14,6 +14,9 @@
 #include "LightFilterDayNightCycle.h"
 #include "LightFilterShadow.h"
 
+#include "Melee.h"
+#include "Ranged.h"
+
 #include "DuneWorld.h"
 
 Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monster(new Ascii(64,1.0,0,0))

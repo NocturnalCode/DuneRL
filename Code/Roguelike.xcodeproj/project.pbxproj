@@ -81,6 +81,7 @@
 		6588621F151040FB00DA900E /* Ranged.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588621E151040FB00DA900E /* Ranged.cpp */; };
 		658862221510411600DA900E /* Spice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862211510411600DA900E /* Spice.cpp */; };
 		6588622A151069DE00DA900E /* Inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65886229151069DD00DA900E /* Inventory.cpp */; };
+		6588622C1511492500DA900E /* dune.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6588622B1511492500DA900E /* dune.icns */; };
 		6589FAD614F099CB00795BA9 /* mtrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6589FAD314F099CB00795BA9 /* mtrand.cpp */; };
 		6589FAD714F099CB00795BA9 /* mtrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589FAD414F099CB00795BA9 /* mtrand.h */; };
 		6589FAD814F099CB00795BA9 /* mtreadme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6589FAD514F099CB00795BA9 /* mtreadme.txt */; };
@@ -230,6 +231,7 @@
 		658862211510411600DA900E /* Spice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spice.cpp; sourceTree = "<group>"; };
 		65886228151069C300DA900E /* Inventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inventory.h; sourceTree = "<group>"; };
 		65886229151069DD00DA900E /* Inventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inventory.cpp; sourceTree = "<group>"; };
+		6588622B1511492500DA900E /* dune.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = dune.icns; sourceTree = "<group>"; };
 		6589FAD314F099CB00795BA9 /* mtrand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mtrand.cpp; sourceTree = "<group>"; };
 		6589FAD414F099CB00795BA9 /* mtrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtrand.h; sourceTree = "<group>"; };
 		6589FAD514F099CB00795BA9 /* mtreadme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mtreadme.txt; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 		653237CD1368B1AE0067C56A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6588622B1511492500DA900E /* dune.icns */,
 				65323914136AC9E60067C56A /* DuneRL-Info.plist */,
 				653237D21368B28E0067C56A /* tileset.png */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -736,6 +739,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				653237D31368B28E0067C56A /* tileset.png in Resources */,
+				6588622C1511492500DA900E /* dune.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

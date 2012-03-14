@@ -6,9 +6,15 @@
 //  Copyright (c) 2012 Nocturnal Code Limited. All rights reserved.
 //
 
-#ifndef Roguelike_Ranged_h
-#define Roguelike_Ranged_h
+#ifndef RANGED_INCLUDE_H
+#define RANGED_INCLUDE_H
 
+#include "Object.h"
 
+class Ranged : public Object
+{
+public:
+    Ranged();
+};
 
-#endif
+#endif /* RANGED_INCLUDE_H */

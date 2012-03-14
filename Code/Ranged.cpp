@@ -6,4 +6,10 @@
 //  Copyright (c) 2012 Nocturnal Code Limited. All rights reserved.
 //
 
-#include <iostream>
+#include "Ranged.h"
+#include "Ascii.h"
+
+Ranged::Ranged() : Object(new Ascii(BRACKET_RIGHT_CURLY,Colour::white(), Colour::clear()))
+{
+    
+}

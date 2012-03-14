@@ -14,7 +14,7 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
     this->player = player;
     
 	borderStyle = Border_Single;
-	getCentreLabel()->setString("Inventory");
+	getCentreLabel()->setString("Items");
 	getCentreLabel()->setColour(Colour::red());
 	
 //	Label *optionsLabel = new Label("Return to Game");

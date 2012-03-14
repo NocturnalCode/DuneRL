@@ -150,9 +150,5 @@ public:
  $ : Treasure
  & : Pile of mixed items.
  
- § : Not used
- ' : Not used (too similar to ` and ´ maybe?)
- ° : Not used (Is this 7-Bit ASCII ? Edit: No, and § also isn't)
- 
  */
 
