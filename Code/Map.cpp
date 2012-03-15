@@ -722,7 +722,7 @@ void Map::update(Speed turnSpeed)
     
     int i=updateRect.X,j=updateRect.Y; // world
 	int x=0,y=0; // local
-	
+	player->update(turnSpeed, world->getTurn());
 	for(j=updateRect.Y,y=0;y< updateRect.Height;j++,y++)
 	{
 		for(i=updateRect.X,x=0;x< updateRect.Width;i++,x++)

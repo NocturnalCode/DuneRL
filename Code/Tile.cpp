@@ -192,16 +192,16 @@ void Tile::update(Speed updateSpeed, int turnNumber)
     foreach(Objects,o,objsToMove)
     {
         Object *object = (*o);
-        int count = objects->size();
+        //int count = objects->size();
         //o++;
         if (object != NULL) {
             object->update(updateSpeed, turnNumber);
         }
-        else {
-            break;
-        }
-        if (count != objects->size()) {
-            return;
-        }
+//        else {
+//            break;
+//        }
+//        if (count != objects->size()) {
+//            return;
+//        }
     }
 }

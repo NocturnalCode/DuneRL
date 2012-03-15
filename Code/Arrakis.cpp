@@ -83,8 +83,8 @@ void Arrakis::generate()
 //            int jdx = j*perlinSize/size;
             
             //y = j
-            double rockThreshold = minRock + (((double)j/(double)size)*(maxRock-minRock));
-            double spiceThreshold = minSpice + ((((double)(size-j-1))/(double)size)*(maxSpice-minSpice));
+            double rockThreshold = minRock + (((double)(size-j-1)/(double)size)*(maxRock-minRock));
+            double spiceThreshold = minSpice + ((((double)(j))/(double)size)*(maxSpice-minSpice));
             
             
 			double h = heights.interpolatedAt(size, i, j);
@@ -221,13 +221,48 @@ void Arrakis::generate()
         }
     }
     
+    for (int i = 0; i < 3; i++) {
+        
+        bool placementValid = false;
+        while (!placementValid) {
+            int width = 3+rand()%3;
+            int height = 3+rand()%3;
+            Rect placement = Rect(rand()%(size-width-1), rand()%((size/2)-height-1) + size/2, width, height);
+            bool test = true;
+            //Test that these tiles are valid
+            for (int i = placement.X; i<placement.X+width && test; i++) {
+                for (int j = placement.Y; j<placement.Y+height && test; j++) {
+                    
+                    DuneTile *tile = dynamic_cast<DuneTile*>(tiles[ARRAY2D(i,j,size)]);
+                    if (tile) {
+                        if (tile->getGroundType() != GroundTypeSand || tile->getObjects()->size() != 1) {
+                            test = false;
+                            break;
+                        }
+                    }
+                    
+                }
+            }
+            
+            if (test) {
+                placementValid = true;
+                
+                createRoom(placement,Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+                
+            }
+            
+            
+        }
+        
+    }
+    
     //-- Generate spice map
     
 	//-- Generate the fortresses in the lower half of world
-	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
     // and fortress mobs
     
     //-- Generate Camps

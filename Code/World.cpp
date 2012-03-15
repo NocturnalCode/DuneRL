@@ -97,7 +97,7 @@ Display* World::getParent()
 
 int World::getTurn()
 {
-    return turn.playerCount;
+    return turn.count;//turn.playerCount;
 }
 
 bool World::handleEvents(SDL_Event *event)
