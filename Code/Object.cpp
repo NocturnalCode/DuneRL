@@ -269,8 +269,6 @@ void Object::dropInventoryObject(Object *object)
 {
     removeObjectFromInventory(object);
     
-    //Point p = getPosition();
-    //getMap()->addObject(p.X, p.Y, object);
     Tile *tile = getMap()->getTile(getPosition());
     if(tile)
         tile->addLiquid(object);
@@ -338,8 +336,6 @@ void Object::update(Speed turnSpeed, int turnNumber)
         return;
     }
     this->lastMovementTurn = turnNumber;
-    
-    
     
     if (_flags.decays == YES) {
         decay--;

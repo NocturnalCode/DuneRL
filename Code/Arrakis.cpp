@@ -78,16 +78,13 @@ void Arrakis::generate()
     {
 		for(i=0;i< size;i++) 
         {
-            
-//            int idx = i*perlinSize/size;
-//            int jdx = j*perlinSize/size;
-            
-            //y = j
             double rockThreshold = minRock + (((double)(size-j-1)/(double)size)*(maxRock-minRock));
             double spiceThreshold = minSpice + ((((double)(j))/(double)size)*(maxSpice-minSpice));
             
-            
 			double h = heights.interpolatedAt(size, i, j);
+            
+            Colour foreground;
+            Colour background;
             
             //h=h+0.5;
             if (h<0) {
@@ -98,121 +95,89 @@ void Arrakis::generate()
             if (h<0) {
                 h = 0;
             }
-            
-            
-            
-//            h = h / ((double)octaves * persistence);
-//            if (h>6) {
-//                h = 1;
-//            }
-//            if (h<0.5) {
-//                h= 0;
-//            }
-//            else {
-//                h = 1;
-//            }
-            
-            
-//            h *= 20.0;
-//            h = h-(int)h;
-            
-			std::vector<int> ascii;
-			ascii.push_back(COMMA);
-			ascii.push_back(QUOTE_SINGLE);
-			ascii.push_back(0);
-			
-            //h*
-            
-           // printf("perlinValue: %f\n", h);
-            
-            // lowest
-            Colour foreground;
-            Colour background;
-            
-            if(h < 0.215) 
-            {
-                background = col1;
-            }
-            else if(h < 0.24) 
-            {
-                background = col2;
-            }
-            else if(h < 0.255)
-            {
-                background = col3;
-            }
-            else if(h < 0.275) 
-            {
-                background = col4;
-            }
-            else if(h < 0.3)
-            {
-                background = col5;
-            }
-            else if(h < 0.35)  
-            {
-                background = col6;
-            }
-            else if(h < 0.4)
-            {
-                background = col7;
-            }
-            else if(h < 0.45) 
-            {
-                background = col8;
-            }
-            else if(h < 0.475)
-            {
-                background = col9;
-            }
-            else if(h < 0.495)
-            {
-                background = colA;
-            }
-            else
-            {
-                background = colB;
-            }
-            
-			foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
-            //Colour background(1.0f,1.0f-h,0.0f);
-            
-//            if ((i<2 || j<2 || j>size-3 || i>size-3)&&DEV) {
-//                background = Colour::blue();
-//            }
 			
             Object *o = NULL; 
             double r = rock.interpolatedAt(size, i, j);
-            if (r>rockThreshold) {
+            if(r > rockThreshold) 
+            {
+                std::vector<int> ascii;
+                ascii.push_back(COMMA);
+                ascii.push_back(QUOTE_SINGLE);
+                ascii.push_back(0);
+                
+                foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
+                
+//                if(h < 0.215) 
+//                    background = col1;
+//                else if(h < 0.24) 
+//                    background = col2;
+//                else if(h < 0.255)
+//                    background = col3;
+//                else if(h < 0.275) 
+//                    background = col4;
+//                else if(h < 0.3)
+//                    background = col5;
+//                else if(h < 0.35)  
+//                    background = col6;
+//                else if(h < 0.4)
+//                    background = col7;
+//                else if(h < 0.45) 
+//                    background = col8;
+//                else if(h < 0.475)
+//                    background = col9;
+//                else if(h < 0.495)
+//                    background = colA;
+//                else
+//                    background = colB;
+                
                 //Rock the place
                 tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeRock,false);
                 background = Colour(1.0f,0.1f,0.0f);
                 o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
                 tiles[ARRAY2D(i,j,size)]->height = h+r;
             }
-            else {
+            else 
+            {
+                std::vector<int> ascii;
+                ascii.push_back(COMMA);
+                ascii.push_back(QUOTE_SINGLE);
+                ascii.push_back(0);
+                
+                foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
+                
+                if(h < 0.215) 
+                    background = col1;
+                else if(h < 0.24) 
+                    background = col2;
+                else if(h < 0.255)
+                    background = col3;
+                else if(h < 0.275) 
+                    background = col4;
+                else if(h < 0.3)
+                    background = col5;
+                else if(h < 0.35)  
+                    background = col6;
+                else if(h < 0.4)
+                    background = col7;
+                else if(h < 0.45) 
+                    background = col8;
+                else if(h < 0.475)
+                    background = col9;
+                else if(h < 0.495)
+                    background = colA;
+                else
+                    background = colB;
                 
                 double s = spice.interpolatedAt(size, i, j);
-                if (s>spiceThreshold) {
-                    tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,true);
-                    foreground = Colour::red();
-                    o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
-                }
-                else {
-                    tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,false);
-                    o = new Object(new Ascii(0,foreground,background));
-                }
+                
+                tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,s>spiceThreshold);
+                o = new Object(new Ascii(0,foreground,background));
                 
                 tiles[ARRAY2D(i,j,size)]->height = h;
             }
             
-			
-			
-            
-            
 			tiles[ARRAY2D(i,j,size)]->parent = this;
 			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
-            
             
 			o->setPassable(true);
             o->setTerrain(true);

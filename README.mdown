@@ -16,6 +16,7 @@ The source is licensed under the New BSD License.
 Basic controls, subject to change.
 
 * Arrow Keys, movement, menu navigation
+* 'enter' confirm menu item
 * 'i' items/inventory
 * 'e' equip selected item (in inventory)
 * 'u' unequip selected item (in inventory)
