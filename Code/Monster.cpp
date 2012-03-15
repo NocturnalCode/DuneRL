@@ -616,6 +616,6 @@ void Monster::update(Speed turnSpeed, int turnNumber)
             }
         }
 		else if(this->speed == turnSpeed)
-			this->performTurn();
+			performTurn();
     }
 }
