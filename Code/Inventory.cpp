@@ -11,6 +11,8 @@
 #include "Stringer.h"
 #include "DuneRL.h"
 
+#include "Tile.h"
+
 Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 {
     this->player = player;
@@ -33,6 +35,11 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 //	add(exitLabel);
 }
 
+Objects *Inventory::groundItems()
+{
+    return player->getParent()->getObjects();
+}
+
 std::string Inventory::describeObject(Object *object)
 {
     std::string equipped = "";
@@ -48,8 +55,12 @@ std::string Inventory::describeObject(Object *object)
 
 void Inventory::open()
 {
-    // setRect
-    rect.Height = (12 * numberOfItems()) + 12 + 12 + 24;
+    Objects *ground = groundItems();
+    int groundSize = 0;
+    if(ground)
+        groundSize = ground->size();
+    
+    rect.Height = (12 * numberOfItems()) + (12 * groundSize) + 12 + 12 + 24;
     setup();
     
     // empty all current displays
@@ -59,10 +70,7 @@ void Inventory::open()
     }
     displays.clear();
     
-    // then generate new labels
-    
     Objects *inv = player->getInventory();
-    
     if(inv != NULL)
     {    
         int i = 0;
@@ -74,7 +82,22 @@ void Inventory::open()
             add(itemLabel);
             i++;
             
-            //printf("inv: %s\n",desc.c_str());
+            printf("inv: %s\n",desc.c_str());
+        }
+    }
+    
+    if(ground)
+    {
+        int i = 0;
+        foreachp(Objects, o, ground)
+        {
+            std::string desc = describeObject(*o);
+            Label *itemLabel = new Label(desc);
+            itemLabel->setFrame(Rect(18,(12 * numberOfItems() + 24)+(12*i),rect.Width,12));
+            add(itemLabel);
+            i++;
+            
+            printf("inv: %s\n",desc.c_str());
         }
     }
     
