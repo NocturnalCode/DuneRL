@@ -215,7 +215,30 @@ void Object::addObjectToInventory(Object *object)
 {
     if(inventory == NULL)
         inventory = new std::list<Object *>();
-    inventory->push_back(object);
+    
+    Object *existing = NULL;
+    if(object->_flags.stackable)
+    {
+        foreachp(Objects, o, inventory)
+        {
+            Object *test = (*o);
+            if(test->name.compare(object->name) == 0)
+            {
+                // same name
+                existing = test;
+                break;
+            }
+        }
+    }
+    
+    if(existing)
+    {
+        existing->count += object->count; 
+    }
+    else 
+    {
+        inventory->push_back(object);
+    }
     object->removeFromTile();
 }
 

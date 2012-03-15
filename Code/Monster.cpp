@@ -527,7 +527,7 @@ void Monster::onDeath()
     corpse->description = this->darticle  + "corpse of " + this->iarticle + this->name;
     parent->addObject(corpse);
     
-    // gore, body parts perhaps
+    // more gore, body parts perhaps
     
     dumpInventory();
     // remove self

@@ -44,7 +44,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Inventory pickup
 * Footprints
 
-## Day 3
+## Day 4
 
 * Inventory menu
 * Decay, blood/footprints
@@ -52,6 +52,8 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Item stacking
 * Spice seeding
 * Most of world only updates when you're nearby, but offscreen still
+* Equip/Drop/Pickup/Consume items
+
 
 ## Requirements
 
@@ -81,3 +83,6 @@ Pretty dunes, and a night cycle.
 
 A bit of spice in the dunes
 ![Day 3](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day3-Spice.png "Spice")
+
+Inventory, spice score
+![Day 4](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day4-Inventory.png "Inventory")

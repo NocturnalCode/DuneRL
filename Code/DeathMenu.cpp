@@ -27,7 +27,7 @@ DeathMenu::DeathMenu(Rect rect,Player *player) : Menu(rect)
 //	devLabel->setFrame(Rect(16,18+24,100,40));
 //	devLabel->setString("Debug");
 //	add(devLabel);
-    Label *spiceLabel = new Label(stringFormat("You collected %d spice!",player->spice));
+    Label *spiceLabel = new Label(stringFormat("You collected %d spice!",player->spiceCount()));
 	spiceLabel->setFrame(Rect(16,18+24,100,40));
 	add(spiceLabel);
 	

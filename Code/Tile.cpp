@@ -39,14 +39,37 @@ Tile::~Tile()
 
 void Tile::addObject(Object *object)
 {
-	object->setParent(this);
-	objects->push_back(object);
-	
-	if(object->_flags.passable==NO)
-		_flags.passable = NO;
+    Object *existing = NULL;
+    
+    if(object->_flags.stackable)
+    {
+        foreachp(Objects, o, objects)
+        {
+            Object *test = (*o);
+            if(test->name.compare(object->name) != 0)
+            {
+                // same name
+                existing = test;
+                break;
+            }
+        }
+    }
+    
+    if(existing)
+    {
+        existing->count += object->count; 
+    }
+    else 
+    {
+        object->setParent(this);
+        objects->push_back(object);
+        
+        if(object->_flags.passable==NO)
+            _flags.passable = NO;
 		
-	if(object->_flags.transparent==NO)
-		_flags.transparent = NO;
+        if(object->_flags.transparent==NO)
+            _flags.transparent = NO;
+    }
 }
 
 void Tile::addLiquid(Object *object)

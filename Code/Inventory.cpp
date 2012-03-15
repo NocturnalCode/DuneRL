@@ -38,6 +38,10 @@ std::string Inventory::describeObject(Object *object)
     std::string equipped = "";
     if(player->objectIsEquipped(object))
         equipped = " #0f0(equipped)%";
+    else if((object->_flags.stackable == YES) && (object->count > 1))
+    {
+        return stringFormat(object->stackName,object->count);
+    }
     
     return stringFormat("%s%s",object->name.c_str(),equipped.c_str());
 }
@@ -45,9 +49,8 @@ std::string Inventory::describeObject(Object *object)
 void Inventory::open()
 {
     // setRect
-    rect.Height = (12 * numberOfItems()) + 12 + 12 + 12;
+    rect.Height = (12 * numberOfItems()) + 12 + 12 + 24;
     setup();
-   // reset();
     
     // empty all current displays
     foreach(Displays,d,displays)
@@ -67,11 +70,11 @@ void Inventory::open()
         {
             std::string desc = describeObject(*o);
             Label *itemLabel = new Label(desc);
-            itemLabel->setFrame(Rect(18,12+(12*i),rect.Width,12));
+            itemLabel->setFrame(Rect(18,24+(12*i),rect.Width,12));
             add(itemLabel);
             i++;
             
-            printf("inv: %s\n",desc.c_str());
+            //printf("inv: %s\n",desc.c_str());
         }
     }
     

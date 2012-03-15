@@ -40,7 +40,6 @@ protected:
     void didConsumeObject(Object *object);
 
 public:
-    int spice;
     // UI related fields
     std::string family;
     std::string spiceDescription();
@@ -50,6 +49,7 @@ public:
     void calculateSight();
     
     bool equip(Object *object);
+    int spiceCount();
     
     Player();
     ~Player();

@@ -17,6 +17,7 @@
 #include "Melee.h"
 #include "Ranged.h"
 #include "Shield.h"
+#include "Spice.h"
 
 #include "DuneWorld.h"
 
@@ -42,7 +43,6 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     water = maxWater;
     waterTick = 0;
     rateOfDehydration = TURNS_IN_A_DAY_PART;
-    spice = 0;
     spiceCrazed = false;
     kills = 0;
     description = "You";
@@ -60,9 +60,24 @@ Player::~Player()
     printf("Destructing Player");
 }
 
+int Player::spiceCount()
+{
+    int count = 0;
+    foreachp(Objects, o, inventory)
+    {
+        Spice *spice = dynamic_cast<Spice *>((*o));
+        if(spice != NULL)
+        {
+            count = spice->count;
+            break;
+        }
+    }
+    return count;
+}
+
 std::string Player::spiceDescription()
 {
-    return stringFormat("%d Spice",spice);
+    return stringFormat("%d Spice",spiceCount());
 }
 
 std::string Player::waterDescription()
