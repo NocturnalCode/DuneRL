@@ -216,8 +216,8 @@ void Arrakis::generate()
         
         bool placementValid = false;
         while (!placementValid) {
-            int width = 3+rand()%3;
-            int height = 3+rand()%3;
+            int width = 6+rand()%4;
+            int height = 4+rand()%6;
             Rect placement = Rect(rand()%(size-width-1), rand()%((size/2)-height-1) + size/2, width, height);
             bool test = true;
             //Test that these tiles are valid

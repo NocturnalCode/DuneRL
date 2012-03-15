@@ -20,7 +20,7 @@ class LightFilter {
     
 public:
     LightFilter();
-    ~LightFilter();
+    virtual ~LightFilter();
     virtual Ascii *apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii); 
 };
 
