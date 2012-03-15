@@ -36,6 +36,11 @@ bool Point::operator!=(Point &other)
     return other.X != X || other.Y != Y; 
 }
 
+Point Point::operator-(Point &other)
+{
+    return Point(X-other.X, Y-other.Y);
+}
+
 float Point::distance(Point b) 
 { 
     return sqrtf( powf(X-b.X, 2) + powf(Y-b.Y, 2)); 
