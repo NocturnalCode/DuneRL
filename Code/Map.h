@@ -20,7 +20,7 @@
 
 #include "Rect.h"
 #include "World.h"
-
+#include "Perlin.h"
 
 typedef enum {
 	MapTypeNoTile,
@@ -34,31 +34,47 @@ class Monster;
 
 class Map
 {
+private:
+    Rect	visibleRect;
+    Rect mapRect;
+    
+    
 protected:
     
     float *tex,*col,*bgCol;
-    Tile **tiles;
+    //Tile **tiles;
+    
+    std::vector<std::vector<Tile*>*> *tiles;
     
     Monster *player;
     void displayTile(float *texture, float *colour,float *backgroundColour, Tile *tile, Monster *monster);
     bool mapFlippednessChanged;
+    
+    Perlin *heights;
 public:
     World	*world;
     Monsters monsters;
     Objects	 objects;
-    Rect	visibleRect;
+    
     int size;
     MapType maptype;
     bool mapFlipped;
     Map(unsigned size);
     ~Map();
     virtual void generate();
+    virtual Tile* generateTileAtCoord(int i, int j);
     virtual void createRoom(Rect rect,Ascii floor);
+    
+    void setVisibleRect(Rect visiRect);
+    Rect getVisibleRect();
     
     void update(Speed turnSpeed);
     void updateAscii();
     
     Tile *getTile(WorldCoord point);
+    WorldCoord convertWorldCoordRelativeToMapCoord(WorldCoord point);
+    
+    
     
     bool adjustPlayer(int i, int j);
     

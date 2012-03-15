@@ -10,13 +10,23 @@
 #define ARRAKIS_H_INC
 
 #include "Map.h"
+#include "Tile.h"
 
 class Arrakis: public Map
 {
+protected:
+    Perlin *rock;
+    Perlin *spice;
+    Perlin *heights;
+    double minRock;
+    double maxRock;
+    double minSpice;
+    double maxSpice;
 public:
     Arrakis(unsigned size);
     
     virtual void generate();
+    Tile* generateTileAtCoord(int i, int j);
 };
 
 #endif /* ARRAKIS_H_INC */

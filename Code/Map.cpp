@@ -9,22 +9,28 @@
 
 #include "Map.h"
 #include "World.h"
-#include "Perlin.h"
+
 #include "Monster.h"
 #include "Roguelike.h"
 #include "Rect.h"
+
 
 Map::Map(unsigned Size)
 {
 	size = Size;
 	tex = NULL;
 	col = NULL;
-	tiles = (Tile**)calloc(size*size,sizeof(Tile*));
+	tiles = new std::vector<std::vector<Tile*>*>(); //(Tile**)calloc(size*size,sizeof(Tile*));
+//    for (int i = 0; i<Size; i++) {
+//        tiles->push_back(new std::vector<Tile*>());
+//    }
+    heights = NULL;
 	maptype = MapTypeWorldTile;
     mapFlipped = false;
     mapFlippednessChanged = false;
 
     visibleRect = Rect(0-40+1,0-20+1,80,40);
+    mapRect = Rect(0,0,0,0);
 	//generate();
 }
 
@@ -34,42 +40,30 @@ Map::~Map()
 	{
 		for(int j=0;j<size;j++)
 		{
-			tiles[ARRAY2D(i,j,size)]->parent = NULL;
-            delete tiles[ARRAY2D(i,j,size)];
+            VVARRAYPP(i, j, tiles)->parent = NULL;
+            delete VVARRAYPP(i, j, tiles);
 		}
+        VARRAYP(i, tiles)->clear();
 	}
-    free(tiles);
-    
+    tiles->clear();
+    delete tiles;
 }
 
 void Map::generate()
 {
-	int i,j;
+	//int i,j;
 	
-	Perlin heights(size, 3,1.0);
-	
-	for(j=0;j<size;j++)
-    {
-		for(i=0;i< size;i++) 
-        {
-            tiles[ARRAY2D(i,j,size)] = new Tile(i,j);
-			tiles[ARRAY2D(i,j,size)]->parent = this;
-			double h = heights.at(i,j) + 1;
-			std::vector<int> ascii;
-			ascii.push_back(COMMA);
-			ascii.push_back(QUOTE_SINGLE);
-			ascii.push_back(0);
-			
-			Colour foreground(0.1f,(float)((int)(i*h)%4)*0.2,0.f);
-			Colour background(Colour(0,h/5.0,0));
-			
-			Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
-			
-			tiles[ARRAY2D(i,j,size)]->Position = Point(i,j);
-			o->setPassable(true);
-			addObject(i,j,o);
-        }
-    }
+	//Perlin heights(size, 3,1.0);
+	heights = new Perlin(size, 3, 1.0);
+//	for(j=0;j<size;j++)
+//    {
+//		for(i=0;i< size;i++) 
+//        {
+//            VARRAYP(i, tiles)->push_back(this->generateTileAtCoord(i, j));
+//        }
+//    }
+    
+    this->setVisibleRect(visibleRect);
     
     return;
 	
@@ -86,12 +80,35 @@ void Map::generate()
 		- - - - - - - - -
 	*/
 	
-	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
+//	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
 
 	printf("Generated map of size %dx%d\n",size,size);
+}
+
+Tile* Map::generateTileAtCoord(int i, int j)
+{
+    Tile *t = new Tile(i, j);
+    t->parent = this;
+    
+    double h = heights->at(i,j) + 1;
+    std::vector<int> ascii;
+    ascii.push_back(COMMA);
+    ascii.push_back(QUOTE_SINGLE);
+    ascii.push_back(0);
+    
+    Colour foreground(0.1f,(float)((int)(i*h)%4)*0.2,0.f);
+    Colour background(Colour(0,h/5.0,0));
+    
+    Object *o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
+    
+    t->Position = Point(i,j);
+    o->setPassable(true);
+    t->addObject(o);
+    
+    return t;
 }
 
 void Map::createRoom(Rect rect,Ascii floor)
@@ -157,22 +174,64 @@ void Map::createRoom(Rect rect,Ascii floor)
 	printf("Creating room: %d %d %d %d\n",rect.X,rect.Y,rect.Width,rect.Height);
 }
 
+bool rectContains(Point origin, int width, int height, Point test)
+{
+    if (test.X >= origin.X && test.X < origin.X + width) {
+        if (test.Y >= origin.Y && test.Y < origin.Y + height) {
+            return true;
+        }
+    }
+    return false;
+}
+
 Tile *Map::getTile(WorldCoord point)
 {
-    int x = (point.X);// < 0 ? size+i : (i)%size;
-	int y = (point.Y);// < 0 ? size+j : (j)%size;
+    WorldCoord p = this->convertWorldCoordRelativeToMapCoord(point);
+    if (p.X < 0 || p.Y < 0) {
+        return NULL;
+    }
+    
+    Point v1 = this->convertWorldCoordRelativeToMapCoord(Point(mapRect.X, mapRect.Y));
+    if (rectContains(v1, mapRect.Width, mapRect.Height, p)) {
+        //then we are in the coord space of v1
+        return VVARRAYPP(p.X-v1.X, p.Y-v1.Y, tiles);
+    }
+    Point v2 = this->convertWorldCoordRelativeToMapCoord(Point(mapRect.X+mapRect.Width, mapRect.Y));
+    v2.X -= mapRect.Width;
+    if (rectContains(v2, mapRect.Width, mapRect.Height, p)) {
+        //then we are in the coord space of v2
+        return VVARRAYPP(p.X-v2.X, p.Y-v2.Y, tiles);
+    }
+    Point v3 = this->convertWorldCoordRelativeToMapCoord(Point(mapRect.X, mapRect.Y+mapRect.Height));
+    v3.Y -= mapRect.Height;
+    if (rectContains(v3, mapRect.Width, mapRect.Height, p)) {
+        //then we are in the coord space of v2
+        return VVARRAYPP(p.X-v3.X, p.Y-v3.Y, tiles);
+    }
+    Point v4 = this->convertWorldCoordRelativeToMapCoord(Point(mapRect.X+mapRect.Width, mapRect.Y+mapRect.Height));
+    v4.X -= mapRect.Width;
+    v4.Y -= mapRect.Height;
+    if (rectContains(v4, mapRect.Width, mapRect.Height, p)) {
+        //then we are in the coord space of v2
+        return VVARRAYPP(p.X-v4.X, p.Y-v4.Y, tiles);
+    }
+    //Point cp2 = this->convertWorldCoordRelativeToMapCoord(cp);
+	return NULL;//VVARRAYPP(p.X-cp.X, p.Y-cp.Y, tiles);//tiles[ARRAY2D(x,y,size)];
+}
+
+WorldCoord Map::convertWorldCoordRelativeToMapCoord(WorldCoord point)
+{
+    int x = (point.X);
+	int y = (point.Y);
     
     switch (maptype) {
         case MapTypeNoTile:
             if(x<0 || y<0 || x>=size || y>=size)
-                return NULL;
+                return Point(-1, -1);
             break;
         case MapTypeFullTile:
             x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
             y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
             break;
         case MapTypeWorldTile:
         {
@@ -192,7 +251,7 @@ Tile *Map::getTile(WorldCoord point)
         }
             break;
         default:
-            return NULL;
+            return Point(-1, -1);
             break;
     } 
     if (x==size) {
@@ -201,54 +260,16 @@ Tile *Map::getTile(WorldCoord point)
     if (y==size) {
         y = 0;
     }
-	return tiles[ARRAY2D(x,y,size)];
+    return Point(x,y);
 }
 
 void Map::addObject(int i, int j,Object *object)
 {
-    int x = (i);// < 0 ? size+i : (i)%size;
-	int y = (j);// < 0 ? size+j : (j)%size;
-    
-    switch (maptype) {
-        case MapTypeNoTile:
-            if(x<0 || y<0 || x>=size || y>=size)
-                return;
-            break;
-        case MapTypeFullTile:
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
-            break;
-        case MapTypeWorldTile:
-        {
-            int realm = abs(y/size);
-            bool flipped = realm %2;
-            if (y<0) {
-                //then flip again
-                flipped = !flipped;
-            }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            if (flipped) {
-                //then move x and y is upsidedownface
-                x -= size/2;
-                y = size - y-1;
-            }
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-        }
-            break;
-        default:
-            return;
-            break;
-    } 
-    if (x==size) {
-        x = 0;
+    Tile* tile = this->getTile(Point(i,j));
+    if (tile == NULL) {
+        return;
     }
-    if (y==size) {
-        y = 0;
-    }
-	tiles[ARRAY2D(x,y,size)]->addObject(object);
+	tile->addObject(object);
 }
 
 void Map::removeObject(Object *object)
@@ -257,53 +278,13 @@ void Map::removeObject(Object *object)
 }
 
 void Map::moveObject(Object *object, int i, int j)
-{
-    int x = i;//(i) < 0 ? size+i : (i)%size;
-	int y = j;//(j) < 0 ? size+j : (j)%size;
-    switch (maptype) {
-        case MapTypeNoTile:
-            if(x<0 || y<0 || x>=size || y>=size)
-                return;
-            break;
-        case MapTypeFullTile:
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
-            break;
-        case MapTypeWorldTile:
-        {
-            int realm = abs(y/size);
-            bool flipped = realm %2;
-            if (y<0) {
-                //then flip again
-                flipped = !flipped;
-            }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            if (flipped) {
-                //then move x and y is upsidedownface
-                x -= size/2;
-                y = size - y-1;
-            }
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-        }
-            break;
-        default:
-            return;
-            break;
-    }    
-    if (x==size) {
-        x = 0;
-    }
-    if (y==size) {
-        y = 0;
+{    
+    Tile* tile = this->getTile(Point(i,j));
+    if (tile == NULL) {
+        return;
     }
 	object->removeFromTile();
-//	if(i >= size) 
-//		i = size - i;
-//    if(j >= size)
-//        j = size - j;
-	tiles[ARRAY2D(x,y,size)]->addObject(object);
+	tile->addObject(object);
 }
 
 
@@ -367,7 +348,7 @@ bool Map::adjustPlayer(int i, int j)
 	if(checkMove(player,x,y))
 	{
 		moveObject(player,x,y);
-        visibleRect = Rect(x-40+1,y-20+1,80,40);
+        this->setVisibleRect(Rect(x-40+1,y-20+1,80,40));
 		return true;
 	}
     else if(checkCombat(player,x,y)) // this is less check combat and more do melee combat, refactor
@@ -381,12 +362,164 @@ bool Map::adjustPlayer(int i, int j)
 	return false;
 }
 
+
+
+void Map::setVisibleRect(Rect visiRect)
+{
+    //Do the tile generate thing and make sure there are tiles for what is visible
+    
+    //ok, we want to make the map rect basically the same as the visiRect except with padding
+    
+    Rect newMapRect = visiRect;
+    int padding = 20;
+    newMapRect.X -= padding;
+    newMapRect.Y -= padding;
+    newMapRect.Width += 2*padding;
+    newMapRect.Height += 2*padding;
+    
+    //we need to shift the current arrays by the difference... no simple task as there are 2 axes to do this on
+    
+    int xDiff = newMapRect.X - mapRect.X;
+    int yDiff = newMapRect.Y - mapRect.Y;
+    printf("tiles size = %d", tiles->size());
+    if (tiles->size() == 0) {
+        for(int i=0;i< newMapRect.Width;i++)
+        {
+            tiles->push_back(new std::vector<Tile*>());
+            for(int j=0;j<newMapRect.Height;j++)
+            {
+                VARRAYP(i, tiles)->push_back(this->generateTileAtCoord(i+newMapRect.X, j+newMapRect.Y));
+            }
+        }
+        xDiff = 0;
+        yDiff = 0;
+    }
+    
+    
+    mapRect = newMapRect;
+    if (xDiff > 0) {
+        //then shift main Array to the left by diff
+        
+        //typically diff will be 1 but, in the case that it isn't we need to be able to handle that
+        //if (xDiff > mapRect.Width) {
+            //Then the mapRect has been moved so far as to make the current world obsolete.
+        //int end = mapRect.Width - 1;
+        int totalToRemove = MIN(xDiff, mapRect.Width);
+        for(int i=0;i < totalToRemove;i++)
+        {
+            for(int j=0;j<mapRect.Height;j++)
+            {
+                VVARRAYPP(i, j, tiles)->parent = NULL;
+                delete VVARRAYPP(i, j, tiles);
+            }
+            delete VARRAYP(i, tiles);
+        }
+        tiles->erase(tiles->begin(), tiles->begin()+totalToRemove);
+        //now add on the same to the end
+        for(int i=mapRect.Width-totalToRemove;i<mapRect.Width;i++)
+        {
+            tiles->push_back(new std::vector<Tile*>());
+            for(int j=0;j< mapRect.Height;j++) 
+            {
+                WorldCoord coord = this->convertWorldCoordRelativeToMapCoord(Point(newMapRect.X + i, newMapRect.Y+j));
+                VARRAYP(i, tiles)->push_back(this->generateTileAtCoord(coord.X, coord.Y));
+            }
+        }
+    }
+    else if (xDiff < 0)
+    {
+        //then shift the main Array to the right by diff
+        xDiff = -xDiff;
+        //int end = mapRect.Width - 1;
+        int totalToRemove = MIN(xDiff, mapRect.Width);
+        for(int i= mapRect.Width-totalToRemove;i < mapRect.Width;i++)
+        {
+            for(int j=0;j<mapRect.Height;j++)
+            {
+                VVARRAYPP(i, j, tiles)->parent = NULL;
+                delete VVARRAYPP(i, j, tiles);
+            }
+            delete VARRAYP(i, tiles);
+        }
+        tiles->erase(tiles->end()-totalToRemove, tiles->end());
+        //now add on the same to the end
+        for(int i=0;i<totalToRemove;i++)
+        {
+            tiles->insert(tiles->begin()+i, new std::vector<Tile*>());
+            //tiles->push_back();
+            for(int j=0;j< mapRect.Height;j++) 
+            {
+                WorldCoord coord = this->convertWorldCoordRelativeToMapCoord(Point(newMapRect.X + i, newMapRect.Y+j));
+                VARRAYP(i, tiles)->push_back(this->generateTileAtCoord(coord.X, coord.Y));
+            }
+        }
+    }
+    if (yDiff > 0) {
+        //then shift sub Arrays to the left by diff
+        
+        
+        int totalToRemove = MIN(yDiff, mapRect.Height);
+        for(int i=0;i < mapRect.Width;i++)
+        {
+            std::vector<Tile*> *sub = VARRAYP(i, tiles);
+            for(int j=0;j<totalToRemove;j++)
+            {
+                VVARRAYPP(i, j, tiles)->parent = NULL;
+                delete VVARRAYPP(i, j, tiles);
+            }
+            sub->erase(sub->begin(), sub->begin()+totalToRemove);
+        }
+        //now add on the same to the end
+        for(int i=0;i<mapRect.Width;i++)
+        {
+            for(int j=mapRect.Height-totalToRemove;j< mapRect.Height;j++) 
+            {
+                WorldCoord coord = this->convertWorldCoordRelativeToMapCoord(Point(newMapRect.X + i, newMapRect.Y+j));
+                VARRAYP(i, tiles)->push_back(this->generateTileAtCoord(coord.X, coord.Y));
+            }
+        }
+        
+    }
+    else if (yDiff < 0)
+    {
+        //then shift sub Arrays to the right by diff
+        yDiff = -yDiff;
+        int totalToRemove = MIN(yDiff, mapRect.Height);
+        for(int i=0;i < mapRect.Width;i++)
+        {
+            std::vector<Tile*> *sub = VARRAYP(i, tiles);
+            for(int j=mapRect.Height - totalToRemove;j<mapRect.Height;j++)
+            {
+                VVARRAYPP(i, j, tiles)->parent = NULL;
+                delete VVARRAYPP(i, j, tiles);
+            }
+            sub->erase(sub->end(), sub->end()-totalToRemove);
+        }
+        //now add on the same to the end
+        for(int i=0;i<mapRect.Width;i++)
+        {
+            for(int j=0;j< totalToRemove;j++) 
+            {
+                WorldCoord coord = this->convertWorldCoordRelativeToMapCoord(Point(newMapRect.X + i, newMapRect.Y+j));
+                VARRAYP(i, tiles)->insert(VARRAYP(i, tiles)->begin()+j, this->generateTileAtCoord(coord.X, coord.Y));
+            }
+        }
+    }
+    
+    visibleRect = visiRect;
+}
+
+Rect Map::getVisibleRect()
+{
+    return visibleRect;
+}
+
 void Map::setPlayer(Monster *player)
 {
 	this->player = player;
 	// Player
     Point p = player->getPosition();
-	visibleRect = Rect(p.X-40+1,p.Y-20+1,80,40);
+	this->setVisibleRect(Rect(p.X-40+1,p.Y-20+1,80,40));
 	player->calculateSight();
 }
 
@@ -403,94 +536,21 @@ void World::setParent(Display* parent)
 
 bool Map::checkMove(Object *object, int i, int j)
 {
-    int x = (i);// < 0 ? size+i : (i)%size;
-	int y = (j);// < 0 ? size+j : (j)%size;
-    
-    switch (maptype) {
-        case MapTypeNoTile:
-            if(x<0 || y<0 || x>=size || y>=size)
-                return false;
-            break;
-        case MapTypeFullTile:
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
-            break;
-        case MapTypeWorldTile:
-        {
-            int realm = abs(y/size);
-            bool flipped = realm %2;
-            if (y<0) {
-                //then flip again
-                flipped = !flipped;
-            }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            if (flipped) {
-                //then move x and y is upsidedownface
-                x -= size/2;
-                y = size - y-1;
-            }
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-        }
-            break;
-        default:
-            return false;
-            break;
-    } 
-    if (x==size) {
-        x = 0;
+    Tile* tile = this->getTile(Point(i,j));
+    if (tile == NULL) {
+        return false;
     }
-    if (y==size) {
-        y = 0;
-    }
-	//printf("Move %d\n",TILE(i,j)._flags.passable);
-    Tile *tile = tiles[ARRAY2D(x,y,size)];
     bool passable = tile->_flags.passable==YES;
     
 	return passable;
 }
 
 bool Map::checkCombat(Monster *monster, int i, int j)
-{
-    int x = (i);// < 0 ? size+i : (i)%size;
-	int y = (j);// < 0 ? size+j : (j)%size;
-    
-    switch (maptype) {
-        case MapTypeNoTile:
-            if(x<0 || y<0 || x>=size || y>=size)
-                return false;
-            break;
-        case MapTypeFullTile:
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
-            break;
-        case MapTypeWorldTile:
-        {
-            int realm = abs(y/size);
-            bool flipped = realm %2;
-            if (y<0) {
-                //then flip again
-                flipped = !flipped;
-            }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            if (flipped) {
-                //then move x and y is upsidedownface
-                x -= size/2;
-                y = size - y-1;
-            }
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-        }
-            break;
-        default:
-            return false;
-            break;
-    } 
-    
-    Tile *tile = tiles[ARRAY2D(x,y,size)];
+{    
+    Tile* tile = this->getTile(Point(i,j));
+    if (tile == NULL) {
+        return false;
+    }
     bool passable = tile->_flags.passable==YES;
     
     if(!passable)
@@ -519,48 +579,10 @@ bool Map::checkCombat(Monster *monster, int i, int j)
 
 bool Map::checkAction(Object *object, int i, int j)
 {
-    int x = (i);// < 0 ? size+i : (i)%size;
-	int y = (j);// < 0 ? size+j : (j)%size;
-    
-    switch (maptype) {
-        case MapTypeNoTile:
-            if(x<0 || y<0 || x>=size || y>=size)
-                return false;
-            break;
-        case MapTypeFullTile:
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            //x = (i) < 0 ? size+i : (i)%size;
-            //y = (j) < 0 ? size+j : (j)%size;
-            break;
-        case MapTypeWorldTile:
-        {
-            int realm = abs(y/size);
-            bool flipped = realm %2;
-            if (y<0) {
-                //then flip again
-                flipped = !flipped;
-            }
-            y = (y) < 0 ? (size*(((-y)/size) + 1))+y : (y)%size;
-            if (flipped) {
-                //then move x and y is upsidedownface
-                x -= size/2;
-                y = size - y-1;
-            }
-            x = (x) < 0 ? (size*(((-x)/size) + 1))+x : (x)%size;
-        }
-            break;
-        default:
-            return false;
-            break;
-    } 
-    if (x==size) {
-        x = 0;
+    Tile* tile = this->getTile(Point(i,j));
+    if (tile == NULL) {
+        return false;
     }
-    if (y==size) {
-        y = 0;
-    }
-    Tile *tile = tiles[ARRAY2D(x,y,size)];
     bool passable = tile->_flags.passable==YES;
     
     if(!passable)
@@ -712,7 +734,7 @@ void Map::update(Speed turnSpeed)
     }
     
     
-    Rect updateRect = visibleRect;
+    Rect updateRect = this->getVisibleRect();// visibleRect;
     int padding = 20;
     updateRect.X -= padding;
     updateRect.Y -= padding;
@@ -734,45 +756,14 @@ void Map::update(Speed turnSpeed)
             point.X = i;
             point.Y = j;
             Tile* tile = getTile(point);
-            
+            if (tile == NULL) {
+                continue;
+            }
             tile->update(turnSpeed,world->getTurn());
             
             
         }
     }
-    
-    
-//    foreach(Monsters,m,monsters)	
-//	{
-//        if((*m)->getHP() <= 0)
-//        {
-//            Monster *dead = (*m);
-//            m++;
-//         
-//            if(dead != player)
-//            {
-//                monsters.remove(dead);
-//                //printf("removing dead monster: %s",dead->name.c_str());
-//                //delete dead;
-//            }
-//            else 
-//            {
-//                if(!DEV)
-//                {
-//                    LOG("CONGRATULATIONS YOU DIED");
-//                    break;
-//                }
-//                else
-//                {
-//                    if((*m)->speed == turnSpeed)
-//                        (*m)->performTurn();
-//                }
-//                    
-//            }
-//        }
-//		else if((*m)->speed == turnSpeed)
-//			(*m)->performTurn();
-//	}
 }
 
 //-- Display stuff
@@ -805,12 +796,12 @@ void Map::setBackgroundColourPointer(float *colourPointer)
 
 bool Map::getTransparent(int x, int y)
 {
-	return tiles[ARRAY2D(x,y,size)]->_flags.transparent;
+	return VVARRAYPP(x, y, tiles)->_flags.transparent;
 }
 
 void Map::display()
 {
-    Rect rect = visibleRect;
+    Rect rect = this->getVisibleRect();//visibleRect;
 	
 //    printf("VisibleRect {{%d,%d},{%d,%d}} size=%d\n",rect.X,rect.Y,rect.Width,rect.Height,size);
 
@@ -827,59 +818,59 @@ void Map::display()
 			int texI = ARRAY2D(x,argY,rect.Width)*8;
 			int colI = ARRAY2D(x,argY,rect.Width)*16;
         
-            int dx = (i);// < 0 ? size+i : (i)%size;
+            int dx = (i)-mapRect.X;// < 0 ? size+i : (i)%size;
             
             
-            int dy =(j);// < 0 ? size+j : (j)%size;
-            if (mapFlipped && rect.Height%2 == 0) {
-                dy -= 1;
-            }
-            
-            switch (maptype) {
-                case MapTypeNoTile:
-                    if(dx<0 || dy<0 || dx>=size || dy>=size)
-                    {
-                        displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
-                        continue;
-                    }
-                    break;
-                case MapTypeFullTile:
-                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
-                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
-                    //x = (i) < 0 ? size+i : (i)%size;
-                    //y = (j) < 0 ? size+j : (j)%size;
-                    break;
-                case MapTypeWorldTile:
-                {
-                    int realm = abs(dy/size);
-                    bool flipped = realm %2;
-                    if (dy<0) {
-                        //then flip again
-                        flipped = !flipped;
-                    }
-                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
-                    if (flipped) {
-                        //then move x and y is upsidedownface
-                        dx -= size/2;
-                        dy = size - dy-1;
-                    }
-                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
-                }
-                    break;
-                default:
-                    displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
-                    continue;
-                    break;
-            }
-            if (dx==size) {
-                dx = 0;
-            }
-            if (dy==size) {
-                dy = 0;
-            }
-			int pos = ARRAY2D(dx,dy,size);
-			
-			displayTile(&tex[texI],&col[colI],&bgCol[colI],tiles[pos],player);
+            int dy =(j)-mapRect.Y;// < 0 ? size+j : (j)%size;
+//            if (mapFlipped && rect.Height%2 == 0) {
+//                dy -= 1;
+//            }
+//            
+//            switch (maptype) {
+//                case MapTypeNoTile:
+//                    if(dx<0 || dy<0 || dx>=size || dy>=size)
+//                    {
+//                        displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
+//                        continue;
+//                    }
+//                    break;
+//                case MapTypeFullTile:
+//                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
+//                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
+//                    //x = (i) < 0 ? size+i : (i)%size;
+//                    //y = (j) < 0 ? size+j : (j)%size;
+//                    break;
+//                case MapTypeWorldTile:
+//                {
+//                    int realm = abs(dy/size);
+//                    bool flipped = realm %2;
+//                    if (dy<0) {
+//                        //then flip again
+//                        flipped = !flipped;
+//                    }
+//                    dy = (dy) < 0 ? (size*(((-dy)/size) + 1))+dy : (dy)%size;
+//                    if (flipped) {
+//                        //then move x and y is upsidedownface
+//                        dx -= size/2;
+//                        dy = size - dy-1;
+//                    }
+//                    dx = (dx) < 0 ? (size*(((-dx)/size) + 1))+dx : (dx)%size;
+//                }
+//                    break;
+//                default:
+//                    displayTile(&tex[texI],&col[colI],&bgCol[colI],NULL,NULL);
+//                    continue;
+//                    break;
+//            }
+//            if (dx==size) {
+//                dx = 0;
+//            }
+//            if (dy==size) {
+//                dy = 0;
+//            }
+			//int pos = ARRAY2D(dx,dy,size);
+			Tile* tile = VVARRAYPP(dx, dy, tiles);
+			displayTile(&tex[texI],&col[colI],&bgCol[colI],tile,player);
 		}
 	}
                    

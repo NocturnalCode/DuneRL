@@ -225,12 +225,15 @@ bool Lightmap::isBlocked(WorldCoord co)
 {
     
     Tile* tile = map->getTile(co);
+    if (tile == NULL) {
+        return true;
+    }
     Tile* tilePosition = map->getTile(position);
     
     if (tilePosition->height < (tile->height-0.075)) {
         return true;
     }
-	return ! map->getTransparent(co.X,co.Y);
+	return ! tile->_flags.transparent;//map->getTransparent(co.X,co.Y);
 }
 
 bool Lightmap::isVisible(LocalCoord co)

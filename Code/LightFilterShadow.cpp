@@ -69,7 +69,9 @@ void darkenate(Colour *background, Colour *foreground, Tile* currentTile, Lightm
             coord.X = worldPoint.X - i;
             coord.Y = worldPoint.Y - j;
             Tile* comparisonTile = map->tileAtPoint(coord);
-            
+            if (comparisonTile == NULL) {
+                return;
+            }
             //            Tile* less = NULL;
             //            Tile* more = NULL;
             //direction tells us which is more important
@@ -174,7 +176,9 @@ Ascii* LightFilterShadow::apply(Lightmap* map, WorldCoord worldPoint, Ascii* asc
     }
     
     Tile* currentTile = map->tileAtPoint(worldPoint);
-    
+    if (currentTile == NULL) {
+        return ascii;
+    }
     Colour background = ascii->Background;
     Colour foreground = ascii->Foreground;
     darkenate(&background, &foreground, currentTile, map, worldPoint, direction);

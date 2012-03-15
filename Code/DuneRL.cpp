@@ -130,7 +130,12 @@ void DuneRL::init_world()
 	
 	player = new Player();
     
-    world->getMap()->addObject(100,100,player);
+    //world->getMap()->addObject(100,100,player);
+    
+    Rect visi = world->getMap()->getVisibleRect();
+    
+    Tile *t = world->getMap()->getTile(Point(visi.X + visi.Width*0.5, visi.Y + visi.Height*0.5));
+    t->addObject(player);
 	world->getMap()->setPlayer(player);
     world->getMap()->monsters.push_back(player);
 
