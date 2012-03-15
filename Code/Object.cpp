@@ -36,6 +36,7 @@ Object::Object()
     darticle = "the ";
     decay = 1;
     count = 1;
+    lastMovementTurn = 0;
 }
 
 Object::Object(Ascii *asc) 
@@ -63,6 +64,7 @@ Object::Object(Ascii *asc)
     darticle = "the ";
     decay = 1;
     count = 1;
+    lastMovementTurn = 0;
 }
 
 Object::Object(AsciiGroup *asc)
@@ -91,6 +93,7 @@ Object::Object(AsciiGroup *asc)
     darticle = "the ";
     decay = 1;
     count = 1;
+    lastMovementTurn = 0;
 }
 
 Object::~Object()
@@ -296,4 +299,9 @@ void Object::didLeaveTile(Tile *tile)
 float Object::distanceTo(Object *object)
 {
     return getPosition().distance(object->getPosition());
+}
+
+void Object::update(Speed turnSpeed, int turnNumber)
+{
+    
 }

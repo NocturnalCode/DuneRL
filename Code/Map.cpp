@@ -705,37 +705,74 @@ Objects Map::getVisibleObjects(Object *origin,int range)
 
 void Map::update(Speed turnSpeed)
 {
-    foreach(Monsters,m,monsters)	
+    //We want to go through the visible tiles and get each one to compute what it should do. If a tile has a monster on it, then the monster should move too.
+    
+    if (player->isAlive() == false) {
+        return;
+    }
+    
+    
+    Rect updateRect = visibleRect;
+    int padding = 20;
+    updateRect.X -= padding;
+    updateRect.Y -= padding;
+    updateRect.Width += padding*2;
+    updateRect.Height += padding*2;
+    
+    
+    int i=updateRect.X,j=updateRect.Y; // world
+	int x=0,y=0; // local
+	
+	for(j=updateRect.Y,y=0;y< updateRect.Height;j++,y++)
 	{
-        if((*m)->getHP() <= 0)
-        {
-            Monster *dead = (*m);
-            m++;
-         
-            if(dead != player)
-            {
-                monsters.remove(dead);
-                //printf("removing dead monster: %s",dead->name.c_str());
-                //delete dead;
+		for(i=updateRect.X,x=0;x< updateRect.Width;i++,x++)
+		{
+            if (player->isAlive() == false) {
+                return;
             }
-            else 
-            {
-                if(!DEV)
-                {
-                    LOG("CONGRATULATIONS YOU DIED");
-                    break;
-                }
-                else
-                {
-                    if((*m)->speed == turnSpeed)
-                        (*m)->performTurn();
-                }
-                    
-            }
+            WorldCoord point;
+            point.X = i;
+            point.Y = j;
+            Tile* tile = getTile(point);
+            
+            tile->update(turnSpeed,world->getTurn());
+            
+            
         }
-		else if((*m)->speed == turnSpeed)
-			(*m)->performTurn();
-	}
+    }
+    
+    
+//    foreach(Monsters,m,monsters)	
+//	{
+//        if((*m)->getHP() <= 0)
+//        {
+//            Monster *dead = (*m);
+//            m++;
+//         
+//            if(dead != player)
+//            {
+//                monsters.remove(dead);
+//                //printf("removing dead monster: %s",dead->name.c_str());
+//                //delete dead;
+//            }
+//            else 
+//            {
+//                if(!DEV)
+//                {
+//                    LOG("CONGRATULATIONS YOU DIED");
+//                    break;
+//                }
+//                else
+//                {
+//                    if((*m)->speed == turnSpeed)
+//                        (*m)->performTurn();
+//                }
+//                    
+//            }
+//        }
+//		else if((*m)->speed == turnSpeed)
+//			(*m)->performTurn();
+//	}
 }
 
 //-- Display stuff
@@ -744,11 +781,11 @@ void Map::updateAscii()
     /// change this to be onscreen only updates
     
     //	Environment stuff
-	foreach(Objects,o,objects)	
-        (*o)->updateAscii();
-    
-	foreach(Monsters,m,monsters)	
-        (*m)->updateAscii();
+//	foreach(Objects,o,objects)	
+//        (*o)->updateAscii();
+//    
+//	foreach(Monsters,m,monsters)	
+//        (*m)->updateAscii();
 }
 
 void Map::setTexturePointer(float *texturePointer)

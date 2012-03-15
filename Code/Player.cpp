@@ -38,7 +38,7 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
 	behaviour = BehaviourNone;
     sight = 45;
     setMaxHP(10);
-    maxWater = TURNS_IN_A_DAY * 1.5f/15.0f;
+    maxWater = (TURNS_IN_A_DAY * 1.5f/15.0f)/3;
     water = maxWater;
     waterTick = 0;
     rateOfDehydration = TURNS_IN_A_DAY_PART;
@@ -53,6 +53,11 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     Melee *melee = new Melee();
     addObjectToInventory(melee);
     equip(melee);
+}
+
+Player::~Player()
+{
+    printf("Destructing Player");
 }
 
 std::string Player::spiceDescription()

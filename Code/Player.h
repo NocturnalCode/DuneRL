@@ -46,6 +46,7 @@ public:
     void equip(Object *object);
     
     Player();
+    ~Player();
 };
 
 #endif /* PLAYER_H_INC */
