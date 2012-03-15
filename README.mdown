@@ -11,6 +11,20 @@ This should be the first playable game based on the quaffable library.
 
 The source is licensed under the New BSD License.
 
+## Controls
+
+Basic controls, subject to change.
+
+* Arrow Keys, movement, menu navigation
+* 'i' items/inventory
+* 'e' equip selected item (in inventory)
+* 'u' unequip selected item (in inventory)
+* 'q' quaff/consume selected item (in inventory)
+* 'd' drop selected item (in inventory)
+* 'p' pickup selected item (in inventory)
+* '.' stand still
+* 'esc' open/close menu
+
 ## Day 1
 
 Mainly consisted of re configuring the sample project from the Quaffable library.
@@ -53,7 +67,6 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Spice seeding
 * Most of world only updates when you're nearby, but offscreen still
 * Equip/Drop/Pickup/Consume items
-
 
 ## Requirements
 
