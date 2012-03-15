@@ -45,7 +45,7 @@ void DuneTile::update(Speed updateSpeed, int turnNumber)
     if (turnDifference > 1 && spiceGenerator) {
         //Then lets consider adding spice
         int val = rand()%1000;
-        if (val < (0.05*(double)turnDifference)) {
+        if (val < 10 && turnDifference > 200) {//(0.05*(double)turnDifference)
             
             //Then check for a spice
             bool noSpice = YES;
