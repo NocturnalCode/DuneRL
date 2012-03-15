@@ -22,11 +22,13 @@ class Object;
 class Window;
 class Roguelike;
 class Monster;
+class Effect;
 
 typedef std::list<std::string> Strings; 
 typedef std::list<Window*> Windows;
 typedef std::list<Object*> Objects;
 typedef std::list<Monster*> Monsters;
+typedef std::list<Effect*> Effects;
 
 typedef bool (*KeyAction)(void);
 typedef std::map<SDLKey,KeyAction> KeyMap;

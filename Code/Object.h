@@ -18,6 +18,7 @@
 #include "Damage.h"
 
 #include "Point.h"
+#include "Effect.h"
 
 class Map;
 class Tile;
@@ -51,6 +52,7 @@ class Object {
 protected:
     AsciiGroup *asciis;
     Objects *inventory;
+    Effects effects;
     int lastMovementTurn;
 public:
     Tile *parent;
@@ -94,6 +96,9 @@ public:
     
     void setLiquid(bool liquid);
     bool liquid();
+    
+    void addEffect(Effect *effect);
+    void removeEffect(Effect *effect);
     
     bool canBeCarried();
     

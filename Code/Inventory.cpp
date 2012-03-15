@@ -69,7 +69,7 @@ std::string Inventory::describeObject(Object *object)
 void Inventory::open()
 {
     Objects ground = groundItems();
-    int groundSize = ground.size();
+    //int groundSize = ground.size();
     
     rect.Height = (12 * numberOfItems()) + 12 + 12 + 24;
     setup();

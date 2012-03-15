@@ -194,6 +194,19 @@ bool Object::liquid()
 	return _flags.liquid==YES;
 }
 
+void Object::addEffect(Effect *effect)
+{
+    effects.push_back(effect);
+    effect->onAdded();
+}
+
+void Object::removeEffect(Effect *effect)
+{
+    effects.remove(effect);
+    effect->onRemoved();
+}
+
+
 bool Object::canBeCarried()
 {
     return (_flags.carryable|_flags.wearable|_flags.holdable|_flags.wieldable)==YES;
@@ -345,6 +358,17 @@ void Object::update(Speed turnSpeed, int turnNumber)
         }
     }
     
+    Effects tmp = effects;
+    foreach(Effects, e, tmp)
+    {
+        Effect *effect = (*e);
+        effect->update();
+        if(effect->isCompleted())
+        {
+            effect->onFinished();
+        }
+        removeEffect(effect);
+    }
 }
 
 void Object::setDecays(int numberOfTurns)
