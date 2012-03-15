@@ -186,8 +186,10 @@ Object *Tile::getTopObject()
 
 void Tile::update(Speed updateSpeed, int turnNumber)
 {
+    //Probably better to copy the array before we run update.
+    Objects objsToMove = *objects;
     
-    foreachp(Objects,o,objects)
+    foreach(Objects,o,objsToMove)
     {
         Object *object = (*o);
         int count = objects->size();
@@ -199,7 +201,7 @@ void Tile::update(Speed updateSpeed, int turnNumber)
             break;
         }
         if (count != objects->size()) {
-            o++;
+            return;
         }
     }
 }

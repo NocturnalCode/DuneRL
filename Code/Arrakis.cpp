@@ -234,14 +234,14 @@ void Arrakis::generate()
     // and camp mobs
     
     //-- Generate World Mobs
-    for(int i=0;i<30;i++)
+    for(int i=0;i<90;i++)
     {
         Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,0,1),Colour(0,0,0,0));
         Monster *monster = new Monster(ascii);
         monster->name = stringFormat("dune cat< %d>",i);
-        monster->speed = (Speed)(arc4random()%SpeedCount);
-        monster->setMaxHP(rand()%4);
-        monster->behaviour = 1<<(arc4random()%BehaviourCount);
+        monster->speed = (Speed)(SpeedFast);
+        monster->setMaxHP((rand()%3)+2);
+        monster->behaviour = BehaviourAggressive | BehaviourFlees;
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
         

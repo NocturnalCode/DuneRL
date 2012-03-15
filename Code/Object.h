@@ -51,6 +51,7 @@ class Object {
 protected:
     AsciiGroup *asciis;
     Objects *inventory;
+    int lastMovementTurn;
 public:
     Tile *parent;
     std::string name;

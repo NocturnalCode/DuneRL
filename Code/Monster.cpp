@@ -531,6 +531,9 @@ Lightmap* Monster::getSightMap()
 
 void Monster::update(Speed turnSpeed, int turnNumber)
 {
+    if (this->lastMovementTurn == turnNumber) {
+        return;
+    }
     if (turnSpeed == speed) {
         if(this->getHP() <= 0)
         {
