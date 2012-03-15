@@ -296,8 +296,8 @@
 //#define LETTER_c		243
 //#define LETTER_d		244
 //#define LETTER_e		245
-//#define LETTER_f		246
-//#define LETTER_g		247
+//#define TILDE_DOUBLE	246
+#define TILDE_DOUBLE	247
 //#define LETTER_h		248
 //#define LETTER_i		249
 //#define LETTER_j		250

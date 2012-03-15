@@ -29,6 +29,12 @@ Arrakis::Arrakis(unsigned size) : Map(size)
 #define DUNE9 0xefce73
 #define DUNEA 0xfeda79
 
+#define ROCK1 0x917d47
+#define ROCK2 0x9c874d 
+#define ROCK3 0xa28c4e
+#define ROCK4 0xae9754
+#define ROCK5 0xc5a95f
+
 void Arrakis::generate()
 {
 	int i,j;
@@ -39,17 +45,23 @@ void Arrakis::generate()
     int perlinSize = 64;
 	Perlin heights(perlinSize, octaves,persistence);
     
-    Colour col1(DUNE1);
-    Colour col2(DUNE2);
-    Colour col3(DUNE3);
-    Colour col4(DUNE4);
-    Colour col5(DUNE5);
-    Colour col6(DUNE6);
-    Colour col7(DUNE7);
-    Colour col8(DUNE8);
-    Colour col9(DUNE9);
-    Colour colA(DUNEA);
-    Colour colB(DUNEB);
+    Colour sand1(DUNE1);
+    Colour sand2(DUNE2);
+    Colour sand3(DUNE3);
+    Colour sand4(DUNE4);
+    Colour sand5(DUNE5);
+    Colour sand6(DUNE6);
+    Colour sand7(DUNE7);
+    Colour sand8(DUNE8);
+    Colour sand9(DUNE9);
+    Colour sandA(DUNEA);
+    Colour sandB(DUNEB);
+    
+    Colour rock1(DUNE1);
+    Colour rock2(DUNE2);
+    Colour rock3(DUNE3);
+    Colour rock4(DUNE4);
+    Colour rock5(DUNE5);
 	
     //-- Generate polar ice in south pole, lower 5%
 	
@@ -101,8 +113,9 @@ void Arrakis::generate()
             if(r > rockThreshold) 
             {
                 std::vector<int> ascii;
-                ascii.push_back(COMMA);
-                ascii.push_back(QUOTE_SINGLE);
+                ascii.push_back(LETTER_o);
+                ascii.push_back(0);
+                ascii.push_back(0);
                 ascii.push_back(0);
                 
                 foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
@@ -139,39 +152,52 @@ void Arrakis::generate()
             else 
             {
                 std::vector<int> ascii;
-                ascii.push_back(COMMA);
-                ascii.push_back(QUOTE_SINGLE);
+                ascii.push_back(0);
+                ascii.push_back(0);
+                ascii.push_back(0);
+                ascii.push_back(0);
                 ascii.push_back(0);
                 
-                foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
-                
                 if(h < 0.215) 
-                    background = col1;
+                    background = sand1;
                 else if(h < 0.24) 
-                    background = col2;
+                    background = sand2;
                 else if(h < 0.255)
-                    background = col3;
+                    background = sand3;
                 else if(h < 0.275) 
-                    background = col4;
+                    background = sand4;
                 else if(h < 0.3)
-                    background = col5;
+                    background = sand5;
                 else if(h < 0.35)  
-                    background = col6;
+                    background = sand6;
                 else if(h < 0.4)
-                    background = col7;
+                    background = sand7;
                 else if(h < 0.45) 
-                    background = col8;
+                    background = sand8;
                 else if(h < 0.475)
-                    background = col9;
+                    background = sand9;
                 else if(h < 0.495)
-                    background = colA;
+                    background = sandA;
                 else
-                    background = colB;
+                    background = sandB;
+                
+                foreground = background;
+                foreground.darken();
+                
+                if(h < 0.25f)
+                {
+                    ascii.push_back(TILDE+16);
+                }
+                else
+                {
+                    //ascii.push_back(TILDE+16);
+                    ascii.push_back(TILDE_DOUBLE);
+                }
                 
                 double s = spice.interpolatedAt(size, i, j);
                 
                 tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeSand,s>spiceThreshold);
-                o = new Object(new Ascii(0,foreground,background));
+                o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
                 
                 tiles[ARRAY2D(i,j,size)]->height = h;
             }
