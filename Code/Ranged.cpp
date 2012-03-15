@@ -11,5 +11,6 @@
 
 Ranged::Ranged() : Object(new Ascii(BRACKET_RIGHT_CURLY,Colour::white(), Colour::clear()))
 {
-    
+    _flags.wieldable = YES;
+    name = "ranged weapon";
 }

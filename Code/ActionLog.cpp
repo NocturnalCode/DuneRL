@@ -20,7 +20,7 @@ ActionLog::ActionLog(Rect rect) : Window(rect)
     
     logs = &Roguelike::shared->logs;
     
-    printf("action lines %d \n",lines);
+//    printf("action lines %d \n",lines);
     for(int i=0;i<lines;i++)
     {
         Label *optionsLabel = new Label(stringFormat(""));

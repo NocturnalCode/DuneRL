@@ -14,7 +14,12 @@
 
 class Inventory : public Menu
 {
+    Label *groundLabel;
+    
     Player *player;
+    
+    std::string describeObject(Object *object);
+    
 public:
     Inventory(Rect rect,Player *player);
     

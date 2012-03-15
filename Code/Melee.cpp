@@ -10,5 +10,6 @@
 
 Melee::Melee() : Object(new Ascii(BRACKET_LEFT_CURVED,Colour::white(), Colour::clear()))
 {
-    
+    _flags.wieldable = YES;
+    name = "melee weapon";
 }

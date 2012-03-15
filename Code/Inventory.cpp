@@ -8,6 +8,7 @@
 
 #include "Inventory.h"
 #include "LabelValue.h"
+#include "Stringer.h"
 
 Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 {
@@ -16,10 +17,10 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 	borderStyle = Border_Single;
 	getCentreLabel()->setString("Items");
 	getCentreLabel()->setColour(Colour::red());
-	
-//	Label *optionsLabel = new Label("Return to Game");
-//	optionsLabel->setFrame(Rect(16,18+12,100,40));
-//	add(optionsLabel);
+    
+    groundLabel = new Label("Ground");
+	groundLabel->setFrame(Rect(16,12,100,40));
+    Window::add(groundLabel);
 	
 //	LabelValue<bool,Object> *devLabel = new LabelValue<bool,Object>(std::string("Debug"),&(DEV));
 //	devLabel->setFrame(Rect(16,18+24,100,40));
@@ -31,15 +32,40 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 //	add(exitLabel);
 }
 
+std::string Inventory::describeObject(Object *object)
+{
+    std::string equipped = "";
+    if(player->objectIsEquipped(object))
+        equipped = stringFormat("#0f0(equipped)%");
+    
+    return stringFormat("%s%s",object->name.c_str(),equipped.c_str());
+}
+
 void Inventory::open()
 {
     // setRect
-//i    rect.Height = 12 * numberOfItems() + 12 + 12 + 12;
+    rect.Height = (12 * numberOfItems()) + 12 + 12 + 12;
     
     // empty all current displays
     
     // then generate new labels
     
+    Objects *inv = player->getInventory();
+    
+    if(inv != NULL)
+    {    
+        int i = 0;
+        foreachp(Objects, o, inv)
+        {
+            std::string desc = describeObject(*o);
+            Label *itemLabel = new Label(desc);
+            itemLabel->setFrame(Rect(18,12+(12*i),rect.Width,12));
+            add(itemLabel);
+            i++;
+            
+            printf("inv: %s",desc.c_str());
+        }
+    }
     
     Menu::open();
 }

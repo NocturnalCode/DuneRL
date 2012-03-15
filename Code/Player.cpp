@@ -16,6 +16,7 @@
 
 #include "Melee.h"
 #include "Ranged.h"
+#include "Shield.h"
 
 #include "DuneWorld.h"
 
@@ -45,6 +46,13 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     spiceCrazed = false;
     kills = 0;
     description = "You";
+    
+    inventory = new Objects();
+    equipment = new ObjectMap();
+    
+    Melee *melee = new Melee();
+    addObjectToInventory(melee);
+    equip(melee);
 }
 
 std::string Player::spiceDescription()
@@ -87,6 +95,46 @@ void Player::onDeath()
     {
         Monster::onDeath();
         DuneRL::shared->deathMenu();
+    }
+}
+
+void Player::equip(Object *object)
+{
+    if(equipment == NULL)
+        equipment = new ObjectMap();
+    
+    Melee *melee = dynamic_cast<Melee *>(object);
+    if(melee != NULL)
+    {
+        // check previous 
+        // was unequipped
+        
+        (*equipment)["Melee"] = object;
+        
+        // was equipped
+        return;
+    }
+    Ranged *ranged = dynamic_cast<Ranged *>(object);
+    if(ranged != NULL)
+    {
+        // check previous 
+        // was unequipped
+        
+        (*equipment)["Ranged"] = object;
+        
+        // was equipped
+        return;
+    }
+    Shield *shield = dynamic_cast<Shield *>(object);
+    if(shield != NULL)
+    {
+        // check previous 
+        // was unequipped
+        
+        (*equipment)["Shield"] = object;
+        
+        // was equipped
+        return;
     }
 }
 

@@ -82,6 +82,7 @@
 		658862221510411600DA900E /* Spice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862211510411600DA900E /* Spice.cpp */; };
 		6588622A151069DE00DA900E /* Inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65886229151069DD00DA900E /* Inventory.cpp */; };
 		6588622C1511492500DA900E /* dune.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6588622B1511492500DA900E /* dune.icns */; };
+		6588622F151157AC00DA900E /* Shield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588622E151157AC00DA900E /* Shield.cpp */; };
 		6589FAD614F099CB00795BA9 /* mtrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6589FAD314F099CB00795BA9 /* mtrand.cpp */; };
 		6589FAD714F099CB00795BA9 /* mtrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589FAD414F099CB00795BA9 /* mtrand.h */; };
 		6589FAD814F099CB00795BA9 /* mtreadme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6589FAD514F099CB00795BA9 /* mtreadme.txt */; };
@@ -232,6 +233,8 @@
 		65886228151069C300DA900E /* Inventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inventory.h; sourceTree = "<group>"; };
 		65886229151069DD00DA900E /* Inventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Inventory.cpp; sourceTree = "<group>"; };
 		6588622B1511492500DA900E /* dune.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = dune.icns; sourceTree = "<group>"; };
+		6588622D151157A100DA900E /* Shield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shield.h; sourceTree = "<group>"; };
+		6588622E151157AC00DA900E /* Shield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shield.cpp; sourceTree = "<group>"; };
 		6589FAD314F099CB00795BA9 /* mtrand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mtrand.cpp; sourceTree = "<group>"; };
 		6589FAD414F099CB00795BA9 /* mtrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtrand.h; sourceTree = "<group>"; };
 		6589FAD514F099CB00795BA9 /* mtreadme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mtreadme.txt; sourceTree = "<group>"; };
@@ -557,6 +560,8 @@
 				65886219151040B800DA900E /* Weapons */,
 				658862201510410B00DA900E /* Spice.h */,
 				658862211510411600DA900E /* Spice.cpp */,
+				6588622D151157A100DA900E /* Shield.h */,
+				6588622E151157AC00DA900E /* Shield.cpp */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -802,6 +807,7 @@
 				6588621F151040FB00DA900E /* Ranged.cpp in Sources */,
 				658862221510411600DA900E /* Spice.cpp in Sources */,
 				6588622A151069DE00DA900E /* Inventory.cpp in Sources */,
+				6588622F151157AC00DA900E /* Shield.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

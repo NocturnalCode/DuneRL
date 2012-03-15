@@ -96,6 +96,8 @@ public:
     virtual Damages getMeleeDamages();
 
     virtual void dumpInventory();
+    virtual void equip(Object *object);
+    virtual bool objectIsEquipped(Object *object);
     
     virtual void updateAscii();
     virtual void performTurn();

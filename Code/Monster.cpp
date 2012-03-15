@@ -395,6 +395,26 @@ Object *Monster::getWeaponForRanged()
     return NULL;
 }
 
+void Monster::equip(Object *object)
+{
+    if(equipment == NULL)
+        equipment = new ObjectMap();
+    (*equipment)[stringFormat("%d",equipment->size())] = object;
+}
+
+bool Monster::objectIsEquipped(Object *object)
+{
+    if(equipment == NULL)
+        return false;
+    foreachp(ObjectMap, obj, equipment)
+    {
+        Object *equipped = obj->second;
+        if(equipped == object)
+            return true;
+    }
+    return false;
+}
+
 /// this is more valid than the above ranged version, but still pretty meh
 Objects Monster::getWeaponsForMelee()
 {    
@@ -429,7 +449,7 @@ void Monster::onDeath()
     corpse->description = this->darticle  + "corpse of " + this->iarticle + this->name;
     parent->addObject(corpse);
     
-    // gore, body parts
+    // gore, body parts perhaps
     
     dumpInventory();
     // remove self
