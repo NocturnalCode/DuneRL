@@ -30,7 +30,7 @@ public:
     void setTurnLastSeen(int val);
     bool isSpiceGenerator();
     GroundType getGroundType();
-    
+    virtual void update(Speed updateSpeed, int turnNumber);
 };
 
 #endif

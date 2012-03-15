@@ -114,6 +114,8 @@ public:
     virtual void didLeaveTile(Tile *tile);
     
      virtual void update(Speed turnSpeed, int turnNumber);
+    
+    void setDecays(int numberOfTurns);
 };
 
 #endif /* OBJECT_H_INC  */

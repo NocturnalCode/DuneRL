@@ -370,7 +370,7 @@ void Monster::didLeaveTile(Tile *tile)
         footprint->name = stringFormat("footprints");
         footprint->description = "some footprints";
         footprint->setLiquid(true);
-        //footprint->setDecays(20+(arc4random()%20));
+        footprint->setDecays(40);
         parent->addLiquid(footprint);
     }
 }
@@ -543,6 +543,7 @@ void Monster::update(Speed turnSpeed, int turnNumber)
     if (this->lastMovementTurn == turnNumber) {
         return;
     }
+    this->lastMovementTurn = turnNumber;
     if (turnSpeed == speed) {
         if(this->getHP() <= 0)
         {

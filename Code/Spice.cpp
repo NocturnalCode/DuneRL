@@ -8,7 +8,7 @@
 
 #include "Spice.h"
 
-Spice::Spice()
+Spice::Spice() : Object(new Ascii(SPADE,Colour::white(),Colour::clear()))
 {
     _flags.stackable = YES;
     _flags.consumable = YES;

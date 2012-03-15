@@ -303,5 +303,30 @@ float Object::distanceTo(Object *object)
 
 void Object::update(Speed turnSpeed, int turnNumber)
 {
+    if (turnNumber == this->lastMovementTurn) {
+        return;
+    }
+    this->lastMovementTurn = turnNumber;
     
+    
+    
+    if (_flags.decays == YES) {
+        decay--;
+        if (decay <= 0) {
+            //Kill this thing
+            getMap()->removeObject(this);
+        }
+    }
+    
+}
+
+void Object::setDecays(int numberOfTurns)
+{
+    if (numberOfTurns>0) {
+        _flags.decays = YES;
+        decay = numberOfTurns;
+    }
+    else {
+        _flags.decays = NO;
+    }
 }
