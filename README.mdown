@@ -47,7 +47,11 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 ## Day 3
 
 * Inventory menu
-
+* Decay, blood/footprints
+* Adjusted hydration loss
+* Item stacking
+* Spice seeding
+* Most of world only updates when you're nearby, but offscreen still
 
 ## Requirements
 

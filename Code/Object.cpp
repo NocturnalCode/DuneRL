@@ -216,6 +216,7 @@ void Object::addObjectToInventory(Object *object)
     if(inventory == NULL)
         inventory = new std::list<Object *>();
     inventory->push_back(object);
+    object->removeFromTile();
 }
 
 void Object::removeObjectFromInventory(Object *object)
@@ -242,7 +243,10 @@ void Object::dumpInventory()
 
 void Object::dropInventoryObject(Object *object)
 {
-    // todo
+    removeObjectFromInventory(object);
+    
+    Point p = getPosition();
+    getMap()->addObject(p.X, p.Y, object);
 }
 
 Damages Object::getMeleeDamages()
