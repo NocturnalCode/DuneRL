@@ -32,6 +32,12 @@ protected:
     
     void performTurn();
     void onDeath();
+    
+    void didEquipObject(Object *object);
+    void didUnequipObject(Object *object);
+    void didDropObject(Object *object);
+    void didPickupObject(Object *object);
+    void didConsumeObject(Object *object);
 
 public:
     int spice;

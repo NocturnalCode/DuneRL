@@ -176,3 +176,29 @@ void Player::calculateSight()
         sightMap->addFilter(new LightFilterDayNightCycle());
     }
 }
+
+void Player::didEquipObject(Object *object)
+{
+    LOG("Equipped %s",object->name.c_str());
+}
+
+void Player::didUnequipObject(Object *object)
+{
+    LOG("Unequipped %s",object->name.c_str());
+}
+
+void Player::didDropObject(Object *object)
+{
+    LOG("Dropped %s",object->name.c_str());
+}
+
+void Player::didPickupObject(Object *object)
+{
+    LOG("Picked up %s",object->name.c_str());
+}
+
+void Player::didConsumeObject(Object *object)
+{
+    LOG("Consumed %s",object->name.c_str());
+}
+
