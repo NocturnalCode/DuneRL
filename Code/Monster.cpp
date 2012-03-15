@@ -469,6 +469,16 @@ bool Monster::consume(Object *object)
 {
     if(object->_flags.consumable)
     {
+        if(object->_flags.stackable == YES)
+        {
+            object->count--;
+            if(object->count > 0)
+            {
+                didConsumeObject(object);
+                return true;
+            }
+        }
+        
         unequip(object);
         removeObjectFromInventory(object);
         didConsumeObject(object);
