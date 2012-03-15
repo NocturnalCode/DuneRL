@@ -110,6 +110,11 @@ DuneRL::~DuneRL()
         delete player;
 }
 
+void DuneRL::playerEndedTurn()
+{
+    world->playerEndedTurn();
+}
+
 void DuneRL::init_world()
 {
 	int worldSize = 800;

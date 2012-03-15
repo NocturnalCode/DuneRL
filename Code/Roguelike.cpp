@@ -61,7 +61,6 @@ void Roguelike::log(std::string format, ...)
    // std::vector<std::string> turnLog = logs[turn];
     
     logs.push_back(std::pair<int, std::string>(turn,entry));
-    
    // turnLog.push_back(entry);
 }
 

@@ -49,7 +49,7 @@ public:
     std::string underfootDescription();
     void calculateSight();
     
-    void equip(Object *object);
+    bool equip(Object *object);
     
     Player();
     ~Player();

@@ -346,13 +346,15 @@ void Monster::didEnterTile(Tile *tile)
     
     if(inventory != NULL)
     {
-        foreachp(Objects, o, tile->getObjects())
+        Objects tmp = *(tile->getObjects());
+        foreach(Objects, o, tmp)
         {
             Object *object = (*o);
             if(object->canBeCarried())
             {
                 addObjectToInventory(object);
                 printf("picked up %s\n",object->name.c_str());
+                didPickupObject(object);
             }
         }
     }
@@ -373,6 +375,15 @@ void Monster::didLeaveTile(Tile *tile)
         footprint->setDecays(40);
         parent->addLiquid(footprint);
     }
+}
+
+void Monster::dropInventoryObject(Object *object)
+{
+    if (object == NULL)
+        return;
+    unequip(object);
+    Object::dropInventoryObject(object);
+    didDropObject(object);
 }
 
 void Monster::calculateSight()
@@ -420,7 +431,7 @@ void Monster::didPickupObject(Object *object)
     // add carry effect
 }
 
-void Monster::equip(Object *object)
+bool Monster::equip(Object *object)
 {
     if(equipment == NULL)
         equipment = new ObjectMap();
@@ -429,10 +440,12 @@ void Monster::equip(Object *object)
     {
         (*equipment)[stringFormat("%d",equipment->size())] = object;
         didEquipObject(object);
+        return true;
     }
+    return false;
 }
 
-void Monster::unequip(Object *object)
+bool Monster::unequip(Object *object)
 {
     foreachp(ObjectMap, obj, equipment)
     {
@@ -441,9 +454,10 @@ void Monster::unequip(Object *object)
         {
             (*equipment)[obj->first] = NULL;
             didUnequipObject(object);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void Monster::didConsumeObject(Object *object)
@@ -451,12 +465,16 @@ void Monster::didConsumeObject(Object *object)
     // add consume effects
 }
 
-void Monster::consume(Object *object)
+bool Monster::consume(Object *object)
 {
     if(object->_flags.consumable)
     {
+        unequip(object);
+        removeObjectFromInventory(object);
         didConsumeObject(object);
+        return true;
     }
+    return false;
 }
 
 bool Monster::objectIsEquipped(Object *object)
@@ -483,6 +501,9 @@ Objects Monster::getWeaponsForMelee()
     foreachp(ObjectMap, obj, equipment)
     {
         Object *weapon = obj->second;
+        if(weapon== NULL)
+            continue;
+        
         if(weapon->_flags.wieldable)
         {
             weapons.push_back(weapon);

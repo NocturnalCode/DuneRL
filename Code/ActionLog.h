@@ -17,7 +17,7 @@ class ActionLog : public Window
 protected:
     
     std::vector<int> age;
-    int lastTurn;
+    int prevSize;
     int lines;
     std::vector< std::pair<int, std::string> > *logs;
     

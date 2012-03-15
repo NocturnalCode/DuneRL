@@ -88,11 +88,12 @@ public:
     Object *getWeaponForRanged(); 
 
     virtual Damages getMeleeDamages();
-
+    
+    virtual void dropInventoryObject(Object *object);
     virtual void dumpInventory();
-    virtual void equip(Object *object);
-    virtual void unequip(Object *object);
-    virtual void consume(Object *object);
+    virtual bool equip(Object *object);
+    virtual bool unequip(Object *object);
+    virtual bool consume(Object *object);
     virtual bool objectIsEquipped(Object *object);
     
     virtual void updateAscii();

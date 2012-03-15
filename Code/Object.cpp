@@ -246,8 +246,11 @@ void Object::dropInventoryObject(Object *object)
 {
     removeObjectFromInventory(object);
     
-    Point p = getPosition();
-    getMap()->addObject(p.X, p.Y, object);
+    //Point p = getPosition();
+    //getMap()->addObject(p.X, p.Y, object);
+    Tile *tile = getMap()->getTile(getPosition());
+    if(tile)
+        tile->addLiquid(object);
 }
 
 Damages Object::getMeleeDamages()

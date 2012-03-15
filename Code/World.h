@@ -61,6 +61,7 @@ class World : public Display
 		virtual bool handleEvents(SDL_Event *event);
 		
         int getTurn();
+        void playerEndedTurn();
     
         void setMap(Map *map);
         Map *getMap();

@@ -103,7 +103,7 @@ void Player::onDeath()
     }
 }
 
-void Player::equip(Object *object)
+bool Player::equip(Object *object)
 {
     if(equipment == NULL)
         equipment = new ObjectMap();
@@ -111,36 +111,42 @@ void Player::equip(Object *object)
     Melee *melee = dynamic_cast<Melee *>(object);
     if(melee != NULL)
     {
-        // check previous 
-        // was unequipped
+        Object *prev = (*equipment)["Melee"];
+        if(prev)
+            unequip(prev);
         
         (*equipment)["Melee"] = object;
-        
+        didEquipObject(object);
         // was equipped
-        return;
+        return true;
     }
     Ranged *ranged = dynamic_cast<Ranged *>(object);
     if(ranged != NULL)
     {
-        // check previous 
-        // was unequipped
+        Object *prev = (*equipment)["Ranged"];
+        if(prev)
+            unequip(prev);
         
         (*equipment)["Ranged"] = object;
+        didEquipObject(object);
         
         // was equipped
-        return;
+        return true;
     }
     Shield *shield = dynamic_cast<Shield *>(object);
     if(shield != NULL)
     {
-        // check previous 
-        // was unequipped
+        Object *prev = (*equipment)["Shield"];
+        if(prev)
+            unequip(prev);
         
         (*equipment)["Shield"] = object;
+        didEquipObject(object);
         
         // was equipped
-        return;
+        return true;
     }
+    return false;
 }
 
 // a turn has past
@@ -179,26 +185,31 @@ void Player::calculateSight()
 
 void Player::didEquipObject(Object *object)
 {
+    Monster::didEquipObject(object);
     LOG("Equipped %s",object->name.c_str());
 }
 
 void Player::didUnequipObject(Object *object)
 {
+    Monster::didUnequipObject(object);
     LOG("Unequipped %s",object->name.c_str());
 }
 
 void Player::didDropObject(Object *object)
 {
+    Monster::didDropObject(object);
     LOG("Dropped %s",object->name.c_str());
 }
 
 void Player::didPickupObject(Object *object)
 {
+    Monster::didPickupObject(object);
     LOG("Picked up %s",object->name.c_str());
 }
 
 void Player::didConsumeObject(Object *object)
 {
+    Monster::didConsumeObject(object);
     LOG("Consumed %s",object->name.c_str());
 }
 

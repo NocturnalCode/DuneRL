@@ -100,6 +100,12 @@ int World::getTurn()
     return turn.count;//turn.playerCount;
 }
 
+void World::playerEndedTurn()
+{
+    turn.playerCount++;
+	updateWorld();
+}
+
 bool World::handleEvents(SDL_Event *event)
 {
 	switch (event->type)
@@ -165,8 +171,7 @@ bool World::handleEvents(SDL_Event *event)
 			return false;
 	}
 	
-    turn.playerCount++;
-	updateWorld();	
+   	playerEndedTurn();
 	
 	return true;
 }

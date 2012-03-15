@@ -9,6 +9,7 @@
 #include "Inventory.h"
 #include "LabelValue.h"
 #include "Stringer.h"
+#include "DuneRL.h"
 
 Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 {
@@ -133,30 +134,42 @@ void Inventory::dropSelected()
 {
     Object *object = getSelectedObject();
     player->dropInventoryObject(object);
+    //close();
+    open();
 }
 
 void Inventory::pickupSelected()
 {
     Object *object = getSelectedObject();
     player->addObjectToInventory(object);
+    //close();
+    open();
 }
 
 void Inventory::equipSelected()
 {
     Object *object = getSelectedObject();
     player->equip(object);
+    //close();
+    open();
 }
 
 void Inventory::unequipSelected()
 {
     Object *object = getSelectedObject();
     player->unequip(object);
+    //close();
+    open();
 }
 
 void Inventory::consumeSelected()
 {
     Object *object = getSelectedObject();
-    player->consume(object);
+    if(player->consume(object))
+    {
+        close();
+        DuneRL::shared->playerEndedTurn();
+    }
 }
 
 bool Inventory::handleEvents(SDL_Event *event)

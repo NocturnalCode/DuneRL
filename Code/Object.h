@@ -109,7 +109,7 @@ public:
     virtual void removeObjectFromInventory(Object *object); 
     virtual Objects *getInventory();
     virtual void dumpInventory();
-    void dropInventoryObject(Object *object);
+    virtual void dropInventoryObject(Object *object);
     
     virtual void didEnterTile(Tile *tile);
     virtual void didLeaveTile(Tile *tile);

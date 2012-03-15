@@ -14,7 +14,7 @@
 
 ActionLog::ActionLog(Rect rect) : Window(rect)
 {
-    lastTurn = -1;
+    prevSize = -1;
     background = false;
     lines = rect.Height/12;
     
@@ -36,14 +36,15 @@ bool ActionLog::wantsEvents()
 
 void ActionLog::display()
 {
-    int i = logs->size() - lines;
-    
-    int turn = Roguelike::shared->getCurrentTurn();    
+    int size = logs->size();//  
+    int i = size - lines;
+    int turn = Roguelike::shared->getCurrentTurn(); 
+     
     // update the log
     
-    if(turn > lastTurn)
+    if(size > prevSize)
     {
-        lastTurn = turn;
+        prevSize = size;
         foreach(Displays, display, displays)
         {
             
