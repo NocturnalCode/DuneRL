@@ -570,7 +570,8 @@ void Monster::dumpInventory()
     if(equipment == NULL)
         return;
     
-    foreachp(ObjectMap, object, equipment)
+    ObjectMap equipment_objs = (*equipment);
+    foreach(ObjectMap, object, equipment_objs)
     {
         dropInventoryObject((object->second));
     }
