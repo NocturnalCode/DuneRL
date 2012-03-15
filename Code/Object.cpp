@@ -235,7 +235,8 @@ void Object::dumpInventory()
 {
     if(inventory == NULL)
         return;
-    foreachp(std::list<Object *>, object, inventory)
+    std::list<Object *> inv_objs = *inventory;
+    foreach(std::list<Object *>, object, inv_objs)
     {
         dropInventoryObject((*object));
     }
