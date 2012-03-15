@@ -23,7 +23,7 @@ StartMenu::StartMenu(Rect rect,Player *player) : Menu(rect)
 	optionsLabel->setFrame(Rect(16,18+12,100,40));
 	add(optionsLabel);
 	
-    Label *spiceLabel = new Label("Make your way back to your base in the southern hemisphere.");
+    Label *spiceLabel = new Label("Make your way back to your Arakeen.");
 	spiceLabel->setFrame(Rect(16,18+24,100,40));
 	add(spiceLabel);
 	
