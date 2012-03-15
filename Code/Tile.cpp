@@ -183,3 +183,23 @@ Object *Tile::getTopObject()
     else
         return NULL;
 }
+
+void Tile::update(Speed updateSpeed, int turnNumber)
+{
+    
+    foreachp(Objects,o,objects)
+    {
+        Object *object = (*o);
+        int count = objects->size();
+        //o++;
+        if (object != NULL) {
+            object->update(updateSpeed, turnNumber);
+        }
+        else {
+            break;
+        }
+        if (count != objects->size()) {
+            o++;
+        }
+    }
+}

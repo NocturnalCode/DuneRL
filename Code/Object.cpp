@@ -294,3 +294,8 @@ float Object::distanceTo(Object *object)
 {
     return getPosition().distance(object->getPosition());
 }
+
+void Object::update(Speed turnSpeed, int turnNumber)
+{
+    
+}

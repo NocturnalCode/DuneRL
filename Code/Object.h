@@ -22,6 +22,15 @@
 class Map;
 class Tile;
 
+typedef enum {
+	SpeedFrozen,
+	SpeedSlow,
+	SpeedNormal,
+	SpeedFast,
+    // Keep SpeedCount at bottom
+    SpeedCount
+} Speed;
+
 typedef struct 
 {
 	unsigned passable:1;
@@ -56,7 +65,7 @@ public:
     Object();
     Object(Ascii *ascii);
     Object(AsciiGroup *ascii);
-    ~Object();
+    virtual ~Object();
     void setParent(Tile *tile);
     Tile* getParent();
     
@@ -102,6 +111,7 @@ public:
     virtual void didEnterTile(Tile *tile);
     virtual void didLeaveTile(Tile *tile);
     
+     virtual void update(Speed turnSpeed, int turnNumber);
 };
 
 #endif /* OBJECT_H_INC  */

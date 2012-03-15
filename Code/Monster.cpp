@@ -49,6 +49,11 @@ Monster::Monster(Ascii *ascii) : Object(ascii)
     behaviour = BehaviourDefensive;
 }
 
+Monster::~Monster()
+{
+    
+}
+
 int Monster::getHP()
 {
     return hp;
@@ -522,4 +527,39 @@ void Monster::dumpInventory()
 Lightmap* Monster::getSightMap()
 {
     return sightMap;
+}
+
+void Monster::update(Speed turnSpeed, int turnNumber)
+{
+    if (turnSpeed == speed) {
+        if(this->getHP() <= 0)
+        {
+            //Monster *dead = (*m);
+            //m++;
+         
+            if(this->getMap()->getPlayer() != this)
+            {
+                this->getMap()->monsters.remove(this);
+                //monsters.remove(dead);
+                //printf("removing dead monster: %s",dead->name.c_str());
+                //delete dead;
+            }
+            else 
+            {
+                if(!DEV)
+                {
+                    LOG("CONGRATULATIONS YOU DIED");
+                    //break;
+                }
+                else
+                {
+                    if(this->speed == turnSpeed)
+                        this->performTurn();
+                }
+                    
+            }
+        }
+		else if(this->speed == turnSpeed)
+			this->performTurn();
+    }
 }

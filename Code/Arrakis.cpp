@@ -36,7 +36,7 @@ void Arrakis::generate()
     //-- Generate the desert heightmap
     int octaves = 1;
     double persistence = 60;
-    int perlinSize = 128;
+    int perlinSize = 64;
 	Perlin heights(perlinSize, octaves,persistence);
     
     Colour col1(DUNE1);
@@ -84,7 +84,7 @@ void Arrakis::generate()
             
             //y = j
             double rockThreshold = minRock + (((double)j/(double)size)*(maxRock-minRock));
-            double spiceThreshold = minSpice + ((((double)(size-j-1))/(double)size)*(maxRock-minRock));
+            double spiceThreshold = minSpice + ((((double)(size-j-1))/(double)size)*(maxSpice-minSpice));
             
             
 			double h = heights.interpolatedAt(size, i, j);

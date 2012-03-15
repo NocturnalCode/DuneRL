@@ -15,6 +15,7 @@ class Map;
 #include "Point.h"
 #include "Ascii.h"
 #include "Types.h"
+#include "Object.h"
 
 typedef struct {
 	unsigned visited:1;
@@ -43,6 +44,7 @@ public:
     void addLiquid(Object *object);
     void removeObject(Object *object);
 
+    virtual void update(Speed updateSpeed, int turnNumber);
     double height; //normalised height so very safe
     Object *getTopObject();
 

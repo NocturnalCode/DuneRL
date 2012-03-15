@@ -17,14 +17,7 @@
 
 class Weapon;
 
-typedef enum {
-	SpeedFrozen,
-	SpeedSlow,
-	SpeedNormal,
-	SpeedFast,
-    // Keep SpeedCount at bottom
-    SpeedCount
-} Speed;
+
 
 #define BehaviourNone       1<<0
 #define BehaviourPassive    1<<1
@@ -82,6 +75,7 @@ public:
     Monster();
     Monster(Ascii *ascii);
 
+    virtual ~Monster();
     int getHP();
     int adjustHP(int delta);
     void setHP(int hitpoints);
@@ -118,6 +112,7 @@ public:
     virtual void didLeaveTile(Tile *tile);
     
     Lightmap* getSightMap();
+    virtual void update(Speed turnSpeed, int turnNumber);
 //  virtual void onHealedBy(Object *attacker,Damage damage);
 };
 
