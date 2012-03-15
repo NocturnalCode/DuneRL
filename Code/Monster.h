@@ -97,6 +97,8 @@ public:
 
     virtual void dumpInventory();
     virtual void equip(Object *object);
+    virtual void unequip(Object *object);
+    virtual void consume(Object *object);
     virtual bool objectIsEquipped(Object *object);
     
     virtual void updateAscii();

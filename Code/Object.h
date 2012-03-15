@@ -50,6 +50,7 @@ public:
     float weight;
     int range;
     int decay;
+    int count;
     
     ObjectFlags _flags;
     

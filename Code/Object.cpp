@@ -35,6 +35,7 @@ Object::Object()
     iarticle = "a ";
     darticle = "the ";
     decay = 1;
+    count = 1;
 }
 
 Object::Object(Ascii *asc) 
@@ -61,6 +62,7 @@ Object::Object(Ascii *asc)
     iarticle = "a ";
     darticle = "the ";
     decay = 1;
+    count = 1;
 }
 
 Object::Object(AsciiGroup *asc)
@@ -88,6 +90,7 @@ Object::Object(AsciiGroup *asc)
     iarticle = "a ";
     darticle = "the ";
     decay = 1;
+    count = 1;
 }
 
 Object::~Object()

@@ -36,7 +36,7 @@ std::string Inventory::describeObject(Object *object)
 {
     std::string equipped = "";
     if(player->objectIsEquipped(object))
-        equipped = stringFormat("#0f0(equipped)%");
+        equipped = " #0f0(equipped)%";
     
     return stringFormat("%s%s",object->name.c_str(),equipped.c_str());
 }
@@ -109,6 +109,42 @@ void Inventory::didSelectItem(int index)
 //	}
 }
 
+Object *Inventory::getSelectedObject()
+{
+ //   selectedIndex;
+    return NULL;
+}
+
+void Inventory::dropSelected()
+{
+    Object *object = getSelectedObject();
+    player->dropInventoryObject(object);
+}
+
+void Inventory::pickupSelected()
+{
+    Object *object = getSelectedObject();
+    player->addObjectToInventory(object);
+}
+
+void Inventory::equipSelected()
+{
+    Object *object = getSelectedObject();
+    player->equip(object);
+}
+
+void Inventory::unequipSelected()
+{
+    Object *object = getSelectedObject();
+    player->unequip(object);
+}
+
+void Inventory::consumeSelected()
+{
+    Object *object = getSelectedObject();
+    player->consume(object);
+}
+
 bool Inventory::handleEvents(SDL_Event *event)
 {
 	switch (event->type)
@@ -153,6 +189,21 @@ bool Inventory::handleEvents(SDL_Event *event)
                 break;
             case SDLK_RETURN:
                 didSelectItem(selectedIndex);
+                break;
+            case SDLK_e: //equip
+                equipSelected();
+                break;
+            case SDLK_u: //equip
+                unequipSelected();
+                break;
+            case SDLK_q: //consume
+                consumeSelected();
+                break;
+            case SDLK_d: //drop
+                dropSelected();
+                break;
+            case SDLK_p: //pickup
+                pickupSelected();
                 break;
             case SDLK_i:
             case SDLK_ESCAPE:

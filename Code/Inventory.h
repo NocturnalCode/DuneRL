@@ -20,6 +20,13 @@ class Inventory : public Menu
     
     std::string describeObject(Object *object);
     
+    void dropSelected();
+    void pickupSelected();
+    void equipSelected();
+    void unequipSelected();
+    void consumeSelected();
+    Object *getSelectedObject();
+    
 public:
     Inventory(Rect rect,Player *player);
     

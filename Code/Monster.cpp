@@ -402,6 +402,15 @@ void Monster::equip(Object *object)
     (*equipment)[stringFormat("%d",equipment->size())] = object;
 }
 
+void Monster::unequip(Object *object)
+{
+    
+}
+
+void Monster::consume(Object *object)
+{
+}
+
 bool Monster::objectIsEquipped(Object *object)
 {
     if(equipment == NULL)
