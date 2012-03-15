@@ -113,6 +113,14 @@ public:
     virtual void didEnterTile(Tile *tile);
     virtual void didLeaveTile(Tile *tile);
     
+    virtual void didConsumeObject(Object *object);
+    
+    virtual void didEquipObject(Object *object);
+    virtual void didUnequipObject(Object *object);
+    
+    virtual void didDropObject(Object *object);
+    virtual void didPickupObject(Object *object);
+    
     Lightmap* getSightMap();
     virtual void update(Speed turnSpeed, int turnNumber);
 //  virtual void onHealedBy(Object *attacker,Damage damage);

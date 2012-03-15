@@ -57,6 +57,7 @@ public:
     std::string name;
     std::string description;
     std::string iarticle,darticle;
+    std::string stackName;
     float weight;
     int range;
     int decay;

@@ -93,6 +93,15 @@ void Window::setup()
 	colCoordinates = NULL;
 	bgColCoordinates = NULL;
 	scale = 2;
+    
+    if(vertexCoordinates!=NULL)
+		free(vertexCoordinates);
+	if(texCoordinates!=NULL)
+		free(texCoordinates);
+	if(colCoordinates!=NULL)
+		free(colCoordinates);
+	if(bgColCoordinates!=NULL)
+		free(bgColCoordinates);
 	setupVertexCoordinates();
 }
 

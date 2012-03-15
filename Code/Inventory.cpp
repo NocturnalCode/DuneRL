@@ -18,9 +18,9 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 	getCentreLabel()->setString("Items");
 	getCentreLabel()->setColour(Colour::red());
     
-    groundLabel = new Label("Ground");
-	groundLabel->setFrame(Rect(16,12,100,40));
-    Window::add(groundLabel);
+//    groundLabel = new Label("Ground");
+//	groundLabel->setFrame(Rect(16,12,100,40));
+//    Window::add(groundLabel);
 	
 //	LabelValue<bool,Object> *devLabel = new LabelValue<bool,Object>(std::string("Debug"),&(DEV));
 //	devLabel->setFrame(Rect(16,18+24,100,40));
@@ -45,8 +45,15 @@ void Inventory::open()
 {
     // setRect
     rect.Height = (12 * numberOfItems()) + 12 + 12 + 12;
+    setup();
+   // reset();
     
     // empty all current displays
+    foreach(Displays,d,displays)
+    {
+        delete (*d);
+    }
+    displays.clear();
     
     // then generate new labels
     
@@ -63,7 +70,7 @@ void Inventory::open()
             add(itemLabel);
             i++;
             
-            printf("inv: %s",desc.c_str());
+            printf("inv: %s\n",desc.c_str());
         }
     }
     
@@ -111,7 +118,14 @@ void Inventory::didSelectItem(int index)
 
 Object *Inventory::getSelectedObject()
 {
- //   selectedIndex;
+    Objects *inv = player->getInventory();
+    int i=0;
+    foreachp(Objects, o, inv)
+    {
+        if(i==selectedIndex)
+            return (*o);
+        i++;
+    }
     return NULL;
 }
 

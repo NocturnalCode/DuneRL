@@ -400,20 +400,63 @@ Object *Monster::getWeaponForRanged()
     return NULL;
 }
 
+void Monster::didEquipObject(Object *object)
+{
+    // add equip effect
+}
+
+void Monster::didUnequipObject(Object *object)
+{
+    // remove equip effect
+}
+
+void Monster::didDropObject(Object *object)
+{
+    // remove carry effect
+}
+
+void Monster::didPickupObject(Object *object)
+{
+    // add carry effect
+}
+
 void Monster::equip(Object *object)
 {
     if(equipment == NULL)
         equipment = new ObjectMap();
-    (*equipment)[stringFormat("%d",equipment->size())] = object;
+    
+    if((object->_flags.wearable|object->_flags.holdable|object->_flags.wieldable)==YES)
+    {
+        (*equipment)[stringFormat("%d",equipment->size())] = object;
+        didEquipObject(object);
+    }
 }
 
 void Monster::unequip(Object *object)
 {
-    
+    foreachp(ObjectMap, obj, equipment)
+    {
+        Object *equipped = obj->second;
+        if(equipped == object)
+        {
+            (*equipment)[obj->first] = NULL;
+            didUnequipObject(object);
+            return;
+        }
+    }
+}
+
+void Monster::didConsumeObject(Object *object)
+{
+    // add consume effects
 }
 
 void Monster::consume(Object *object)
 {
+    if(object->_flags.consumable)
+    {
+        didConsumeObject(object);
+    }
 }
 
 bool Monster::objectIsEquipped(Object *object)

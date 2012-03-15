@@ -34,7 +34,7 @@ private:
     float	*bgColCoordinates;
     int		vertices;
 
-    void    reset();
+    
 
 protected:
     Rect	rect;
@@ -45,12 +45,13 @@ protected:
     Display *parent;
     
     void	setup();
+    void    reset();
     void	setupVertexCoordinates();
     void	border(float *texCoordinates, float *colCoordinates, float *bgColCoordinates);
     
 public:
     Window(Rect rect);
-    ~Window();
+    virtual ~Window();
     virtual void display();
     
     virtual void add(Display *displayable);

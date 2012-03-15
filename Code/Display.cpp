@@ -10,6 +10,11 @@
 #include "Display.h"
 #include "Ascii.h"
 
+Display::~Display()
+{
+    
+}
+
 void Display::displayTile(float *texture, float *colour, float *background, Ascii ascii)
 {
 	int row = ascii.Index / 16;

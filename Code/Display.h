@@ -20,7 +20,7 @@ class Ascii;
 class Display
 {
 	public:
-	
+    virtual ~Display();
 
 	virtual bool handleEvents(SDL_Event *event) { return false; };
 	virtual void display(float *texCoordinates, float *colCoordinates, float *bgColCoordinates) = 0;
