@@ -371,7 +371,7 @@ void Map::setVisibleRect(Rect visiRect)
     //ok, we want to make the map rect basically the same as the visiRect except with padding
     
     Rect newMapRect = visiRect;
-    int padding = 20;
+    int padding = 10;
     newMapRect.X -= padding;
     newMapRect.Y -= padding;
     newMapRect.Width += 2*padding;
@@ -734,12 +734,12 @@ void Map::update(Speed turnSpeed)
     }
     
     
-    Rect updateRect = this->getVisibleRect();// visibleRect;
-    int padding = 20;
-    updateRect.X -= padding;
-    updateRect.Y -= padding;
-    updateRect.Width += padding*2;
-    updateRect.Height += padding*2;
+    Rect updateRect = mapRect;//this->getVisibleRect();// visibleRect;
+//    int padding = 10;
+//    updateRect.X -= padding;
+//    updateRect.Y -= padding;
+//    updateRect.Width += padding*2;
+//    updateRect.Height += padding*2;
     
     
     int i=updateRect.X,j=updateRect.Y; // world
@@ -818,10 +818,10 @@ void Map::display()
 			int texI = ARRAY2D(x,argY,rect.Width)*8;
 			int colI = ARRAY2D(x,argY,rect.Width)*16;
         
-            int dx = (i)-mapRect.X;// < 0 ? size+i : (i)%size;
+            int dx = (i);//-mapRect.X;// < 0 ? size+i : (i)%size;
             
             
-            int dy =(j)-mapRect.Y;// < 0 ? size+j : (j)%size;
+            int dy =(j);//-mapRect.Y;// < 0 ? size+j : (j)%size;
 //            if (mapFlipped && rect.Height%2 == 0) {
 //                dy -= 1;
 //            }
@@ -869,7 +869,8 @@ void Map::display()
 //                dy = 0;
 //            }
 			//int pos = ARRAY2D(dx,dy,size);
-			Tile* tile = VVARRAYPP(dx, dy, tiles);
+            //Point p = this->convertWorldCoordRelativeToMapCoord(Point(dx,dy));
+			Tile* tile = this->getTile(Point(dx,dy));//VVARRAYPP(p.X, dy, tiles);
 			displayTile(&tex[texI],&col[colI],&bgCol[colI],tile,player);
 		}
 	}
