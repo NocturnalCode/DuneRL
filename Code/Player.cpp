@@ -123,6 +123,9 @@ bool Player::equip(Object *object)
     if(equipment == NULL)
         equipment = new ObjectMap();
     
+    if(object->parent != NULL)
+        addObjectToInventory(object);
+    
     Melee *melee = dynamic_cast<Melee *>(object);
     if(melee != NULL)
     {

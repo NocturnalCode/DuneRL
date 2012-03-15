@@ -436,6 +436,9 @@ bool Monster::equip(Object *object)
     if(equipment == NULL)
         equipment = new ObjectMap();
     
+    if(object->parent != NULL)
+        addObjectToInventory(object);
+    
     if((object->_flags.wearable|object->_flags.holdable|object->_flags.wieldable)==YES)
     {
         (*equipment)[stringFormat("%d",equipment->size())] = object;

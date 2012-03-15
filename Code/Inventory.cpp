@@ -35,9 +35,22 @@ Inventory::Inventory(Rect rect,Player *player) : Menu(rect)
 //	add(exitLabel);
 }
 
-Objects *Inventory::groundItems()
+Objects Inventory::groundItems()
 {
-    return player->getParent()->getObjects();
+    Objects ground;
+    Objects *objs = player->getParent()->getObjects();
+    if(objs)
+    {
+        foreachp(Objects, o, objs)
+        {
+            Object *object = (*o);
+            if(object->canBeCarried()|object->_flags.consumable)
+            {
+                ground.push_back(object);
+            }
+        }
+    }
+    return ground;
 }
 
 std::string Inventory::describeObject(Object *object)
@@ -55,12 +68,10 @@ std::string Inventory::describeObject(Object *object)
 
 void Inventory::open()
 {
-    Objects *ground = groundItems();
-    int groundSize = 0;
-    if(ground)
-        groundSize = ground->size();
+    Objects ground = groundItems();
+    int groundSize = ground.size();
     
-    rect.Height = (12 * numberOfItems()) + (12 * groundSize) + 12 + 12 + 24;
+    rect.Height = (12 * numberOfItems()) + 12 + 12 + 24;
     setup();
     
     // empty all current displays
@@ -70,10 +81,10 @@ void Inventory::open()
     }
     displays.clear();
     
+    int i = 0;
     Objects *inv = player->getInventory();
     if(inv != NULL)
     {    
-        int i = 0;
         foreachp(Objects, o, inv)
         {
             std::string desc = describeObject(*o);
@@ -85,20 +96,28 @@ void Inventory::open()
             printf("inv: %s\n",desc.c_str());
         }
     }
-    
-    if(ground)
+
+    if(!ground.empty())
     {
-        int i = 0;
-        foreachp(Objects, o, ground)
+        // ground label
+        int j = i; // save ground and place label below the others, this makes ground not selectable
+        i++;
+        
+        foreach(Objects, o, ground)
         {
             std::string desc = describeObject(*o);
             Label *itemLabel = new Label(desc);
-            itemLabel->setFrame(Rect(18,(12 * numberOfItems() + 24)+(12*i),rect.Width,12));
+            itemLabel->setFrame(Rect(18,24+(12*i),rect.Width,12));
             add(itemLabel);
             i++;
             
             printf("inv: %s\n",desc.c_str());
         }
+        
+        Label *itemLabel = new Label("Ground:");
+        itemLabel->setFrame(Rect(18,24+(12*j),rect.Width,12));
+        itemLabel->setColour(Colour(0.3f,0.3f,0.3f));
+        add(itemLabel);
     }
     
     Menu::open();
@@ -123,7 +142,10 @@ int Inventory::numberOfItems()
     if(inv == NULL)
         return 0;
     
-	return inv->size();
+    Objects ground = groundItems();
+    int groundSize = ground.size();
+    
+	return inv->size() + groundSize;
 }
 
 void Inventory::didSelectItem(int index)
@@ -145,14 +167,31 @@ void Inventory::didSelectItem(int index)
 
 Object *Inventory::getSelectedObject()
 {
-    Objects *inv = player->getInventory();
     int i=0;
-    foreachp(Objects, o, inv)
+    
+    
+    Objects *inv = player->getInventory();
+    if(inv)
     {
-        if(i==selectedIndex)
-            return (*o);
-        i++;
+        foreachp(Objects, o, inv)
+        {
+            if(i==selectedIndex)
+                return (*o);
+            i++;
+        }
     }
+    Objects ground = groundItems();
+    if(!ground.empty())
+    {
+        foreach(Objects, o, ground)
+        {
+            if(i==selectedIndex)
+                return (*o);
+            i++;
+        }
+    }
+    
+    
     return NULL;
 }
 

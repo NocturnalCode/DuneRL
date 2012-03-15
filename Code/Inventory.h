@@ -31,7 +31,7 @@ public:
     Inventory(Rect rect,Player *player);
     
     virtual int numberOfItems();
-    virtual Objects *groundItems();
+    virtual Objects groundItems();
     virtual void didSelectItem(int index);
     
     virtual void open();
