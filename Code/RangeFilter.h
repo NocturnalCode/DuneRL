@@ -13,7 +13,7 @@
 #include "Point.h"
 #include <set>
 
-class RangeFilter : public LightFilter/*,Display*/ {
+class RangeFilter : public LightFilter, public Display {
 protected:
     int maxRange;
     LocalCoord destinationPoint;
@@ -22,12 +22,17 @@ protected:
     std::set<std::pair<int, int> > linePoints;
 public:
     RangeFilter(LocalCoord destination);
+    //~RangeFilter();
     void setDestinationPoint(LocalCoord destination);
     LocalCoord getDestinationPoint();
     void setMaxRange(int range);
     int getMaxRange();
     bool handleEvents(SDL_Event *event);
     Ascii* apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii);
+    virtual void display(float *texCoordinates, float *colCoordinates, float *bgColCoordinates);
+	virtual void setParent(Display *parent);
+	virtual Display* getParent();
+	virtual Rect getFrame();
 };
 
 #endif
