@@ -71,7 +71,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 
 ## Day 5
 * Ranged combat basics
-* Effects from eating spice
+* Effect system, effects over time, add/remove
 
 ## Day 6
 

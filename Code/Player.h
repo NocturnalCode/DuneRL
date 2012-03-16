@@ -11,6 +11,7 @@
 #define PLAYER_H_INC 
 
 #include "Monster.h"
+class SpiceMadness;
 
 typedef struct {
 //	unsigned passable:1;
@@ -24,7 +25,7 @@ protected:
     PlayerFlags _flags;
     int kills;
     
-    bool spiceCrazed; // would like to abstract to some generic effect
+    SpiceMadness *spiceMadnessEffect();
 
     int water,minWater,maxWater;
     int rateOfDehydration;
@@ -38,6 +39,8 @@ protected:
     void didDropObject(Object *object);
     void didPickupObject(Object *object);
     void didConsumeObject(Object *object);
+    
+    void hydrate(int amount);
 
 public:
     // UI related fields

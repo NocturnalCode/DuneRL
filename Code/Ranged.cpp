@@ -14,3 +14,10 @@ Ranged::Ranged() : Object(new Ascii(BRACKET_RIGHT_CURLY,Colour::white(), Colour:
     _flags.wieldable = YES;
     name = "ranged weapon";
 }
+
+Damages Ranged::getRangedDamages()
+{
+    Damages dmgs;
+    dmgs.push_back(Damage(3,DamagePierce));
+    return dmgs;
+}

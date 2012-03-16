@@ -234,6 +234,44 @@ void Monster::attack(Object *t, Object *weapon)
     }
 }
 
+void Monster::fire(Object *t, Object *weapon)
+{
+    Monster *target = dynamic_cast<Monster *>(t);
+    if(target != NULL)
+    {
+        Damages damages = target->calculateRangedDamagesFrom(this);
+        foreach(Damages, dmg, damages)
+        {
+            Damage damage = (*dmg);
+            LOG("Hit %s.< #AA0%d dmg>",target->name.c_str(),damage.damage);
+            target->adjustHP(-damage.damage);
+            printf("<%s.>",target->hpDescription().c_str());
+            
+            target->onDamagedBy(this, damage);
+            this->onDamagedObject(target,damage);
+        }
+    }
+}
+
+//void Monster::throwObject(Object *t, Object *weapon)
+//{
+//    Monster *target = dynamic_cast<Monster *>(t);
+//    if(target != NULL)
+//    {
+//        Damages damages = target->calculateMeleeDamagesFrom(this);
+//        foreach(Damages, dmg, damages)
+//        {
+//            Damage damage = (*dmg);
+//            LOG("Hit %s.< #AA0%d dmg>",target->name.c_str(),damage.damage);
+//            target->adjustHP(-damage.damage);
+//            printf("<%s.>",target->hpDescription().c_str());
+//            
+//            target->onDamagedBy(this, damage);
+//            this->onDamagedObject(target,damage);
+//        }
+//    }
+//}
+
 void Monster::performTurn()
 {
     if(hp <= 0 || behaviour==BehaviourNone)
@@ -297,7 +335,7 @@ void Monster::performTurn()
         Object *ranged = getWeaponForRanged();
         if((ranged!=NULL) && (ranged->range >= mindist))
         {
-            attack(nearest,ranged);
+            fire(nearest,ranged);
             return;
         }
         else if(mindist <= 1)
@@ -623,12 +661,10 @@ Lightmap* Monster::getSightMap()
     return sightMap;
 }
 
-void Monster::update(Speed turnSpeed, int turnNumber)
+void Monster::doUpdate(Speed turnSpeed)
 {
-    if (this->lastMovementTurn == turnNumber) {
-        return;
-    }
-    this->lastMovementTurn = turnNumber;
+    Object::doUpdate(turnSpeed);
+
     if (turnSpeed == speed) {
         if(this->getHP() <= 0)
         {

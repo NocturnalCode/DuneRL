@@ -22,6 +22,8 @@
 #include "Corpse.h"
 #include "Effect.h"
 
+#include "SpiceMadness.h"
+
 #include "RangeFilter.h"
 
 #include "DuneWorld.h"
@@ -48,7 +50,6 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     water = maxWater;
     waterTick = 0;
     rateOfDehydration = TURNS_IN_A_DAY_PART;
-    spiceCrazed = false;
     kills = 0;
     description = "You";
     
@@ -85,11 +86,30 @@ std::string Player::spiceDescription()
     return stringFormat("%d Spice",spiceCount());
 }
 
+SpiceMadness *Player::spiceMadnessEffect()
+{
+    foreach(Effects, e, effects)
+    {
+        SpiceMadness *madness = dynamic_cast<SpiceMadness *>((*e));
+        if(madness)
+        {
+            return madness;
+        }
+    }
+    
+    return NULL;
+}
+
 std::string Player::waterDescription()
 {
     std::string description;
-    if(spiceCrazed)
+    
+    SpiceMadness *madness =  spiceMadnessEffect();
+    
+    if(madness && madness->isMad())
         description = "#0ffSpice Madness";
+    else if(madness)
+        description = "#0ffMild Spice Madness";
     else
     {    
         if(water <= 0)
@@ -175,8 +195,9 @@ bool Player::equip(Object *object)
 // a turn has past
 void Player::performTurn()
 {
+    SpiceMadness *madness = spiceMadnessEffect();
     //decrement water;
-    if(!spiceCrazed)
+    if(madness==NULL)
         waterTick++;
     
     if(waterTick >= rateOfDehydration)
@@ -186,7 +207,7 @@ void Player::performTurn()
         water--;
     }
     
-    if(water < 0 && !spiceCrazed)
+    if(water < 0 && (madness==NULL))
     {
         if(!DEV)
         {
@@ -238,6 +259,19 @@ void Player::didPickupObject(Object *object)
     LOG("Picked up %s",object->name.c_str());
 }
 
+void Player::hydrate(int amount)
+{
+    water += amount;
+    if(water > maxWater)
+    {
+        int health = water - maxWater;
+        water = maxWater;
+
+        if(health > 0)
+            adjustHP(health);
+    }
+}
+
 void Player::didConsumeObject(Object *object)
 {
     Monster::didConsumeObject(object);
@@ -246,7 +280,8 @@ void Player::didConsumeObject(Object *object)
     Spice *spice = dynamic_cast<Spice *>(object);
     if(spice)
     {
-        Effect *spiceEffect = new Effect(10,this);
+        // spice madness is a weak poison type of effect, if duration is over a threshold, bad effects happen
+        SpiceMadness *spiceEffect = new SpiceMadness(10+(arc4random()%10),this);
         addEffect(spiceEffect);
         return;
     }
@@ -254,9 +289,8 @@ void Player::didConsumeObject(Object *object)
     Blood *blood = dynamic_cast<Blood *>(object);
     if(blood)
     {
-        int 
-        
-        adjustHP(blood->count);
+        // get some hydration
+        hydrate(1);
         return;
     }
     
@@ -264,8 +298,7 @@ void Player::didConsumeObject(Object *object)
     if(corpse)
     {
         // get some hydration
-        
-        corpse->_flags.consumable = NO; // om nom
+        hydrate(arc4random()%5);
         return;
     }
 }

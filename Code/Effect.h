@@ -17,7 +17,12 @@ protected:
     int duration;
     Object *object;
 public:
-    Effect(int duration,Object *object);
+    Effect(int duration,Object *object,int effectID=0);
+    
+    int eid; // id
+    
+    virtual void addDuration(int duration);
+    virtual int getDuration();
     
     virtual void update();
     virtual void onAdded();

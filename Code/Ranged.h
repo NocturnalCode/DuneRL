@@ -15,6 +15,8 @@ class Ranged : public Object
 {
 public:
     Ranged();
+    
+    Damages getRangedDamages();
 };
 
 #endif /* RANGED_INCLUDE_H */

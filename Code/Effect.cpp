@@ -8,10 +8,22 @@
 
 #include "Effect.h"
 
-Effect::Effect(int duration,Object *object)
+Effect::Effect(int d,Object *object,int effectID)
 {
-    this->duration = duration;
+    eid = effectID;
+    duration = 0;
+    addDuration(d);
     this->object = object;
+}
+
+int Effect::getDuration()
+{
+    return duration;
+}
+
+void Effect::addDuration(int d)
+{
+    duration += d;
 }
 
 void Effect::update()

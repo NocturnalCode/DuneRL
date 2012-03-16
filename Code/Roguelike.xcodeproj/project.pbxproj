@@ -18,6 +18,7 @@
 		62C196491510217C007CE24C /* DuneTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62C196481510217C007CE24C /* DuneTile.cpp */; };
 		650F3ECC13822AB20080CA59 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 650F3ECA13822AB20080CA59 /* Player.cpp */; };
 		6514CB2F13DACE8100FF2066 /* Stringer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6514CB2E13DACE8100FF2066 /* Stringer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		652907181513F27D00C8F051 /* SpiceMadness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 652907171513F27D00C8F051 /* SpiceMadness.cpp */; };
 		653237B413682ACB0067C56A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653237AA13682AA80067C56A /* Cocoa.framework */; };
 		653237B513682ACB0067C56A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653237AC13682AA80067C56A /* OpenGL.framework */; };
 		653237D31368B28E0067C56A /* tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = 653237D21368B28E0067C56A /* tileset.png */; };
@@ -221,6 +222,8 @@
 		650F3ECA13822AB20080CA59 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		650F3ECB13822AB20080CA59 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		6514CB2E13DACE8100FF2066 /* Stringer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stringer.h; sourceTree = "<group>"; };
+		652907151513F26F00C8F051 /* SpiceMadness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpiceMadness.h; sourceTree = "<group>"; };
+		652907171513F27D00C8F051 /* SpiceMadness.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpiceMadness.cpp; sourceTree = "<group>"; };
 		65323795136828990067C56A /* quaffable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = quaffable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65323796136828990067C56A /* Quaffable-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Quaffable-Info.plist"; sourceTree = "<group>"; };
 		653237AA13682AA80067C56A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -582,6 +585,8 @@
 				65886219151040B800DA900E /* Weapons */,
 				658862201510410B00DA900E /* Spice.h */,
 				658862211510411600DA900E /* Spice.cpp */,
+				652907151513F26F00C8F051 /* SpiceMadness.h */,
+				652907171513F27D00C8F051 /* SpiceMadness.cpp */,
 				6588622D151157A100DA900E /* Shield.h */,
 				6588622E151157AC00DA900E /* Shield.cpp */,
 			);
@@ -840,6 +845,7 @@
 				658862221510411600DA900E /* Spice.cpp in Sources */,
 				6588622A151069DE00DA900E /* Inventory.cpp in Sources */,
 				6588622F151157AC00DA900E /* Shield.cpp in Sources */,
+				652907181513F27D00C8F051 /* SpiceMadness.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

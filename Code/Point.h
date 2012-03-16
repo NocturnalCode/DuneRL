@@ -26,6 +26,8 @@ public:
     bool operator==(Point &other);
     bool operator!=(Point &other);
     Point operator-(Point &other);
+    Point operator+(Point &other);
+    
     float distance(Point b);
     std::string description();
 };

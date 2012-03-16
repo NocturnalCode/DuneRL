@@ -104,8 +104,9 @@ public:
     
     static void load();
     
-    void attack(Object *target, Object *weapon=NULL); // if weapon is NULL assumes melee
-
+    void attack(Object *target, Object *weapon=NULL);
+    void fire(Object *target, Object *weapon);
+    
     virtual bool isAlive();
     
     virtual void onDeath();
@@ -123,7 +124,7 @@ public:
     virtual void didPickupObject(Object *object);
     
     Lightmap* getSightMap();
-    virtual void update(Speed turnSpeed, int turnNumber);
+    virtual void doUpdate(Speed turnSpeed);
     
     virtual void makeRangeOverlay();
 //  virtual void onHealedBy(Object *attacker,Damage damage);

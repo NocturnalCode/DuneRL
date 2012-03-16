@@ -170,6 +170,33 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
         //    window->eventDelegate = world;
         //}
         //map->removeFilter(this);
+        
+        if(shouldComplete)
+        {
+        
+            WorldCoord impact = map->getPosition() + destinationPoint;
+            /// Tom get it to check the bresham line
+            
+            
+            // check tile
+            Tile *tile = map->getMap()->getTile(impact);
+            Object *target = NULL;
+            
+            if(tile)
+            {
+                target = tile->getTopObject();
+            }
+            
+            if(target)
+            {
+                map->getMap()->getPlayer()->attack(target);
+            }
+            else 
+            {
+                // shot nothing, maybe rand spawn a bullet
+            }
+        }
+        
         return ascii;
     }
     

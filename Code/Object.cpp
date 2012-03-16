@@ -196,8 +196,26 @@ bool Object::liquid()
 
 void Object::addEffect(Effect *effect)
 {
-    effects.push_back(effect);
-    effect->onAdded();
+    Effect *stack = NULL;
+    foreach(Effects, e, effects)
+    {
+        Effect *able = (*e);
+        if(effect->eid==able->eid)
+        {
+            stack = able;
+            break;
+        }
+    }
+    
+    if(stack)
+    {
+        stack->addDuration(effect->getDuration());
+    }
+    else 
+    {
+        effects.push_back(effect);
+        effect->onAdded();
+    }
 }
 
 void Object::removeEffect(Effect *effect)
@@ -294,9 +312,24 @@ Damages Object::getMeleeDamages()
     return dmgs;
 }
 
+Damages Object::getRangedDamages()
+{
+    Damages dmgs;
+    dmgs.push_back(Damage(weight*20,DamagePierce));
+    return dmgs;
+}
+
 Damages Object::calculateMeleeDamagesFrom(Object *object)
 {
     Damages raw = object->getMeleeDamages();
+    // reduce damage from armour, resistances, whatever 
+    
+    return raw;
+}
+
+Damages Object::calculateRangedDamagesFrom(Object *object)
+{
+    Damages raw = object->getRangedDamages();
     // reduce damage from armour, resistances, whatever 
     
     return raw;
@@ -349,8 +382,13 @@ void Object::update(Speed turnSpeed, int turnNumber)
         return;
     }
     this->lastMovementTurn = turnNumber;
-    
-    if (_flags.decays == YES) {
+    doUpdate(turnSpeed);
+}
+
+void Object::doUpdate(Speed turnSpeed)
+{
+    if (_flags.decays == YES) 
+    {
         decay--;
         if (decay <= 0) {
             //Kill this thing
@@ -365,9 +403,9 @@ void Object::update(Speed turnSpeed, int turnNumber)
         effect->update();
         if(effect->isCompleted())
         {
+            removeEffect(effect);
             effect->onFinished();
         }
-        removeEffect(effect);
     }
 }
 

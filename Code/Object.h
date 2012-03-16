@@ -104,8 +104,10 @@ public:
     
     virtual Damages getMeleeDamages();
     virtual Damages getThrowDamages();
+    virtual Damages getRangedDamages();
     
     virtual Damages calculateMeleeDamagesFrom(Object *object);
+    virtual Damages calculateRangedDamagesFrom(Object *object);
     
     Ascii* getAscii();
     virtual void updateAscii();
@@ -119,7 +121,8 @@ public:
     virtual void didEnterTile(Tile *tile);
     virtual void didLeaveTile(Tile *tile);
     
-     virtual void update(Speed turnSpeed, int turnNumber);
+    void update(Speed turnSpeed, int turnNumber);
+    virtual void doUpdate(Speed turnSpeed);
     
     void setDecays(int numberOfTurns);
 };
