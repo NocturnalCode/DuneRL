@@ -70,7 +70,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Equip/Drop/Pickup/Consume items
 
 ## Day 5
-* Ranged combat
+* Ranged combat basics
 * Effects from eating spice
 
 

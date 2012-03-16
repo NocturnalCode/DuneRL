@@ -18,6 +18,10 @@
 #include "Ranged.h"
 #include "Shield.h"
 #include "Spice.h"
+#include "Blood.h"
+#include "Corpse.h"
+#include "Effect.h"
+
 #include "RangeFilter.h"
 
 #include "DuneWorld.h"
@@ -234,5 +238,31 @@ void Player::didConsumeObject(Object *object)
 {
     Monster::didConsumeObject(object);
     LOG("Consumed %s",object->name.c_str());
+    
+    Spice *spice = dynamic_cast<Spice *>(object);
+    if(spice)
+    {
+        Effect *spiceEffect = new Effect(10,this);
+        addEffect(spiceEffect);
+        return;
+    }
+    
+    Blood *blood = dynamic_cast<Blood *>(object);
+    if(blood)
+    {
+        int 
+        
+        adjustHP(blood->count);
+        return;
+    }
+    
+    Corpse *corpse = dynamic_cast<Corpse *>(object);
+    if(corpse)
+    {
+        // get some hydration
+        
+        corpse->_flags.consumable = NO; // om nom
+        return;
+    }
 }
 
