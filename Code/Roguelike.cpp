@@ -40,6 +40,16 @@ SDLWindow* Roguelike::getWindow()
     return window;
 }
 
+Window* Roguelike::getRootWindow()
+{
+    return rootWindow;
+}
+
+World* Roguelike::getWorld()
+{
+    return world;
+}
+
 int Roguelike::getCurrentTurn()
 {
     return world->getTurn();

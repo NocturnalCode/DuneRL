@@ -196,12 +196,16 @@ void Player::calculateSight()
 {
     if(isAlive())
     {
-        sightMap = new Lightmap(getPosition(),sight,getMap());
-        sightMap->addFilter(new LightFilterShadow());
-        sightMap->addFilter(new LightFilterDayNightCycle());
-        RangeFilter *range = new RangeFilter(Point(4,10));//
-        range->setDestinationPoint(Point(-4,10));
-        sightMap->addFilter(range);
+        if (sightMap == NULL) {
+            sightMap = new Lightmap(getPosition(),sight,getMap());
+            sightMap->addFilter(new LightFilterShadow());
+            sightMap->addFilter(new LightFilterDayNightCycle());
+        }
+        sightMap->setPosition(getPosition());
+//        RangeFilter *range = new RangeFilter(Point(4,10));//
+//        range->setMaxRange(15);
+//        range->setDestinationPoint(Point(-4,10));
+//        sightMap->addFilter(range);
         
     }
 }

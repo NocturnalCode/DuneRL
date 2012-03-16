@@ -29,49 +29,50 @@
 
 class Roguelike
 {
-    protected:
-
-        SDL_Event   event;
-        bool        done;
-        SDLWindow   *window;
-        World		*world;
-        SDL_TimerID timerDisplay,timerAnimate;
-        static Uint32 Timerdisplay(Uint32 interval, void* param);
-		static Uint32 Timeranimate(Uint32 interval, void* param);
-
-		int			scale;
-		int width, height;
-		Sprite		*sprite; 
-		Window		*rootWindow;
-		ExitMenu	*menuWindow;
-		Window		*character;
-
-		virtual int init_window();
-		virtual void init_world();
-
-		virtual void showMenu();
-		void worldProjection();
-		int vertices;
-		Image *logo;
+protected:
     
-        
-
-    public:
-        Roguelike();
-		~Roguelike();
-        int     poll();
-        SDLWindow* getWindow(); 
+    SDL_Event   event;
+    bool        done;
+    SDLWindow   *window;
+    World		*world;
+    SDL_TimerID timerDisplay,timerAnimate;
+    static Uint32 Timerdisplay(Uint32 interval, void* param);
+    static Uint32 Timeranimate(Uint32 interval, void* param);
     
-        Random *rnd;
-		
-        void log(std::string format, ...);
-        static Roguelike *shared;
-		static bool	dev; 
-
-        //std::map<int, std::vector<std::string> > logs; // change to vector of pairs
-        std::vector< std::pair<int, std::string> > logs;
+    int			scale;
+    int width, height;
+    Sprite		*sprite; 
+    Window		*rootWindow;
+    ExitMenu	*menuWindow;
+    Window		*character;
     
-        int getCurrentTurn();
+    virtual int init_window();
+    virtual void init_world();
+    
+    virtual void showMenu();
+    void worldProjection();
+    int vertices;
+    Image *logo;
+    
+    
+    
+public:
+    Roguelike();
+    ~Roguelike();
+    int     poll();
+    SDLWindow* getWindow(); 
+    Window *getRootWindow();
+    World *getWorld();
+    Random *rnd;
+    
+    void log(std::string format, ...);
+    static Roguelike *shared;
+    static bool	dev; 
+    
+    //std::map<int, std::vector<std::string> > logs; // change to vector of pairs
+    std::vector< std::pair<int, std::string> > logs;
+    
+    int getCurrentTurn();
 };
 
 #define LOG Roguelike::shared->log

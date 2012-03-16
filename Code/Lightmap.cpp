@@ -443,3 +443,9 @@ Map* Lightmap::getMap()
 {
     return map;
 }
+
+void Lightmap::setPosition(Point p)
+{
+    position = p;
+    calculate();
+}

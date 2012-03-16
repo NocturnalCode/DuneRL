@@ -11,6 +11,7 @@
 #include "SDL/SDL.h"
 #include "Map.h"
 #include "Roguelike.h"
+#include "Monster.h"
 
 World::World()
 {
@@ -131,8 +132,9 @@ bool World::handleEvents(SDL_Event *event)
                         map->adjustPlayer(1,0);
                         break;
                     case SDLK_f:
+                        map->getPlayer()->makeRangeOverlay();
                         // todo: add range overlay, which takes key presses
-                        return false; // return false to require another key event
+                        //return false; // return false to require another key event
                         break;
                     case SDLK_PERIOD: // skip turn
                         break;
@@ -158,7 +160,10 @@ bool World::handleEvents(SDL_Event *event)
                         break;
                     case SDLK_f:
                         // todo: add range overlay, which takes key presses
-                        return false; // return false to require another key event
+                        map->getPlayer()->makeRangeOverlay();
+                        
+                        
+                        //return false; // return false to require another key event
                         break;
                     case SDLK_PERIOD: // skip turn
                         break;

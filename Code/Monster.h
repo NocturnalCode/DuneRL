@@ -16,7 +16,7 @@
 //#include "Stringer.h"
 
 class Weapon;
-
+class RangeFilter;
 
 
 #define BehaviourNone       1<<0
@@ -65,7 +65,7 @@ protected:
     WorldCoord awayFromAttacker(Object *attacker);
 
     Objects attackers;
-    
+    RangeFilter *rangeFilter;
 public:
 
     unsigned sight;
@@ -124,6 +124,8 @@ public:
     
     Lightmap* getSightMap();
     virtual void update(Speed turnSpeed, int turnNumber);
+    
+    virtual void makeRangeOverlay();
 //  virtual void onHealedBy(Object *attacker,Damage damage);
 };
 
