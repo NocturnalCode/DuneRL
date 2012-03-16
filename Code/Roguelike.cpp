@@ -101,7 +101,7 @@ int Roguelike::init_window()
 	
     timerDisplay = SDL_AddTimer(1000/50, Timerdisplay, this);
 	//timerAnimate = SDL_AddTimer(1000/2.5, Timeranimate, this); 
-	SDL_EnableKeyRepeat(25, 50);
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 50);
 	
     fprintf(stderr,"Loading...Done.\n");
     return 0;

@@ -25,7 +25,7 @@ void Menu::close()
 {
 	isOpen = false;
 	parent->remove(this);
-    SDL_EnableKeyRepeat(25, 50);
+    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 50);
 }
 
 void Menu::add(Display *displayable)

@@ -112,6 +112,7 @@ bool World::handleEvents(SDL_Event *event)
 	switch (event->type)
 	{
 		case SDL_KEYDOWN:
+        {
             if(!map->getPlayer()->isAlive() && !DEV)
                 return false;
             
@@ -172,6 +173,45 @@ bool World::handleEvents(SDL_Event *event)
                 }
             }
 			break;
+        }
+        case SDL_KEYUP:
+        {
+            if(!map->getPlayer()->isAlive() && !DEV)
+                return false;
+            
+            if(movementKeys == ArrowKeys)
+            {
+                switch( event->key.keysym.sym )
+                {
+                    case SDLK_UP:
+                    case SDLK_LEFT:
+                    case SDLK_DOWN:
+                    case SDLK_RIGHT:
+                    case SDLK_f:
+                        SDL_EnableKeyRepeat(0, 0);
+                        SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 50);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else if(movementKeys == VIKeys)
+            {
+                switch( event->key.keysym.sym )
+                {
+                    case SDLK_k:
+                    case SDLK_h:
+                    case SDLK_j:
+                    case SDLK_l:
+                        SDL_EnableKeyRepeat(0, 0);
+                        SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 50);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+			break;
+        }
 		default:
 			return false;
 	}

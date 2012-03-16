@@ -74,7 +74,8 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Effect system, effects over time, add/remove
 
 ## Day 6
-
+* Spice Madness
+* More Ranged Combat
 
 ## Requirements
 

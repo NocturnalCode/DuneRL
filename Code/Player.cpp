@@ -281,7 +281,7 @@ void Player::didConsumeObject(Object *object)
     if(spice)
     {
         // spice madness is a weak poison type of effect, if duration is over a threshold, bad effects happen
-        SpiceMadness *spiceEffect = new SpiceMadness(10+(arc4random()%10),this);
+        SpiceMadness *spiceEffect = new SpiceMadness(50+(arc4random()%100),this);
         addEffect(spiceEffect);
         return;
     }

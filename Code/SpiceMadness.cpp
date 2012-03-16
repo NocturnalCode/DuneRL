@@ -9,7 +9,7 @@
 #include "SpiceMadness.h"
 #include "DuneRL.h"
 
-#define MADNESS 35
+#define MADNESS 150
 
 SpiceMadness::SpiceMadness(int duration, Object *object) : Effect(duration,object)
 {
