@@ -73,6 +73,8 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Ranged combat basics
 * Effects from eating spice
 
+## Day 6
+
 
 ## Requirements
 
@@ -105,3 +107,6 @@ A bit of spice in the dunes
 
 Inventory, spice score
 ![Day 4](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day4-Inventory.png "Inventory")
+
+Range
+![Day 4](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day5-Range.png "Range")
