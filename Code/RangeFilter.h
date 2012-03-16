@@ -8,19 +8,22 @@
 
 #ifndef Roguelike_RangeFilter_h
 #define Roguelike_RangeFilter_h
-
-
+#include "Display.h"
 #include "LightFilter.h"
-class RangeFilter : LightFilter {
+#include "Point.h"
+#include <set>
+
+class RangeFilter : public LightFilter/*,Display*/ {
 protected:
     int maxRange;
-    WorldCoord destinationPoint;
+    LocalCoord destinationPoint;
     bool shouldComplete;
     bool shouldCancel;
+    std::set<std::pair<int, int> > linePoints;
 public:
-    RangeFilter(WorldCoord destination);
-    void setDestinationPoint(WorldCoord destination);
-    WorldCoord getDestinationPoint();
+    RangeFilter(LocalCoord destination);
+    void setDestinationPoint(LocalCoord destination);
+    LocalCoord getDestinationPoint();
     void setMaxRange(int range);
     int getMaxRange();
     bool handleEvents(SDL_Event *event);

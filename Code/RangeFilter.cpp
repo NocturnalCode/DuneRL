@@ -12,8 +12,10 @@
 #include "Lightmap.h"
 #include "Map.h"
 #include "World.h"
+#include "Window.h"
 
-RangeFilter::RangeFilter(WorldCoord destination) : LightFilter()
+
+RangeFilter::RangeFilter(LocalCoord destination) : LightFilter()/*,Display()*/
 {
     maxRange = -1;
     destinationPoint = destination;
@@ -21,12 +23,51 @@ RangeFilter::RangeFilter(WorldCoord destination) : LightFilter()
     shouldCancel = NO;
 }
 
-void RangeFilter::setDestinationPoint(WorldCoord destination)
+void RangeFilter::setDestinationPoint(LocalCoord destination)
 {
+    //bresham line function to find valid points
+    linePoints.clear();
+    double angle = atan2(destination.Y, destination.X);//(double)(destinationPoint.Y)/(double)(destinationPoint.X);
+    
+    //double magnitude = sqrt((destinationPoint.Y*destinationPoint.Y) + (destinationPoint.X+destinationPoint.X));
+    
+    if (abs(destination.Y) > abs(destination.X)) {
+        //then go up Y
+        int direction = destination.Y<0 ? 1 : -1;
+        
+        
+        for (int i = 0; i<abs(destination.Y); i++) {
+            double actual_j = i*direction;
+            
+            //just need the xcoord for the current actual_i value
+            //y = mx+c
+            //x = (y-c)/m
+            //o = a*tan(ø)
+            double actual_i = actual_j/tan(angle);
+            //shade in point ((int)actual_i, (int)actual_j)
+            linePoints.insert(std::pair<int, int>((int)actual_i,(int)actual_j));
+        }
+    }
+    else {
+        int direction = destination.X<0 ? 1 : -1;
+        //then go up X
+        for (int i = 0; i<abs(destination.Y); i++) {
+            double actual_i = i*direction;
+            
+            //just need the xcoord for the current actual_i value
+            //y = mx+c
+            //x = (y-c)/m
+            //o = a*tan(ø)
+            double actual_j = actual_i*tan(angle);
+            linePoints.insert(std::pair<int, int>((int)actual_i,(int)actual_j));
+            //shade in point ((int)actual_i, (int)actual_j)
+        }
+    }
+
     this->destinationPoint = destination;
 }
 
-WorldCoord RangeFilter::getDestinationPoint()
+LocalCoord RangeFilter::getDestinationPoint()
 {
     return this->destinationPoint;
 }
@@ -45,10 +86,26 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
 {
     
     //basically draw a line to that point and stop at the first non-transparent object
-    World* world = (map->getMap()->world);
+    
     
     if (shouldCancel || shouldComplete) {
+        World* world = (map->getMap()->world);
+        Window *window = dynamic_cast<Window*>(world->getParent());
+        if (window != NULL) {
+            window->eventDelegate = world;
+        }
         
+        return ascii;
+    }
+    
+    //destination point is probable going to have to be a local coord
+    WorldCoord pos = map->getPosition();
+    //lets assume worldpoint is relative to pos
+    LocalCoord local = pos-worldPoint;
+    
+    if (linePoints.find(std::pair<int, int>(local.X,local.Y)) != linePoints.end()) {
+        //render this 
+        ascii->Background = Colour::yellow();
     }
     
     return ascii;
