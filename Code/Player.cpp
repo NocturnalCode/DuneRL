@@ -199,7 +199,7 @@ void Player::calculateSight()
         sightMap = new Lightmap(getPosition(),sight,getMap());
         sightMap->addFilter(new LightFilterShadow());
         sightMap->addFilter(new LightFilterDayNightCycle());
-        RangeFilter *range = new RangeFilter(Point(4,10));
+        RangeFilter *range = new RangeFilter(Point(4,10));//
         range->setDestinationPoint(Point(-4,10));
         sightMap->addFilter(range);
         

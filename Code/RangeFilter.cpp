@@ -15,7 +15,7 @@
 #include "Window.h"
 
 
-RangeFilter::RangeFilter(LocalCoord destination) : LightFilter()/*,Display()*/
+RangeFilter::RangeFilter(LocalCoord destination) : LightFilter(),Display()
 {
     maxRange = -1;
     destinationPoint = destination;
@@ -26,10 +26,14 @@ RangeFilter::RangeFilter(LocalCoord destination) : LightFilter()/*,Display()*/
 void RangeFilter::setDestinationPoint(LocalCoord destination)
 {
     //bresham line function to find valid points
+    double magnitude = sqrt((destinationPoint.Y*destinationPoint.Y) + (destinationPoint.X+destinationPoint.X));
+    if (magnitude>maxRange) {
+        return;
+    }
     linePoints.clear();
     double angle = atan2(destination.Y, destination.X);//(double)(destinationPoint.Y)/(double)(destinationPoint.X);
     
-    //double magnitude = sqrt((destinationPoint.Y*destinationPoint.Y) + (destinationPoint.X+destinationPoint.X));
+    //
     
     if (abs(destination.Y) > abs(destination.X)) {
         //then go up Y
@@ -121,22 +125,22 @@ bool RangeFilter::handleEvents(SDL_Event *event)
             {
                 case SDLK_UP:	
                 {
-                    destinationPoint.Y--;
+                    this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y-1));
                 }
                     break;
                 case SDLK_DOWN:
                 {
-                    destinationPoint.Y++;
+                    this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y+1));
                 }
                     break;
                 case SDLK_LEFT: 
                 {
-                    destinationPoint.X--;
+                    this->setDestinationPoint(Point(destinationPoint.X-1, destinationPoint.Y));
                 }
                     break;
                 case SDLK_RIGHT:
                 {
-                    destinationPoint.X++;
+                    this->setDestinationPoint(Point(destinationPoint.X+1, destinationPoint.Y));
                 }
                     break;
                 case SDLK_RETURN:
@@ -154,6 +158,23 @@ bool RangeFilter::handleEvents(SDL_Event *event)
 			return false;
 	}
 	return true;
+}
+
+void RangeFilter::display(float *texCoordinates, float *colCoordinates, float *bgColCoordinates)
+{
+    
+}
+void RangeFilter::setParent(Display *parent)
+{
+    
+}
+Display* RangeFilter::getParent()
+{
+    return NULL;
+}
+Rect RangeFilter::getFrame()
+{
+    return Rect(0, 0, 0, 0);
 }
 
 
