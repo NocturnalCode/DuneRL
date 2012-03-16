@@ -15,6 +15,8 @@
 #include "Ascii.h"
 #include "Roguelike.h"
 
+#include "Corpse.h"
+#include "Blood.h"
 #include "Stringer.h"
 
 Monster::Monster() : Object()
@@ -535,9 +537,7 @@ void Monster::onDeath()
 {
     LOG("%s%s died.",this->darticle.c_str(), this->name.c_str());
     // make corpse
-    Object *corpse = new Object(new Ascii(PERCENT,Colour::white(),Colour::clear()));
-    corpse->name = stringFormat("%s's corpse",this->name.c_str());
-    corpse->description = this->darticle  + "corpse of " + this->iarticle + this->name;
+    Corpse *corpse = new Corpse(this);
     parent->addObject(corpse);
     
     // more gore, body parts perhaps
@@ -576,11 +576,11 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     
     Colour bloodColour = Colour::red(); // this->bloodColour(); would be nice
     
-    int ascii = arc4random()%2==0?EXCLAMATION:EXCLAMATION_DOUBLE;
-    Object *blood = new Object(new Ascii(ascii,bloodColour,Colour::clear()));
+    //int ascii = arc4random()%2==0?EXCLAMATION:EXCLAMATION_DOUBLE;
+    Blood *blood = new Blood(bloodColour);
     blood->name = stringFormat("%s's blood",this->name.c_str());
     blood->description = this->darticle + "the blood of " + this->iarticle + this->name;
-    blood->setLiquid(true);
+    blood->count = 1+(arc4random()+5);
     
     Tile *tile = map->getTile(splat);
     if(tile)

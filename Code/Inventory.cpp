@@ -198,6 +198,8 @@ Object *Inventory::getSelectedObject()
 void Inventory::dropSelected()
 {
     Object *object = getSelectedObject();
+    if(object == NULL)
+        return;
     player->dropInventoryObject(object);
     //close();
     open();
@@ -206,6 +208,8 @@ void Inventory::dropSelected()
 void Inventory::pickupSelected()
 {
     Object *object = getSelectedObject();
+    if(object == NULL)
+        return;
     player->addObjectToInventory(object);
     //close();
     open();
@@ -214,6 +218,8 @@ void Inventory::pickupSelected()
 void Inventory::equipSelected()
 {
     Object *object = getSelectedObject();
+    if(object == NULL)
+        return;
     player->equip(object);
     //close();
     open();
@@ -222,6 +228,8 @@ void Inventory::equipSelected()
 void Inventory::unequipSelected()
 {
     Object *object = getSelectedObject();
+    if(object == NULL)
+        return;
     player->unequip(object);
     //close();
     open();
@@ -230,6 +238,8 @@ void Inventory::unequipSelected()
 void Inventory::consumeSelected()
 {
     Object *object = getSelectedObject();
+    if(object == NULL)
+        return;
     if(player->consume(object))
     {
         close();

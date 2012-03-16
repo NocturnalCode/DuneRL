@@ -87,7 +87,10 @@
 		6588622F151157AC00DA900E /* Shield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588622E151157AC00DA900E /* Shield.cpp */; };
 		6588624F15129E2700DA900E /* Effect.h in Headers */ = {isa = PBXBuildFile; fileRef = 6588624B15129E1000DA900E /* Effect.h */; };
 		6588625015129E2A00DA900E /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6588624D15129E2300DA900E /* Effect.cpp */; };
-		658862531512AF1400DA900E /* Blood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862521512AF1400DA900E /* Blood.cpp */; };
+		658862551512C72600DA900E /* Corpse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862541512C72600DA900E /* Corpse.cpp */; };
+		658862571512C73600DA900E /* Corpse.h in Headers */ = {isa = PBXBuildFile; fileRef = 658862561512C73500DA900E /* Corpse.h */; };
+		658862581512C73B00DA900E /* Blood.h in Headers */ = {isa = PBXBuildFile; fileRef = 658862511512AF0D00DA900E /* Blood.h */; };
+		658862591512C73E00DA900E /* Blood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658862521512AF1400DA900E /* Blood.cpp */; };
 		6589FAD614F099CB00795BA9 /* mtrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6589FAD314F099CB00795BA9 /* mtrand.cpp */; };
 		6589FAD714F099CB00795BA9 /* mtrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6589FAD414F099CB00795BA9 /* mtrand.h */; };
 		6589FAD814F099CB00795BA9 /* mtreadme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6589FAD514F099CB00795BA9 /* mtreadme.txt */; };
@@ -246,6 +249,8 @@
 		6588624D15129E2300DA900E /* Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Effect.cpp; sourceTree = "<group>"; };
 		658862511512AF0D00DA900E /* Blood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blood.h; sourceTree = "<group>"; };
 		658862521512AF1400DA900E /* Blood.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Blood.cpp; sourceTree = "<group>"; };
+		658862541512C72600DA900E /* Corpse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Corpse.cpp; sourceTree = "<group>"; };
+		658862561512C73500DA900E /* Corpse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Corpse.h; sourceTree = "<group>"; };
 		6589FAD314F099CB00795BA9 /* mtrand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mtrand.cpp; sourceTree = "<group>"; };
 		6589FAD414F099CB00795BA9 /* mtrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtrand.h; sourceTree = "<group>"; };
 		6589FAD514F099CB00795BA9 /* mtreadme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mtreadme.txt; sourceTree = "<group>"; };
@@ -475,6 +480,10 @@
 			children = (
 				48A85716117469E000E3ED43 /* Monster.h */,
 				48A85717117469E000E3ED43 /* Monster.cpp */,
+				658862511512AF0D00DA900E /* Blood.h */,
+				658862521512AF1400DA900E /* Blood.cpp */,
+				658862561512C73500DA900E /* Corpse.h */,
+				658862541512C72600DA900E /* Corpse.cpp */,
 			);
 			name = Monster;
 			sourceTree = "<group>";
@@ -573,8 +582,6 @@
 				65886219151040B800DA900E /* Weapons */,
 				658862201510410B00DA900E /* Spice.h */,
 				658862211510411600DA900E /* Spice.cpp */,
-				658862511512AF0D00DA900E /* Blood.h */,
-				658862521512AF1400DA900E /* Blood.cpp */,
 				6588622D151157A100DA900E /* Shield.h */,
 				6588622E151157AC00DA900E /* Shield.cpp */,
 			);
@@ -673,6 +680,8 @@
 				6217402D150EC3BC00CEFFB4 /* LightFilter.h in Headers */,
 				6284169D15119760004133FA /* RangeFilter.h in Headers */,
 				6588624F15129E2700DA900E /* Effect.h in Headers */,
+				658862571512C73600DA900E /* Corpse.h in Headers */,
+				658862581512C73B00DA900E /* Blood.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,6 +815,8 @@
 				6217402A150EC3AB00CEFFB4 /* LightFilter.cpp in Sources */,
 				6284169A15119751004133FA /* RangeFilter.cpp in Sources */,
 				6588625015129E2A00DA900E /* Effect.cpp in Sources */,
+				658862551512C72600DA900E /* Corpse.cpp in Sources */,
+				658862591512C73E00DA900E /* Blood.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,7 +840,6 @@
 				658862221510411600DA900E /* Spice.cpp in Sources */,
 				6588622A151069DE00DA900E /* Inventory.cpp in Sources */,
 				6588622F151157AC00DA900E /* Shield.cpp in Sources */,
-				658862531512AF1400DA900E /* Blood.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

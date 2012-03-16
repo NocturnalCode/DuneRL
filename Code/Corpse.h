@@ -1,20 +1,21 @@
 //
-//  Blood.h
+//  Corpse.h
 //  Roguelike
 //
 //  Created by Daniel Brooker on 16/03/12.
 //  Copyright (c) 2012 Nocturnal Code Limited. All rights reserved.
 //
 
-#ifndef BLOOD_INCLUDE_H
-#define BLOOD_INCLUDE_H
+#ifndef CORPSE_INCLUDE_H
+#define CORPSE_INCLUDE_H
 
 #include "Object.h"
 
-class Blood : public Object
+class Corpse : public Object
 {
 public:    
-    Blood(Colour colour);
+    Corpse(const Monster *monster);
 };
 
-#endif /* BLOOD_INCLUDE_H */
+#endif /* CORPSE_INCLUDE_H */
+

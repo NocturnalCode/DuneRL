@@ -69,6 +69,11 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Most of world only updates when you're nearby, but offscreen still
 * Equip/Drop/Pickup/Consume items
 
+## Day 5
+* Ranged combat
+* Effects from eating spice
+
+
 ## Requirements
 
 * c++ compiler
