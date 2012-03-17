@@ -19,6 +19,14 @@ Rect::Rect(int x,int y,int width,int height)
     X=x,Y=y,Width=width,Height=height;
 }
 
+void Rect::inset(int x, int y)
+{
+    X -= x;
+    Y -= y;
+    Width -= x*2;
+    Height -= y*2;
+}
+
 Rect randomRectInRect(Rect rect,int min, int max)
 {
     int width = min+arc4random()%max;

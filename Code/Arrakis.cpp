@@ -11,6 +11,8 @@
 #include "Stringer.h"
 #include "DuneRL.h"
 #include "DuneTile.h"
+#include "Rect.h"
+#include "Point.h"
 
 Arrakis::Arrakis(unsigned size) : Map(size)
 {
@@ -34,6 +36,81 @@ Arrakis::Arrakis(unsigned size) : Map(size)
 #define ROCK3 0xa28c4e
 #define ROCK4 0xae9754
 #define ROCK5 0xc5a95f
+
+void Arrakis::createRoom(Rect rect,Ascii floor)
+{
+	Object* o;
+	for(int i=rect.X;i<rect.X+rect.Width-1;i++)
+	{
+		for(int j=rect.Y;j<rect.Y+rect.Height-1;j++)
+		{
+			o = new Object(new Ascii(floor));
+			o->setPassable(true);
+			addObject(i,j,o);
+            Tile *t =  getTile(Point(i,j));
+            t->height = 1;
+            
+            DuneTile *dt = dynamic_cast<DuneTile *>(t);
+            if(dt)
+                dt->setGroundType(GroundTypeFortress);
+		}
+	}
+	
+	//top left
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o->setPassable(false);
+	o->setTransparent(false);
+	addObject(rect.X,rect.Y,o);
+	//top right
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o->setPassable(false);
+	o->setTransparent(false);
+	addObject(rect.X+rect.Width-1,rect.Y,o);
+    
+	//bottom left
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o->setPassable(false);
+	o->setTransparent(false);
+	addObject(rect.X,rect.Y+rect.Height-1,o);
+	//bottom right
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o->setPassable(false);
+	o->setTransparent(false);
+	addObject(rect.X+rect.Width-1,rect.Y+rect.Height-1,o);
+	
+	for(int j=rect.Y+1;j<rect.Y+rect.Height-1;j++)
+	{
+		o = new Object(new Ascii(LINE_VERTICAL_DOUBLE +16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+		o->setPassable(false);
+		o->setTransparent(false);
+		addObject(rect.X,j,o);
+		addObject(rect.X+rect.Width-1,j,o);
+	}
+	
+	for(int i=rect.X+1;i<rect.X+rect.Width-1;i++)
+	{
+		if(i==(int)(rect.X+(rect.Width/2)))
+		{
+			o = new Object(new Ascii(JOINT_DOUBLE_CENTER_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(1.0,0.5,0))); // a door
+            
+		}
+		else
+		{
+			o = new Object(new Ascii(LINE_HORIZONTAL_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+			o->setPassable(false);
+		}
+		o->setTransparent(false);
+		addObject(i,rect.Y,o);
+        Tile *t = getTile(Point(i,rect.Y));
+        t->height = 1;
+		addObject(i,rect.Y+rect.Height-1,o);
+        t = getTile(Point(i,rect.Y+rect.Height-1));
+        t->height = 1;
+	}
+	
+	printf("Creating room: %d %d %d %d\n",rect.X,rect.Y,rect.Width,rect.Height);
+}
+
 
 void Arrakis::generate()
 {
@@ -212,6 +289,7 @@ void Arrakis::generate()
         }
     }
     
+    //-- Generate the fortresses in the lower half of world
     for (int i = 0; i < 3; i++) {
         
         bool placementValid = false;
@@ -240,6 +318,43 @@ void Arrakis::generate()
                 
                 createRoom(placement,Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
                 
+                for(int j=0;j<5;j++)
+                {
+                    Ascii *ascii = new Ascii(SMILIE,Colour(0,0,1),Colour(0,0,0,0));
+                    Monster *monster = new Monster(ascii);
+                    monster->speed = (Speed)(SpeedNormal);
+                    monster->setMaxHP((rand()%3)+2);
+                    monster->behaviour = BehaviourAggressive;
+                    
+                    // make some random mobs
+                    switch (i) {
+                        case 0: // fremen
+                            monster->name = stringFormat("fremen< %d>",i);
+                            monster->getAscii()->Foreground = Colour::yellow();
+                            monster->oid = 32;
+                            break;
+                        case 1: // atreides
+                            monster->name = stringFormat("atreides< %d>",i);
+                            monster->getAscii()->Foreground = Colour::blue();
+                            monster->oid = 42;
+                            break;
+                        case 2: // harkonnen
+                            monster->name = stringFormat("harkonnen< %d>",i);
+                            monster->getAscii()->Foreground = Colour::black();
+                            monster->oid = 24;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    placement.inset(-10, -10);
+                    
+                    Rect rect = placement;
+                    Point p(rect.X + (rand() % rect.Width),rect.Y + (rand() % rect.Height));
+                    
+                    addObject(arc4random()%size,arc4random()%size,monster);
+                    monsters.push_back(monster);
+                }
             }
             
             
@@ -247,20 +362,13 @@ void Arrakis::generate()
         
     }
     
-    //-- Generate spice map
-    
-	//-- Generate the fortresses in the lower half of world
-//	createRoom(Rect(10,10,10,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-//	createRoom(Rect(30, 5,10,20),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-//	createRoom(Rect(50,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-//	createRoom(Rect(70,20,20,10),Ascii(4,Colour(1.0f,1.0f,1.0f),Colour(0.0f,0.3f,0.2f)));
-    // and fortress mobs
-    
     //-- Generate Camps
     // and camp mobs
     
+    
+    
     //-- Generate World Mobs
-    for(int i=0;i<90;i++)
+    for(int i=0;i<60;i++)
     {
         Ascii *ascii = new Ascii(LETTER_c+16,Colour(0,0,1),Colour(0,0,0,0));
         Monster *monster = new Monster(ascii);
@@ -268,16 +376,12 @@ void Arrakis::generate()
         monster->speed = (Speed)(SpeedFast);
         monster->setMaxHP((rand()%3)+2);
         monster->behaviour = BehaviourAggressive | BehaviourFlees;
-        monster->oid = 42;
+        monster->oid = 222;
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
-        
-        
-        
-        
         //printf("<Spawned %s %dhp %s %s>\n",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
     }
-    for(int i=0;i<200;i++)
+    for(int i=0;i<100;i++)
     {
         Ascii *ascii = new Ascii(LETTER_m+16,Colour(0,0,1),Colour(0,0,0,0));
         Monster *monster = new Monster(ascii);
@@ -285,12 +389,9 @@ void Arrakis::generate()
         monster->speed = (Speed)(SpeedFast);
         monster->setMaxHP(1);
         monster->behaviour = BehaviourTimid | BehaviourFlees;
+        monster->oid = 111;
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
-        
-        
-        
-        
         //printf("<Spawned %s %dhp %s %s>\n",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
     }
     

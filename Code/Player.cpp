@@ -21,7 +21,7 @@
 #include "Blood.h"
 #include "Corpse.h"
 #include "Effect.h"
-
+#include "DuneTile.h"
 #include "SpiceMadness.h"
 
 #include "RangeFilter.h"
@@ -34,11 +34,13 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     {
         name = "Feyd Rautha";
         family = "Harkonnen";
+        oid = 24;
     }
     else
     {
         name = "Leto Atreides";
         family = "Atreides";
+        oid = 42;
     }
     
     darticle = "";
@@ -272,6 +274,19 @@ void Player::didPickupObject(Object *object)
 {
     Monster::didPickupObject(object);
     LOG("Picked up %s",object->name.c_str());
+}
+
+void Player::didEnterTile(Tile *tile)
+{
+    Monster::didEnterTile(tile);
+    
+    DuneTile *t = dynamic_cast<DuneTile *>(tile);
+    if(tile && t->getGroundType() == GroundTypeFortress)
+    {
+        // you won, yay!
+        LOG("You've reach safety at last.");
+        DuneRL::shared->winMenu();
+    }
 }
 
 void Player::hydrate(int amount)

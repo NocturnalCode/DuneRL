@@ -23,6 +23,7 @@
 		6529071E1514267B00C8F051 /* Armoury.h in Headers */ = {isa = PBXBuildFile; fileRef = 6529071D1514267B00C8F051 /* Armoury.h */; };
 		6529072315142A8700C8F051 /* Armoury.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6529072215142A8700C8F051 /* Armoury.cpp */; };
 		6529072615142C1000C8F051 /* DuneArmoury.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6529072515142C1000C8F051 /* DuneArmoury.cpp */; };
+		652907291514A1C700C8F051 /* WinMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 652907281514A1C700C8F051 /* WinMenu.cpp */; };
 		653237B413682ACB0067C56A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653237AA13682AA80067C56A /* Cocoa.framework */; };
 		653237B513682ACB0067C56A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 653237AC13682AA80067C56A /* OpenGL.framework */; };
 		653237D31368B28E0067C56A /* tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = 653237D21368B28E0067C56A /* tileset.png */; };
@@ -234,6 +235,8 @@
 		6529072215142A8700C8F051 /* Armoury.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Armoury.cpp; sourceTree = "<group>"; };
 		6529072415142B8300C8F051 /* DuneArmoury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuneArmoury.h; sourceTree = "<group>"; };
 		6529072515142C1000C8F051 /* DuneArmoury.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuneArmoury.cpp; sourceTree = "<group>"; };
+		652907271514A1BD00C8F051 /* WinMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinMenu.h; sourceTree = "<group>"; };
+		652907281514A1C700C8F051 /* WinMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinMenu.cpp; sourceTree = "<group>"; };
 		65323795136828990067C56A /* quaffable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = quaffable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65323796136828990067C56A /* Quaffable-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Quaffable-Info.plist"; sourceTree = "<group>"; };
 		653237AA13682AA80067C56A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -589,6 +592,8 @@
 				6588621415102D9E00DA900E /* StartMenu.cpp */,
 				65886228151069C300DA900E /* Inventory.h */,
 				65886229151069DD00DA900E /* Inventory.cpp */,
+				652907271514A1BD00C8F051 /* WinMenu.h */,
+				652907281514A1C700C8F051 /* WinMenu.cpp */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				652907181513F27D00C8F051 /* SpiceMadness.cpp in Sources */,
 				6268C62515141DD200C64FE4 /* LightFilterSpiceMadness.cpp in Sources */,
 				6529072615142C1000C8F051 /* DuneArmoury.cpp in Sources */,
+				652907291514A1C700C8F051 /* WinMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

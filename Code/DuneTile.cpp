@@ -33,6 +33,11 @@ bool DuneTile::isSpiceGenerator()
     return this->spiceGenerator;
 }
 
+void DuneTile::setGroundType(GroundType type)
+{
+    this->groundType = type;
+}
+
 GroundType DuneTile::getGroundType()
 {
     return this->groundType;

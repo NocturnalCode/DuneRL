@@ -13,6 +13,8 @@
 
 class Arrakis: public Map
 {
+protected:
+    virtual void createRoom(Rect rect,Ascii floor);
 public:
     Arrakis(unsigned size);
     

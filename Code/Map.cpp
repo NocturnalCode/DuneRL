@@ -104,7 +104,7 @@ void Map::createRoom(Rect rect,Ascii floor)
 			o = new Object(new Ascii(floor));
 			o->setPassable(true);
 			addObject(i,j,o);
-            Tile *t = getTile(Point(i,j));
+            Tile *t =  getTile(Point(i,j));
             t->height = 1;
 		}
 	}

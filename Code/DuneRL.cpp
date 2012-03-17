@@ -28,6 +28,7 @@
 #include "Image.h"
 #include "Timer.h"
 #include "ExitMenu.h"
+#include "WinMenu.h"
 #include "Player.h"
 #include "Arrakis.h"
 
@@ -137,6 +138,13 @@ void DuneRL::deathMenu()
     dmenu = new DeathMenu(Rect(256-64,128,140+128,64+24),player);
     rootWindow->add(dmenu);
     dmenu->open();
+}
+
+void DuneRL::winMenu()
+{
+    WinMenu *wmenu = new WinMenu(Rect(256-64,128,140+128,64+24),player);
+    rootWindow->add(wmenu);
+    wmenu->open();
 }
 
 void DuneRL::inventoryMenu()

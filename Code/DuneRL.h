@@ -35,6 +35,7 @@ public:
 
     void deathMenu();
     void inventoryMenu();
+    void winMenu();
     
     static DuneRL *shared;
 };

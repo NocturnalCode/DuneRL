@@ -15,6 +15,8 @@ public:
     int X,Y,Width,Height;
     Rect();
     Rect(int x,int y,int width,int height);
+    
+    void inset(int x, int y);
 };
 
 Rect randomRectInRect(Rect rect,int min, int max);

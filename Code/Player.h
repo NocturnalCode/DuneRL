@@ -41,6 +41,8 @@ protected:
     void didConsumeObject(Object *object);
     
     void hydrate(int amount);
+    
+    virtual void didEnterTile(Tile *tile);
 
 public:
     // UI related fields

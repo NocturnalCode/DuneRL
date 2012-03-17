@@ -14,6 +14,7 @@ typedef enum {
     GroundTypeSand,
     GroundTypeIce,
     GroundTypeRock,
+    GroundTypeFortress,
     GroundTypeCount
 } GroundType;
 
@@ -29,6 +30,8 @@ public:
     int getTurnLastSeen();
     void setTurnLastSeen(int val);
     bool isSpiceGenerator();
+    
+    void setGroundType(GroundType type);
     GroundType getGroundType();
     virtual void update(Speed updateSpeed, int turnNumber);
 };
