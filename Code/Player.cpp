@@ -196,6 +196,16 @@ bool Player::equip(Object *object)
     return false;
 }
 
+bool Player::isAlive()
+{
+    if (DEV) {
+        return true;
+    }
+    else {
+        return Monster::isAlive();
+    }
+}
+
 // a turn has past
 void Player::performTurn()
 {

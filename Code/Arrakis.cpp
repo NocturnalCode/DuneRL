@@ -271,6 +271,25 @@ void Arrakis::generate()
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
         
+        
+        
+        
+        //printf("<Spawned %s %dhp %s %s>\n",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
+    }
+    for(int i=0;i<200;i++)
+    {
+        Ascii *ascii = new Ascii(LETTER_m+16,Colour(0,0,1),Colour(0,0,0,0));
+        Monster *monster = new Monster(ascii);
+        monster->name = stringFormat("Muad'Dib< %d>",i);
+        monster->speed = (Speed)(SpeedFast);
+        monster->setMaxHP(1);
+        monster->behaviour = BehaviourTimid | BehaviourFlees;
+        addObject(arc4random()%size,arc4random()%size,monster);
+        monsters.push_back(monster);
+        
+        
+        
+        
         //printf("<Spawned %s %dhp %s %s>\n",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());
     }
     
