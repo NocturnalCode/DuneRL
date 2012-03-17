@@ -11,6 +11,12 @@ This should be the first playable game based on the quaffable library.
 
 The source is licensed under the New BSD License.
 
+## Tips
+
+* Spice temporarily helps ignore the effects of dehydrated, but too much will get you addicted.
+* You can regain some water by quaffing blood and draining corpses.
+* Don't run from Dune Cats they're dangerous
+
 ## Controls
 
 Basic controls, subject to change.
@@ -18,11 +24,11 @@ Basic controls, subject to change.
 * Arrow Keys, movement, menu navigation
 * 'enter' confirm menu item
 * 'i' items/inventory
-* 'e' equip selected item (in inventory)
-* 'u' unequip selected item (in inventory)
-* 'q' quaff/consume selected item (in inventory)
-* 'd' drop selected item (in inventory)
-* 'p' pickup selected item (in inventory)
+* 'e' equip selected item (in inventory menu)
+* 'u' unequip selected item (in inventory menu)
+* 'q' quaff/consume selected item (in inventory menu)
+* 'd' drop selected item (in inventory menu)
+* 'p' pickup selected item (in inventory menu)
 * 'f' fire ranged weapon, arrows to aim, enter to confirm
 * '.' stand still
 * 'esc' open/close menu
@@ -77,6 +83,13 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 ## Day 6
 * Spice Madness
 * More Ranged Combat fixes
+* Winning
+* Other human enemies
+* Can drink blood to hydrate
+
+## Day 7
+
+
 
 ## Requirements
 

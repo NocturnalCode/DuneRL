@@ -31,11 +31,11 @@ Arrakis::Arrakis(unsigned size) : Map(size)
 #define DUNE9 0xefce73
 #define DUNEA 0xfeda79
 
-#define ROCK1 0x917d47
-#define ROCK2 0x9c874d 
-#define ROCK3 0xa28c4e
-#define ROCK4 0xae9754
-#define ROCK5 0xc5a95f
+#define ROCK1 0x552c18
+#define ROCK2 0x763d21
+#define ROCK3 0x8c4827
+#define ROCK4 0xac5930
+#define ROCK5 0xc76738
 
 void Arrakis::createRoom(Rect rect,Ascii floor)
 {
@@ -190,40 +190,31 @@ void Arrakis::generate()
             if(r > rockThreshold) 
             {
                 std::vector<int> ascii;
-                ascii.push_back(LETTER_o);
+                ascii.push_back(LETTER_o+16);
+               // ascii.push_back(LETTER_o);
+                ascii.push_back(0);
                 ascii.push_back(0);
                 ascii.push_back(0);
                 ascii.push_back(0);
                 
                 foreground = Colour(1.0f,1.0f-(h*0.8f),0.0f);
                 
-//                if(h < 0.215) 
-//                    background = col1;
-//                else if(h < 0.24) 
-//                    background = col2;
-//                else if(h < 0.255)
-//                    background = col3;
-//                else if(h < 0.275) 
-//                    background = col4;
-//                else if(h < 0.3)
-//                    background = col5;
-//                else if(h < 0.35)  
-//                    background = col6;
-//                else if(h < 0.4)
-//                    background = col7;
-//                else if(h < 0.45) 
-//                    background = col8;
-//                else if(h < 0.475)
-//                    background = col9;
-//                else if(h < 0.495)
-//                    background = colA;
-//                else
-//                    background = colB;
+                if(r < 0.2) 
+                    background = rock1;
+                else if(r < 0.3)
+                    background = rock2;
+                else if(r < 0.4)
+                    background = rock3;
+                else if(r < 0.5) 
+                    background = rock4;
+                else
+                    background = rock5;
                 
                 //Rock the place
                 tiles[ARRAY2D(i,j,size)] = new DuneTile(i,j,GroundTypeRock,false);
                 background = Colour(1.0f,0.1f,0.0f);
                 o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
+                o->description = "rock";
                 tiles[ARRAY2D(i,j,size)]->height = h+r;
             }
             else 
@@ -277,6 +268,8 @@ void Arrakis::generate()
                 o = new Object(new Ascii(ascii[rand()%ascii.size()],foreground,background));
                 
                 tiles[ARRAY2D(i,j,size)]->height = h;
+                
+                o->description = "the hot sand";
             }
             
 			tiles[ARRAY2D(i,j,size)]->parent = this;
@@ -284,7 +277,7 @@ void Arrakis::generate()
             
 			o->setPassable(true);
             o->setTerrain(true);
-            o->description = "the hot sand";
+            
 			addObject(i,j,o);
         }
     }
