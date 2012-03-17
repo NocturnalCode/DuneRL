@@ -53,7 +53,7 @@ public:
     
     bool equip(Object *object);
     int spiceCount();
-    
+    bool isAlive();
     Player();
     ~Player();
 };
