@@ -19,6 +19,7 @@
 #include "Monster.h"
 #include "SDL/SDL.h"
 #include "Display.h"
+#include "Armoury.h"
 
 class Map;
 
@@ -52,6 +53,7 @@ class World : public Display
     public:
         World();
 		
+        Armoury *armoury;
 		KeyMap	keyPress;
 
 		virtual	void setParent(Display *parent);

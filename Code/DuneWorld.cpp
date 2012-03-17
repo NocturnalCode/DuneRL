@@ -8,11 +8,14 @@
 
 #include "DuneWorld.h"
 #include "DuneRL.h"
+#include "DuneArmoury.h"
 
 DuneWorld::DuneWorld() : World()
 {
     dayNight = DayNightMidday;
     dayNightTick = 0;
+    
+    armoury = new DuneArmoury();
 }
 
 void DuneWorld::updateWorld()
