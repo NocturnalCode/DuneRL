@@ -14,7 +14,7 @@
 class DuneArmoury : public Armoury
 {
 protected:
-    virtual void inspectObject(Object *object);
+    virtual void inspectNew(Object *object);
 public:
     DuneArmoury();
 };

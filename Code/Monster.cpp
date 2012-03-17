@@ -529,6 +529,7 @@ bool Monster::consume(Object *object)
             }
         }
         
+        object->removeFromTile();
         unequip(object);
         removeObjectFromInventory(object);
         didConsumeObject(object);

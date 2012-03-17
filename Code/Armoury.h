@@ -13,10 +13,8 @@
 
 class Armoury
 {
-private:
-    void inspectNew(Object *object);
 protected:
-    virtual void inspect(void *o);
+    virtual void inspectNew(Object *object);
 public:
     Armoury();
     

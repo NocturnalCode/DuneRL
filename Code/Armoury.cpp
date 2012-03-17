@@ -19,9 +19,3 @@ void Armoury::inspectNew(Object *object)
 {
     
 }
-
-void Armoury::inspect(void *o)
-{
-    inspectNew(static_cast<Object *>(o));
-}
-

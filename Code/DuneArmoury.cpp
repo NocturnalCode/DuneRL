@@ -15,11 +15,11 @@ DuneArmoury::DuneArmoury() : Armoury()
     
 }
 
-void DuneArmoury::inspectObject(Object *object)
+void DuneArmoury::inspectNew(Object *object)
 {
     Corpse *corpse = dynamic_cast<Corpse *>(object);
     Blood *blood = dynamic_cast<Blood *>(object);
-    if(corpse || blood)
+    if(corpse || blood) // this doesn't work :(
     {
         object->_flags.consumable = YES;
         return;

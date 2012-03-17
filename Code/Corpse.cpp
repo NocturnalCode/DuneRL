@@ -13,5 +13,5 @@
 
 Corpse::Corpse() : Object(new Ascii(PERCENT,Colour::white(),Colour::clear()))
 {
- 
+    _flags.consumable = YES;
 }

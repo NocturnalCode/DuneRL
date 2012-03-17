@@ -15,4 +15,6 @@ Blood::Blood() : Object(new Ascii(EXCLAMATION,Colour::red(),Colour::clear()))
     _flags.decays = YES;
     
     decay = 50;
+    
+    _flags.consumable = YES;
 }
