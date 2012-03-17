@@ -110,4 +110,7 @@ Inventory, spice score
 ![Day 4](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day4-Inventory.png "Inventory")
 
 Range
-![Day 4](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day5-Range.png "Range")
+![Day 5](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day5-Range.png "Range")
+
+Spice Madness
+![Day 6](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day6-Spice.png "Spice Effects")

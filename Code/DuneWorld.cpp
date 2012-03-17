@@ -46,7 +46,6 @@ void DuneWorld::updateWorld()
         }
     }
     
-    
     //printf("turn %d",getTurn());
 }
 
