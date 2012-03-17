@@ -23,6 +23,7 @@ Basic controls, subject to change.
 * 'q' quaff/consume selected item (in inventory)
 * 'd' drop selected item (in inventory)
 * 'p' pickup selected item (in inventory)
+* 'f' fire ranged weapon, arrows to aim, enter to confirm
 * '.' stand still
 * 'esc' open/close menu
 
@@ -75,7 +76,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 
 ## Day 6
 * Spice Madness
-* More Ranged Combat
+* More Ranged Combat fixes
 
 ## Requirements
 

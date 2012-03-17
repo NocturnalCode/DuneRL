@@ -57,7 +57,7 @@ void SpiceMadness::update()
 {
     Effect::update();
     
-    if(arc4random()%8==0)
+    if(arc4random()%50==0)
     {
         LOG("You feel light headed.");
     }
@@ -83,9 +83,6 @@ void SpiceMadness::onRemoved()
             }
         }
     }
-        // remove madness filter
-    
-    
     
     LOG("You feel the effects of the spice wear off.");
 }
@@ -99,8 +96,9 @@ void SpiceMadness::onFinished()
         Player *player = dynamic_cast<Player *>(object);
         if(player)
         {
-            player->adjustHP(-(1+arc4random()%4));
-            LOG("You feel a sharp and painful headache.");
+            int h = -(1+arc4random()%4);
+            player->adjustHP(h);
+            LOG("You feel a sharp and painful headache. <%d dmg>",h);
         }
     }
 }
