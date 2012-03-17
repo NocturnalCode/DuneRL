@@ -11,13 +11,15 @@
 
 #include "Effect.h"
 #include "Object.h"
+#include "LightFilterSpiceMadness.h"
 
 class SpiceMadness : public Effect
 {
     bool completeMadness;
+    LightFilterSpiceMadness *madnessFilter;
 public:
     SpiceMadness(int duration, Object *object);
-    
+    ~SpiceMadness();
     virtual void update();
     virtual void onAdded();
     virtual void onRemoved();

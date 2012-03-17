@@ -13,7 +13,7 @@
 #include "Tile.h"
 #include "LightFilterDayNightCycle.h"
 #include "LightFilterShadow.h"
-
+#include "LightFilterSpiceMadness.h"
 #include "Melee.h"
 #include "Ranged.h"
 #include "Shield.h"
@@ -229,6 +229,7 @@ void Player::calculateSight()
             sightMap = new Lightmap(getPosition(),sight,getMap());
             sightMap->addFilter(new LightFilterShadow());
             sightMap->addFilter(new LightFilterDayNightCycle());
+            
         }
         sightMap->setPosition(getPosition());
 //        RangeFilter *range = new RangeFilter(Point(4,10));//

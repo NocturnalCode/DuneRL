@@ -13,6 +13,7 @@
 		6217402D150EC3BC00CEFFB4 /* LightFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6217402C150EC3BC00CEFFB4 /* LightFilter.h */; };
 		62174044150EFECF00CEFFB4 /* LightFilterDayNightCycle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6217402F150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp */; };
 		62174045150EFED600CEFFB4 /* LightFilterShadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62174035150ED58500CEFFB4 /* LightFilterShadow.cpp */; };
+		6268C62515141DD200C64FE4 /* LightFilterSpiceMadness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6268C62415141DD200C64FE4 /* LightFilterSpiceMadness.cpp */; };
 		6284169A15119751004133FA /* RangeFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6284169915119751004133FA /* RangeFilter.cpp */; };
 		6284169D15119760004133FA /* RangeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6284169C15119760004133FA /* RangeFilter.h */; };
 		62C196491510217C007CE24C /* DuneTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62C196481510217C007CE24C /* DuneTile.cpp */; };
@@ -215,6 +216,8 @@
 		62174031150ED02E00CEFFB4 /* LightFilterDayNightCycle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightFilterDayNightCycle.h; sourceTree = "<group>"; };
 		62174033150ED56D00CEFFB4 /* LightFilterShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightFilterShadow.h; sourceTree = "<group>"; };
 		62174035150ED58500CEFFB4 /* LightFilterShadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightFilterShadow.cpp; sourceTree = "<group>"; };
+		6268C62415141DD200C64FE4 /* LightFilterSpiceMadness.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightFilterSpiceMadness.cpp; sourceTree = "<group>"; };
+		6268C62715141DE500C64FE4 /* LightFilterSpiceMadness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightFilterSpiceMadness.h; sourceTree = "<group>"; };
 		6284169915119751004133FA /* RangeFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RangeFilter.cpp; sourceTree = "<group>"; };
 		6284169C15119760004133FA /* RangeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeFilter.h; sourceTree = "<group>"; };
 		62C196481510217C007CE24C /* DuneTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuneTile.cpp; sourceTree = "<group>"; };
@@ -525,6 +528,8 @@
 		6217402E150ECFC200CEFFB4 /* Light Filters */ = {
 			isa = PBXGroup;
 			children = (
+				6268C62715141DE500C64FE4 /* LightFilterSpiceMadness.h */,
+				6268C62415141DD200C64FE4 /* LightFilterSpiceMadness.cpp */,
 				62174031150ED02E00CEFFB4 /* LightFilterDayNightCycle.h */,
 				6217402F150ED01500CEFFB4 /* LightFilterDayNightCycle.cpp */,
 				62174033150ED56D00CEFFB4 /* LightFilterShadow.h */,
@@ -846,6 +851,7 @@
 				6588622A151069DE00DA900E /* Inventory.cpp in Sources */,
 				6588622F151157AC00DA900E /* Shield.cpp in Sources */,
 				652907181513F27D00C8F051 /* SpiceMadness.cpp in Sources */,
+				6268C62515141DD200C64FE4 /* LightFilterSpiceMadness.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
