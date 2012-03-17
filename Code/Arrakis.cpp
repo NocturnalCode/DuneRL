@@ -357,8 +357,46 @@ void Arrakis::generate()
     
     //-- Generate Camps
     // and camp mobs
+    int faction = arc4random()%3;
+    Point camp((rand() % size),(rand() % size));
+    Rect campsite = Rect(camp.X,camp.Y,20,20);
     
-    
+    for(int j=0;j<5;j++)
+    {
+        Ascii *ascii = new Ascii(SMILIE,Colour(0,0,1),Colour(0,0,0,0));
+        Monster *monster = new Monster(ascii);
+        monster->speed = (Speed)(SpeedNormal);
+        monster->setMaxHP((rand()%3)+2);
+        monster->behaviour = BehaviourAggressive;
+        
+        // make some random mobs
+        switch (faction) {
+            case 0: // fremen
+                monster->name = stringFormat("fremen< %d>",i);
+                monster->getAscii()->Foreground = Colour::yellow();
+                monster->oid = 32;
+                break;
+            case 1: // atreides
+                monster->name = stringFormat("atreides< %d>",i);
+                monster->getAscii()->Foreground = Colour::blue();
+                monster->oid = 42;
+                break;
+            case 2: // harkonnen
+                monster->name = stringFormat("harkonnen< %d>",i);
+                monster->getAscii()->Foreground = Colour::black();
+                monster->oid = 24;
+                break;
+            default:
+                break;
+        }
+        
+        Rect rect = campsite;
+        Point p(rect.X + (rand() % rect.Width),rect.Y + (rand() % rect.Height));
+        
+        addObject(arc4random()%size,arc4random()%size,monster);
+        monsters.push_back(monster);
+    }
+
     
     //-- Generate World Mobs
     for(int i=0;i<60;i++)
