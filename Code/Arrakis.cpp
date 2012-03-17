@@ -268,6 +268,7 @@ void Arrakis::generate()
         monster->speed = (Speed)(SpeedFast);
         monster->setMaxHP((rand()%3)+2);
         monster->behaviour = BehaviourAggressive | BehaviourFlees;
+        monster->oid = 42;
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
         

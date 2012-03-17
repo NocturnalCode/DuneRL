@@ -37,6 +37,8 @@ Object::Object()
     decay = 1;
     count = 1;
     lastMovementTurn = 0;
+    
+    oid = arc4random();
 }
 
 Object::Object(Ascii *asc) 
@@ -65,6 +67,8 @@ Object::Object(Ascii *asc)
     decay = 1;
     count = 1;
     lastMovementTurn = 0;
+    
+    oid = arc4random();
 }
 
 Object::Object(AsciiGroup *asc)
@@ -94,6 +98,8 @@ Object::Object(AsciiGroup *asc)
     decay = 1;
     count = 1;
     lastMovementTurn = 0;
+    
+    oid = arc4random();
 }
 
 Object::~Object()

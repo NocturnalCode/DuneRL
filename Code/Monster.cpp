@@ -291,7 +291,7 @@ void Monster::performTurn()
     foreach(Objects, o, attackers)
     {
         float dist = (*o)->distanceTo(this);
-        if(dist < mindist)
+        if(dist < mindist && ((*o)->oid != oid))
         {
             nearest = (*o);
             mindist = dist;

@@ -65,6 +65,8 @@ public:
     int decay;
     int count;
     
+    int oid;
+    
     ObjectFlags _flags;
     
     Object();
