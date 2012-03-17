@@ -15,7 +15,7 @@
 
 LightFilter::LightFilter()
 {
-    
+    enabled = YES;
 }
 
 LightFilter::~LightFilter()
@@ -26,4 +26,9 @@ LightFilter::~LightFilter()
 Ascii* LightFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
 {
     return ascii;
+}
+
+bool LightFilter::getEnabled()
+{
+    return enabled;
 }

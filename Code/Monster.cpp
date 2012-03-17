@@ -30,7 +30,7 @@ Monster::Monster() : Object()
     
     setTransparent(true);
 	setPassable(false);
-    rangeFilter = NULL;
+    //rangeFilter = NULL;
     equipment = NULL;
     
     behaviour = BehaviourDefensive;
@@ -50,14 +50,14 @@ Monster::Monster(Ascii *ascii) : Object(ascii)
     equipment = NULL;
     
     behaviour = BehaviourDefensive;
-    rangeFilter = NULL;
+   // rangeFilter = NULL;
 }
 
 Monster::~Monster()
 {
-    if (rangeFilter) {
-        delete rangeFilter;
-    }
+//    if (rangeFilter) {
+//        delete rangeFilter;
+//    }
 }
 
 int Monster::getHP()
@@ -703,18 +703,20 @@ void Monster::makeRangeOverlay()
 //    Object *wepon = this->getWeaponForRanged();
 //    if (wepon != NULL) {
 //        int rang = wepon->range;
-        if (rangeFilter == NULL) {
-            rangeFilter = new RangeFilter(Point(1,1));
-        }
-        //
-        rangeFilter->setMaxRange(10);
-        rangeFilter->setDestinationPoint(Point(1,1));
-        sightMap->addFilter(rangeFilter);
         
-        Roguelike *rogue = Roguelike::shared;
-        Window* window = rogue->getRootWindow();
-        if (window) {
-            window->eventDelegate = rangeFilter;
-        }
+        //if (rangeFilter == NULL) {
+    RangeFilter *rangeFilter = new RangeFilter(Point(1,1));
+    //}
+    //
+    rangeFilter->setMaxRange(10);
+    rangeFilter->setDestinationPoint(Point(1,1));
+    sightMap->addFilter(rangeFilter);
+    
+    Roguelike *rogue = Roguelike::shared;
+    Window* window = rogue->getRootWindow();
+    if (window) {
+        window->eventDelegate = rangeFilter;
+    }
+    
 //    }
 }
