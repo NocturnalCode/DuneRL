@@ -13,6 +13,7 @@ Ranged::Ranged() : Object(new Ascii(BRACKET_RIGHT_CURLY,Colour::white(), Colour:
 {
     _flags.wieldable = YES;
     name = "ranged weapon";
+    range = 10;
 }
 
 Damages Ranged::getRangedDamages()

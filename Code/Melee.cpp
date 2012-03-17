@@ -13,3 +13,10 @@ Melee::Melee() : Object(new Ascii(BRACKET_LEFT_CURVED,Colour::white(), Colour::c
     _flags.wieldable = YES;
     name = "melee weapon";
 }
+
+Damages Melee::getMeleeDamages()
+{
+    Damages dmgs;
+    dmgs.push_back(Damage(2,DamageSharp));
+    return dmgs;
+}

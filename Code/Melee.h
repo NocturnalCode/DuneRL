@@ -15,6 +15,8 @@ class Melee : public Object
 {
 public:
     Melee();
+    
+    Damages getMeleeDamages();
 };
 
 #endif /* MELEE_INCLUDE_H */
