@@ -14,6 +14,14 @@
 SpiceMadness::SpiceMadness(int duration, Object *object) : Effect(duration,object)
 {
     completeMadness = false;
+    madnessFilter = NULL;
+}
+
+SpiceMadness::~SpiceMadness()
+{
+    if (madnessFilter != NULL) {
+        delete madnessFilter;
+    }
 }
 
 bool SpiceMadness::isMad()
@@ -31,6 +39,17 @@ void SpiceMadness::addDuration(int d)
         completeMadness = true;
         LOG("Your vision begins to warp and twist.");
         /// add madness filter
+        
+        Player *player = dynamic_cast<Player *>(object);
+        if(player)
+        {
+            
+            if (madnessFilter == NULL) {
+                madnessFilter = new LightFilterSpiceMadness();
+            }
+            player->getSightMap()->addFilter(madnessFilter);
+        }
+        
     }
 }
 
@@ -54,8 +73,19 @@ void SpiceMadness::onRemoved()
 {
     Effect::onRemoved();
     
-    //if(completeMadness)
+    if(completeMadness)
+    {
+        Player *player = dynamic_cast<Player *>(object);
+        if(player)
+        {
+            if (madnessFilter != NULL) {
+                player->getSightMap()->removeFilter(madnessFilter);
+            }
+        }
+    }
         // remove madness filter
+    
+    
     
     LOG("You feel the effects of the spice wear off.");
 }

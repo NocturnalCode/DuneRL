@@ -196,6 +196,8 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
                 // shot nothing, maybe rand spawn a bullet
             }
         }
+        shouldCancel = NO;
+        shouldComplete = NO;
         
         return ascii;
     }
@@ -223,12 +225,23 @@ bool RangeFilter::handleEvents(SDL_Event *event)
             {
                 case SDLK_UP:	
                 {
-                    this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y-1));
+                    if (Roguelike::shared->getWorld()->getMap()->mapFlipped) {
+                        this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y+1));
+                    }
+                    else {
+                        this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y-1));
+                    }
+                    
                 }
                     break;
                 case SDLK_DOWN:
                 {
-                    this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y+1));
+                    if (Roguelike::shared->getWorld()->getMap()->mapFlipped) {
+                        this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y-1));
+                    }
+                    else {
+                        this->setDestinationPoint(Point(destinationPoint.X, destinationPoint.Y+1));
+                    }
                 }
                     break;
                 case SDLK_LEFT: 
