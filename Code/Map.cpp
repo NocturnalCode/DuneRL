@@ -104,27 +104,29 @@ void Map::createRoom(Rect rect,Ascii floor)
 			o = new Object(new Ascii(floor));
 			o->setPassable(true);
 			addObject(i,j,o);
+            Tile *t = getTile(Point(i,j));
+            t->height = 1;
 		}
 	}
 	
 	//top left
-	o = new Object(new Ascii(CORNER_TOP_LEFT_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
 	o->setPassable(false);
 	o->setTransparent(false);
 	addObject(rect.X,rect.Y,o);
 	//top right
-	o = new Object(new Ascii(CORNER_TOP_RIGHT_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
 	o->setPassable(false);
 	o->setTransparent(false);
 	addObject(rect.X+rect.Width-1,rect.Y,o);
 		
 	//bottom left
-	o = new Object(new Ascii(CORNER_BOTTOM_LEFT_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
 	o->setPassable(false);
 	o->setTransparent(false);
 	addObject(rect.X,rect.Y+rect.Height-1,o);
 	//bottom right
-	o = new Object(new Ascii(CORNER_BOTTOM_RIGHT_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
+	o = new Object(new Ascii(BLOCK+16,Colour(1.0f,1.0f,1.0f),Colour(0.2f,0.3f,0.2f)));
 	o->setPassable(false);
 	o->setTransparent(false);
 	addObject(rect.X+rect.Width-1,rect.Y+rect.Height-1,o);
@@ -143,6 +145,7 @@ void Map::createRoom(Rect rect,Ascii floor)
 		if(i==(int)(rect.X+(rect.Width/2)))
 		{
 			o = new Object(new Ascii(JOINT_DOUBLE_CENTER_DOUBLE+16,Colour(1.0f,1.0f,1.0f),Colour(1.0,0.5,0))); // a door
+            
 		}
 		else
 		{
@@ -151,7 +154,11 @@ void Map::createRoom(Rect rect,Ascii floor)
 		}
 		o->setTransparent(false);
 		addObject(i,rect.Y,o);
+        Tile *t = getTile(Point(i,rect.Y));
+        t->height = 1;
 		addObject(i,rect.Y+rect.Height-1,o);
+        t = getTile(Point(i,rect.Y+rect.Height-1));
+        t->height = 1;
 	}
 	
 	printf("Creating room: %d %d %d %d\n",rect.X,rect.Y,rect.Width,rect.Height);
