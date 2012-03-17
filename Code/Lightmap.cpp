@@ -72,6 +72,14 @@ Ascii *Lightmap::filter(WorldCoord world,Ascii *ascii)
     return ascii;
 }
 
+LocalCoord Lightmap::world2localWithoutRadius(WorldCoord w)
+{
+    LocalCoord coord  = this->world2local(w);
+    coord.X -= radius;
+    coord.Y -= radius;
+    return coord;
+}
+
 LocalCoord Lightmap::world2local(WorldCoord w)
 {
 	WorldCoord me = position;

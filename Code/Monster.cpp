@@ -698,18 +698,34 @@ void Monster::doUpdate(Speed turnSpeed)
     }
 }
 
-void Monster::makeRangeOverlay()
+void Monster::makeRangeOverlay(int rangeValue)
 {
 //    Object *wepon = this->getWeaponForRanged();
 //    if (wepon != NULL) {
 //        int rang = wepon->range;
         
         //if (rangeFilter == NULL) {
+    
+    Objects visibleMonsters = this->getMap()->getVisibleMonsters(this, rangeValue);
+    
+    Object *visibleObject = NULL;
+    if (visibleMonsters.size()>0) {
+        visibleObject = (*(visibleMonsters.begin()));
+    }
+    
     RangeFilter *rangeFilter = new RangeFilter(Point(1,1));
     //}
     //
-    rangeFilter->setMaxRange(10);
-    rangeFilter->setDestinationPoint(Point(1,1));
+    rangeFilter->setMaxRange(rangeValue);
+    if (visibleObject) {
+        
+        LocalCoord dest = this->sightMap->world2localWithoutRadius(visibleObject->getPosition());
+        rangeFilter->setDestinationPoint(dest);
+    }
+    else {
+        rangeFilter->setDestinationPoint(Point(1,1));
+    }
+    
     sightMap->addFilter(rangeFilter);
     
     Roguelike *rogue = Roguelike::shared;

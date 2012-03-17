@@ -14,6 +14,7 @@
 #include "World.h"
 #include "Window.h"
 #include "Roguelike.h"
+#include "Point.h"
 
 RangeFilter::RangeFilter(LocalCoord destination) : LightFilter(),Display()
 {
@@ -202,7 +203,13 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
         //map->removeFilter(this);
         return ascii;
     }
+    Point worl = map->getPosition();
+    Point relative = worldPoint-worl;
     
+    double magnitude = ((relative.Y*relative.Y) + (relative.X*relative.X));
+    if (magnitude < (maxRange*maxRange)) {
+        ascii->Background.lerp(Colour::white(), 0.1);
+    }
     //destination point is probable going to have to be a local coord
     WorldCoord pos = map->getPosition();
     //lets assume worldpoint is relative to pos

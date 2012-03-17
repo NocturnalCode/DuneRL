@@ -126,7 +126,7 @@ public:
     Lightmap* getSightMap();
     virtual void doUpdate(Speed turnSpeed);
     
-    virtual void makeRangeOverlay();
+    virtual void makeRangeOverlay(int rangeValue);
 //  virtual void onHealedBy(Object *attacker,Damage damage);
 };
 

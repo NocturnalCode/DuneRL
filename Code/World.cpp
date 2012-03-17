@@ -137,7 +137,7 @@ bool World::handleEvents(SDL_Event *event)
                         Object *ranged = map->getPlayer()->getWeaponForRanged();
                         
                         if(ranged)
-                            map->getPlayer()->makeRangeOverlay();
+                            map->getPlayer()->makeRangeOverlay(ranged->range);
                         else 
                             LOG("No ranged weapon");
                         return false; // return false to require another key event
@@ -170,7 +170,7 @@ bool World::handleEvents(SDL_Event *event)
                         Object *ranged = map->getPlayer()->getWeaponForRanged();
                         
                         if(ranged)
-                            map->getPlayer()->makeRangeOverlay();
+                            map->getPlayer()->makeRangeOverlay(ranged->range);
                         else 
                             LOG("No ranged weapon");
                         return false; // return false to require another key event

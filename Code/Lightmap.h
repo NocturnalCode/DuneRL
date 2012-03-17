@@ -43,6 +43,7 @@ public:
     Lightmap(Point position,int radius,Map *map);
     ~Lightmap();
     LocalCoord world2local(WorldCoord w);
+    LocalCoord world2localWithoutRadius(WorldCoord w);
     virtual bool isLit(WorldCoord world);
     virtual Ascii *filter(WorldCoord world,Ascii *ascii);
     int getRadius();
