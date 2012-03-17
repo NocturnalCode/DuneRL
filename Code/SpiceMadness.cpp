@@ -46,8 +46,10 @@ void SpiceMadness::addDuration(int d)
             
             if (madnessFilter == NULL) {
                 madnessFilter = new LightFilterSpiceMadness();
+                player->getSightMap()->addFilter(madnessFilter);
+                
             }
-            player->getSightMap()->addFilter(madnessFilter);
+            
         }
         
     }
@@ -80,6 +82,7 @@ void SpiceMadness::onRemoved()
         {
             if (madnessFilter != NULL) {
                 player->getSightMap()->removeFilter(madnessFilter);
+                madnessFilter = NULL;
             }
         }
     }
