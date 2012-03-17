@@ -13,6 +13,7 @@
 #include "DuneTile.h"
 #include "Rect.h"
 #include "Point.h"
+#include "Ranged.h"
 
 Arrakis::Arrakis(unsigned size) : Map(size)
 {
@@ -322,19 +323,32 @@ void Arrakis::generate()
                     // make some random mobs
                     switch (i) {
                         case 0: // fremen
-                            monster->name = stringFormat("fremen< %d>",i);
+                            monster->name = stringFormat("fremen< %d>",j);
                             monster->getAscii()->Foreground = Colour::yellow();
                             monster->oid = 32;
+                            monster->setMaxHP((rand()%5)+3);
                             break;
                         case 1: // atreides
-                            monster->name = stringFormat("atreides< %d>",i);
+                        {
+                            monster->name = stringFormat("atreides< %d>",j);
                             monster->getAscii()->Foreground = Colour::blue();
                             monster->oid = 42;
+                            
+                            Ranged *ranged = new Ranged();
+                            monster->addObjectToInventory(ranged);
+                            monster->equip(ranged);
+                        }
                             break;
                         case 2: // harkonnen
-                            monster->name = stringFormat("harkonnen< %d>",i);
+                        {
+                            monster->name = stringFormat("harkonnen< %d>",j);
                             monster->getAscii()->Foreground = Colour::black();
                             monster->oid = 24;
+                            
+                            Ranged *ranged = new Ranged();
+                            monster->addObjectToInventory(ranged);
+                            monster->equip(ranged);
+                        }
                             break;
                         default:
                             break;
@@ -372,19 +386,31 @@ void Arrakis::generate()
         // make some random mobs
         switch (faction) {
             case 0: // fremen
-                monster->name = stringFormat("fremen< %d>",i);
+                monster->name = stringFormat("fremen< %d>",j);
                 monster->getAscii()->Foreground = Colour::yellow();
                 monster->oid = 32;
                 break;
             case 1: // atreides
-                monster->name = stringFormat("atreides< %d>",i);
+            {
+                monster->name = stringFormat("atreides< %d>",j);
                 monster->getAscii()->Foreground = Colour::blue();
                 monster->oid = 42;
+                
+                Ranged *ranged = new Ranged();
+                monster->addObjectToInventory(ranged);
+                monster->equip(ranged);
+            }
                 break;
             case 2: // harkonnen
-                monster->name = stringFormat("harkonnen< %d>",i);
+            {
+                monster->name = stringFormat("harkonnen< %d>",j);
                 monster->getAscii()->Foreground = Colour::black();
                 monster->oid = 24;
+                
+                Ranged *ranged = new Ranged();
+                monster->addObjectToInventory(ranged);
+                monster->equip(ranged);
+            }   
                 break;
             default:
                 break;

@@ -128,3 +128,4 @@ Range
 
 Spice Madness
 ![Day 6](https://github.com/NocturnalCode/DuneRL/raw/master/Screenshots/Day6-Spice.png "Spice Effects")
+
