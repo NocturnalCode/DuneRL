@@ -582,7 +582,9 @@ void Monster::onDeath()
 {
     LOG("%s%s died.",this->darticle.c_str(), this->name.c_str());
     // make corpse
-    Corpse *corpse = new Corpse(this);
+    Corpse *corpse =  Armoury::shared->spawn<Corpse>();//  new Corpse(this);
+    corpse->name = stringFormat("%s's corpse",this->name.c_str());
+    corpse->description = this->darticle  + "corpse of " + this->iarticle + this->name;
     parent->addObject(corpse);
     
     // more gore, body parts perhaps
@@ -622,7 +624,7 @@ void Monster::onDamagedBy(Object *attacker,Damage damage)
     Colour bloodColour = Colour::red(); // this->bloodColour(); would be nice
     
     //int ascii = arc4random()%2==0?EXCLAMATION:EXCLAMATION_DOUBLE;
-    Blood *blood = new Blood(bloodColour);
+    Blood *blood = Armoury::shared->spawn<Blood>();//new Blood(bloodColour);
     blood->name = stringFormat("%s's blood",this->name.c_str());
     blood->description = this->darticle + "the blood of " + this->iarticle + this->name;
     blood->count = 1+(arc4random()+5);

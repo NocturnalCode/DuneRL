@@ -14,7 +14,7 @@
 class Blood : public Object
 {
 public:    
-    Blood(Colour colour);
+    Blood();
 };
 
 #endif /* BLOOD_INCLUDE_H */

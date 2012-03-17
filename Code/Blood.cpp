@@ -8,7 +8,7 @@
 
 #include "Blood.h"
 
-Blood::Blood(Colour colour) : Object(new Ascii(EXCLAMATION,colour,Colour::clear()))
+Blood::Blood() : Object(new Ascii(EXCLAMATION,Colour::red(),Colour::clear()))
 {
     _flags.liquid = YES;
     _flags.stackable = YES;

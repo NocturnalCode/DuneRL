@@ -14,7 +14,7 @@
 class Corpse : public Object
 {
 public:    
-    Corpse(const Monster *monster);
+    Corpse();
 };
 
 #endif /* CORPSE_INCLUDE_H */

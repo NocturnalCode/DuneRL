@@ -11,8 +11,7 @@
 #include "Monster.h"
 #include "Stringer.h"
 
-Corpse::Corpse(const Monster *monster) : Object(new Ascii(PERCENT,Colour::white(),Colour::clear()))
+Corpse::Corpse() : Object(new Ascii(PERCENT,Colour::white(),Colour::clear()))
 {
-    name = stringFormat("%s's corpse",monster->name.c_str());
-    description = monster->darticle  + "corpse of " + monster->iarticle + monster->name;
+ 
 }
