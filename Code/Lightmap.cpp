@@ -52,10 +52,22 @@ bool Lightmap::isLit(WorldCoord world)
 Ascii *Lightmap::filter(WorldCoord world,Ascii *ascii)
 {
     // filter the ascii 
-    foreach(std::list<LightFilter*>, filter, lightFilters)
+    std::list<LightFilter*> tempFilters = lightFilters;
+    foreach(std::list<LightFilter*>, filter, tempFilters)
     {
-        (*filter)->apply(this, world, ascii);
+        if ((*filter)->getEnabled()) {
+            (*filter)->apply(this, world, ascii);
+        }
     }
+    
+    foreach(std::list<LightFilter*>, filter, tempFilters)
+    {
+        if ((*filter)->getEnabled() == NO) {
+            this->removeFilter((*filter));
+            *filter = NULL;
+        }
+    }
+    
     
     return ascii;
 }

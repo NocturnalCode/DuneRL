@@ -198,7 +198,8 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
         }
         shouldCancel = NO;
         shouldComplete = NO;
-        
+        enabled = NO;
+        //map->removeFilter(this);
         return ascii;
     }
     

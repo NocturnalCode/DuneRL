@@ -65,7 +65,7 @@ protected:
     WorldCoord awayFromAttacker(Object *attacker);
 
     Objects attackers;
-    RangeFilter *rangeFilter;
+    //RangeFilter *rangeFilter;
 public:
 
     unsigned sight;

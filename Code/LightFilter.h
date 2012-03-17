@@ -16,12 +16,14 @@ class Tile;
 #include "Types.h"
 
 class LightFilter {
-    
+protected:
+    bool enabled;
     
 public:
     LightFilter();
     virtual ~LightFilter();
     virtual Ascii *apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii); 
+    bool getEnabled();
 };
 
 #endif
