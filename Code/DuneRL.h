@@ -36,8 +36,6 @@ public:
     void deathMenu();
     void inventoryMenu();
     
-    void playerEndedTurn();
-    
     static DuneRL *shared;
 };
 

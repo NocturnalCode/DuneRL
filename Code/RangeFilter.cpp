@@ -15,7 +15,6 @@
 #include "Window.h"
 #include "Roguelike.h"
 
-
 RangeFilter::RangeFilter(LocalCoord destination) : LightFilter(),Display()
 {
     maxRange = -1;
@@ -162,7 +161,7 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
     
     if (shouldCancel || shouldComplete) {
         Roguelike *like = Roguelike::shared;
-        like->getRootWindow()->eventDelegate = (map->getMap()->world);
+        like->getRootWindow()->eventDelegate = like->getRootWindow()->delegate;
         
         //World* world = ;
         //Window *window = dynamic_cast<Window*>(world->getParent());
@@ -195,6 +194,7 @@ Ascii* RangeFilter::apply(Lightmap* map, WorldCoord worldPoint, Ascii* ascii)
             {
                 // shot nothing, maybe rand spawn a bullet
             }
+            Roguelike::shared->playerEndedTurn();
         }
         
         return ascii;

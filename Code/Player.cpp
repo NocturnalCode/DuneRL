@@ -59,6 +59,10 @@ Player::Player() : Monster(new Ascii(64,Colour::red(), Colour::clear()))//Monste
     Melee *melee = new Melee();
     addObjectToInventory(melee);
     equip(melee);
+    
+    Ranged *ranged = new Ranged();
+    addObjectToInventory(ranged);
+    equip(ranged);
 }
 
 Player::~Player()

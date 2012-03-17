@@ -133,9 +133,15 @@ bool World::handleEvents(SDL_Event *event)
                         map->adjustPlayer(1,0);
                         break;
                     case SDLK_f:
-                        map->getPlayer()->makeRangeOverlay();
-                        // todo: add range overlay, which takes key presses
-                        //return false; // return false to require another key event
+                    {
+                        Object *ranged = map->getPlayer()->getWeaponForRanged();
+                        
+                        if(ranged)
+                            map->getPlayer()->makeRangeOverlay();
+                        else 
+                            LOG("No ranged weapon");
+                        return false; // return false to require another key event
+                    }
                         break;
                     case SDLK_PERIOD: // skip turn
                         break;
@@ -160,11 +166,15 @@ bool World::handleEvents(SDL_Event *event)
                         map->adjustPlayer(1,0);
                         break;
                     case SDLK_f:
-                        // todo: add range overlay, which takes key presses
-                        map->getPlayer()->makeRangeOverlay();
+                    {
+                        Object *ranged = map->getPlayer()->getWeaponForRanged();
                         
-                        
-                        //return false; // return false to require another key event
+                        if(ranged)
+                            map->getPlayer()->makeRangeOverlay();
+                        else 
+                            LOG("No ranged weapon");
+                        return false; // return false to require another key event
+                    }
                         break;
                     case SDLK_PERIOD: // skip turn
                         break;

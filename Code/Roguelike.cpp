@@ -222,6 +222,11 @@ void Roguelike::showMenu()
     
 }
 
+void Roguelike::playerEndedTurn()
+{
+    world->playerEndedTurn();
+}
+
 Uint32 Roguelike::Timerdisplay(Uint32 interval, void* param)
 {
     // Create a user event to call the game loop.

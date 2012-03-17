@@ -72,6 +72,7 @@ public:
     //std::map<int, std::vector<std::string> > logs; // change to vector of pairs
     std::vector< std::pair<int, std::string> > logs;
     
+    void playerEndedTurn();
     int getCurrentTurn();
 };
 
