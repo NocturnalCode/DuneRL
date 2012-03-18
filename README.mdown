@@ -87,10 +87,6 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 * Other human enemies
 * Can drink blood to hydrate
 
-## Day 7
-
-
-
 ## Requirements
 
 * c++ compiler
@@ -103,7 +99,7 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 Install SDL and SDL_Image into /Library/Frameworks. So far only tested on Mac OS X 10.5+, but it's c++ and SDL so technically could run on other platforms with some minor fixes.
 
 #### Binary
-Will provide OSX binary on completion.
+OS X Binary available from downloads.
 
 ### Windows
 Will try and provide a window executable on completion, if there's time.
