@@ -447,6 +447,7 @@ void Arrakis::generate()
         monster->setMaxHP(1);
         monster->behaviour = BehaviourTimid | BehaviourFlees;
         monster->oid = 111;
+        monster->sight = 8;
         addObject(arc4random()%size,arc4random()%size,monster);
         monsters.push_back(monster);
         //printf("<Spawned %s %dhp %s %s>\n",monster->name.c_str(),monster->getMaxHP(),stringForSpeed(monster->speed).c_str(),stringForBehaviour(monster->behaviour).c_str());

@@ -16,5 +16,8 @@ Blood::Blood() : Object(new Ascii(EXCLAMATION,Colour::red(),Colour::clear()))
     
     decay = 50;
     
+    _flags.carryable = NO;
+    _flags.wieldable = NO;
+    _flags.holdable = NO;
     _flags.consumable = YES;
 }

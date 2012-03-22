@@ -14,4 +14,8 @@
 Corpse::Corpse() : Object(new Ascii(PERCENT,Colour::white(),Colour::clear()))
 {
     _flags.consumable = YES;
+    
+    _flags.carryable = NO;
+    _flags.wieldable = NO;
+    _flags.holdable = NO;
 }

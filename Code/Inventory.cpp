@@ -208,7 +208,7 @@ void Inventory::dropSelected()
 void Inventory::pickupSelected()
 {
     Object *object = getSelectedObject();
-    if(object == NULL)
+    if(object == NULL || (object->parent == NULL))
         return;
     player->addObjectToInventory(object);
     //close();
