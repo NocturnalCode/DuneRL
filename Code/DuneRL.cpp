@@ -53,7 +53,7 @@ DuneRL::DuneRL()
 	rootWindow->texture = sprite;
     rootWindow->borderStyle = Border_Double;
 	rootWindow->getCentreLabel()->setString("DuneRL");
-	rootWindow->getRightLabel()->setString("v1.0");
+	rootWindow->getRightLabel()->setString("v1.0.1");
 	
 	character = new Window(Rect(16,24,140+32,65+12));
 	character->borderStyle = Border_Single;
