@@ -10,7 +10,11 @@
 #ifndef TIMER_H_INC
 #define TIMER_H_INC
 
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
+#endif
 
 //The timer
 class Timer

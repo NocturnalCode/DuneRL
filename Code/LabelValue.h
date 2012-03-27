@@ -13,6 +13,9 @@
 #include "Label.h"
 #include <iostream>
 
+#ifdef _WIN32
+#define snprintf _snprintf
+#endif
 
 template < class T, class S >
 class LabelValue : public Label

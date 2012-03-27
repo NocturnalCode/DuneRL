@@ -34,6 +34,7 @@ Monster::Monster() : Object()
     equipment = NULL;
     
     behaviour = BehaviourDefensive;
+	sightMap = NULL;
 }
 
 Monster::Monster(Ascii *ascii) : Object(ascii)
@@ -51,6 +52,7 @@ Monster::Monster(Ascii *ascii) : Object(ascii)
     
     behaviour = BehaviourDefensive;
    // rangeFilter = NULL;
+	sightMap = NULL;
 }
 
 Monster::~Monster()

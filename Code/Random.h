@@ -30,4 +30,8 @@ public:
     double getDouble();
 };
 
+#ifdef _WIN32
+int arc4random();
+#endif
+
 #endif /* RANDOM_H_INC */

@@ -9,8 +9,13 @@
 #ifndef IMAGE_H_INC
 #define IMAGE_H_INC 
 
+#ifdef _WIN32
+#include "SDL.h"
+#include "SDL_image.h"
+#else
 #include "SDL/SDL.h"
 #include "SDL_image/SDL_image.h"
+#endif
 #include "SDL_OpenGL.h"
 #include <string>
 

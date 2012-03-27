@@ -10,8 +10,14 @@
 #ifndef WINDOW_H_INC
 #define WINDOW_H_INC 
 
+#ifdef _WIN32
+#include "SDL.h"
+#include "SDL_image.h"
+#else
 #include "SDL/SDL.h"
 #include "SDL_image/SDL_image.h"
+#endif
+
 #include "SDL_OpenGL.h"
 #include "Display.h"
 #include "Label.h"

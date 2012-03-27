@@ -8,14 +8,18 @@
  */
 
 #include "Image.h"
+#include "Stringer.h"
 
 Image::Image(std::string filename)
 {
 	GLTextureId = 0;
 	try
 	{
+		SDL_ClearError();
 		SDL_Surface* surface = IMG_Load(filename.c_str());
-		
+
+		std::string error = std::string("SDL Error: ") + std::string(SDL_GetError());
+
 		glPixelStorei(GL_UNPACK_ALIGNMENT,4);
 		glGenTextures(1, &GLTextureId);
 		glBindTexture(GL_TEXTURE_2D, GLTextureId);
@@ -23,6 +27,8 @@ Image::Image(std::string filename)
 		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
 		
+		
+
 		SDL_PixelFormat *format = surface->format;
 		if (format->Amask)
 		{

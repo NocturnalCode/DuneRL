@@ -9,9 +9,17 @@
 
 #include "Window.h"
 #include "Ascii.h"
-#include "math.h"
+#include <stdio.h>
+#include <math.h>
 #include "Point.h"
 #include "Rect.h"
+
+#ifdef _WIN32
+int round(float f)
+{
+	return (int)(f+0.5f);
+}
+#endif
 
 Window::Window(Rect rect)
 {

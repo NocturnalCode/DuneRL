@@ -16,7 +16,11 @@
 #include <string>
 #include <cmath>
 
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
+#endif
 
 class Object;
 class Window;

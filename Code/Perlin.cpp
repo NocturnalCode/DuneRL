@@ -5,6 +5,8 @@
 
 #include "Perlin.h"
 #include "Heightmap.h"
+#include "Random.h"
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 double Perlin::LinearInterpolate(double a, double b, double x)
@@ -151,7 +153,7 @@ double Perlin::PerlinNoise(double x,int octaves, double persistance)
 
 	for (int i = 0; i < octaves; i++)
 	{
-		double frequency = (double)pow(2, i);
+		double frequency = (double)pow(2.0f, i);
 		double amplitude = (double)pow(persistance, i);
 
 		total += InterpolateNoise(x * frequency) * amplitude;
@@ -165,7 +167,7 @@ double Perlin::PerlinNoise(double x, double y,int octaves, double persistance)
 
 	for (int i = 0; i < octaves; i++)
 	{
-		double frequency = (double)pow(2, i);
+		double frequency = (double)pow(2.0f, i);
 		double amplitude = (double)pow(persistance, i);
 
 		total += InterpolateNoise(x * frequency, y * frequency) * amplitude;
@@ -179,7 +181,7 @@ double Perlin::PerlinNoise(double x, double y, double z,int octaves, double pers
 
 	for (int i = 0; i < octaves; i++)
 	{
-		double frequency = (double)pow(2, i);
+		double frequency = (double)pow((float)2, i);
 		double amplitude = (double)pow(persistance, i);
 
 		total += InterpolateNoise(x * frequency, y * frequency, x * frequency) * amplitude;

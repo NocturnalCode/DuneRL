@@ -19,10 +19,12 @@
 #include "DuneWorld.h"
 #include "Map.h"
 
+#ifndef _WIN32
 inline double abs(double val)
 {
     return val > 0 ? val : -val;
 }
+#endif
 
 double weighting(Point direction, int i, int j)
 {

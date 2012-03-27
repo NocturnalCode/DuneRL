@@ -8,7 +8,11 @@
  */
 
 #include "World.h"
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
+#endif
 #include "Map.h"
 #include "Roguelike.h"
 #include "Monster.h"

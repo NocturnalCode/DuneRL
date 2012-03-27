@@ -27,7 +27,7 @@ RangeFilter::RangeFilter(LocalCoord destination) : LightFilter(),Display()
 void RangeFilter::setDestinationPoint(LocalCoord destination)
 {
     //bresham line function to find valid points
-    double magnitude = sqrt((destination.Y*destination.Y) + (destination.X*destination.X));
+    double magnitude = sqrt((float)(destination.Y*destination.Y) + (float)(destination.X*destination.X));
     if (magnitude>maxRange) {
         return;
     }

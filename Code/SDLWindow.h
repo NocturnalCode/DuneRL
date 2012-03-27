@@ -7,7 +7,11 @@
  *
  */
 
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
+#endif
 
 #ifndef SDLWINDOW_H_INC
 #define SDLWINDOW_H_INC 

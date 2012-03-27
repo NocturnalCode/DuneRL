@@ -8,6 +8,7 @@
 
 #include "Rect.h"
 #include <cstdlib>
+#include "Random.h"
 
 Rect::Rect() 
 {

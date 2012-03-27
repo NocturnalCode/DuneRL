@@ -30,3 +30,18 @@ double Random::getDouble()
 {
     return (*double_r)();
 }
+
+#ifdef _WIN32
+#include <time.h>
+int arc4random()
+{
+	static bool once = false;
+	if(!once)
+	{
+		srand((unsigned)time(NULL));
+		once = true;
+	}
+	return rand();
+}
+
+#endif

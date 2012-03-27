@@ -1,4 +1,7 @@
 
+#ifdef _WIN32
+#include "SDL.h"
+#endif
 #include "DuneRL.h"
 #include <cstdlib>
 

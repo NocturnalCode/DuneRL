@@ -18,8 +18,11 @@
 #include "DuneWorld.h"
 #include "Map.h"
 
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
-#include "SDL_image/SDL_image.h"
+#endif
 #include "SDL_OpenGL.h"
 #include "SDLWindow.h"
 #include "Window.h"
@@ -117,7 +120,11 @@ void DuneRL::init_world()
 	
 	rnd =  new Random(arc4random());
 	
+#ifdef _WIN32
+	sprite = new Sprite("D:\\Daniel\\Projects\\Github\\DuneRL\\Code\\Images\\tileset.png",16);
+#else
 	sprite = new Sprite("DuneRL.app/Contents/Resources/tileset.png",16);
+#endif
     world = new DuneWorld();
     
     Map *map = new Arrakis(worldSize);

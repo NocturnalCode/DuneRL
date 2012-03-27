@@ -10,8 +10,13 @@
 #ifndef ROGUELIKE_H_INC
 #define ROGUELIKE_H_INC 
 
+#ifdef _WIN32
+#include "SDL.h"
+#include "SDL_image.h"
+#else
 #include "SDL/SDL.h"
 #include "SDL_image/SDL_image.h"
+#endif
 #include "SDL_OpenGL.h"
 #include "SDLWindow.h"
 #include "Window.h"
@@ -64,8 +69,9 @@ public:
     Window *getRootWindow();
     World *getWorld();
     Random *rnd;
-    
+
     void log(std::string format, ...);
+
     static Roguelike *shared;
     static bool	dev; 
     

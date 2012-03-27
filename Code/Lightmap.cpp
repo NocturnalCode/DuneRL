@@ -211,7 +211,7 @@ WorldCoord Lightmap::local2world(LocalCoord l)
             break;
         case MapTypeWorldTile:
         {
-            int realm = abs(y/size);
+            int realm = (int)abs((float)y/size);
             bool flipped = realm %2;
             if (y<0) {
                 //then flip again
@@ -278,7 +278,7 @@ bool Lightmap::pointInRange(Point a, Point b, int range)
 	else if(a.Y==b.Y)
 		return abs(a.X-b.X) <= range;
 	else
-		return pow(a.X-b.X,2) + pow(a.Y-b.Y,2) <= range*range;
+		return pow((float)a.X-b.X,2) + pow((float)a.Y-b.Y,2) <= range*range;
 }
 
 void Lightmap::calculate()

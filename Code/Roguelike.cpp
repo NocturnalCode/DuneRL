@@ -57,11 +57,27 @@ int Roguelike::getCurrentTurn()
 
 void Roguelike::log(std::string format, ...)
 {
+#ifdef _WIN32
+	//va_list args;
+	//int len = 0;
+	//char *buffer;
+	//char *format = (char*)malloc(f.size()+1 * sizeof(char) );
+	//strcpy(format,f.c_str());
+	//va_start(args,format);
+	//len = _vscprintf(format,args) + 1;
+	//buffer = (char*)malloc(len * sizeof(char) );
+	//vsprintf(buffer,format,args);
+	va_list args;
+    va_start(args, format);
+	std::string buffer;
+    DoFormatting(buffer, format, args);
+#else
     char *buffer;
     va_list args;
     va_start(args, format);
     vasprintf(&buffer,format.c_str(), args);
     va_end(args);
+#endif
     
     std::string entry = std::string(buffer);
     int turn = world->getTurn();

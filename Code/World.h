@@ -17,7 +17,11 @@
 #include "Random.h"
 #include <math.h>
 #include "Monster.h"
+#ifdef _WIN32
+#include "SDL.h"
+#else
 #include "SDL/SDL.h"
+#endif
 #include "Display.h"
 #include "Armoury.h"
 
