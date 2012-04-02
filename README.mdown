@@ -99,10 +99,11 @@ Mainly consisted of re configuring the sample project from the Quaffable library
 Install SDL and SDL_Image into /Library/Frameworks. So far only tested on Mac OS X 10.5+, but it's c++ and SDL so technically could run on other platforms with some minor fixes.
 
 #### Binary
-OS X Binary available from downloads.
+OS X Binary available from [downloads](https://github.com/NocturnalCode/DuneRL/downloads). Tested on Lion
 
 ### Windows
-Will try and provide a window executable on completion, if there's time.
+Windows Binary available from [downloads](https://github.com/NocturnalCode/DuneRL/downloads). Tested on Windows7
+
 
 ## Screenshots
 
